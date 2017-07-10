@@ -33,10 +33,7 @@
 
     <TextView
         android:id="@+id/textView_caloriesBurned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:inputType="numberDecimal"
+        style="@style/LabelStyle"
         android:text="Calories Burned: "
         android:layout_alignBaseline="@+id/editText_caloriesBurned"
         android:layout_alignBottom="@+id/editText_caloriesBurned"
@@ -44,10 +41,7 @@
         android:layout_toStartOf="@+id/editText_caloriesBurned" />
     <TextView
         android:id="@+id/textView_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:inputType="numberDecimal"
+        style="@style/LabelStyle"
         android:text="Description: "
         android:layout_alignBaseline="@+id/editText_Description"
         android:layout_alignBottom="@+id/editText_Description"
@@ -60,12 +54,12 @@
         android:id="@+id/textView_Date1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText_Description"
-        android:layout_alignRight="@+id/editText_Description"
-        android:layout_below="@+id/editText_Description"
         android:layout_marginTop="15dp"
-        android:text="Current Date (M-D-YYYY) "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Current Date (MM-DD-YYYY) "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/editText_Description"
+        android:layout_alignRight="@+id/editText_Description"
+        android:layout_alignEnd="@+id/editText_Description" />
 
     <Button
         android:id="@+id/btnChangeDate"
@@ -75,8 +69,5 @@
         android:layout_below="@+id/textView_Date1"
         android:layout_alignRight="@+id/textView_Date1"
         android:layout_alignEnd="@+id/textView_Date1" />
-
-
-
 
 </RelativeLayout>

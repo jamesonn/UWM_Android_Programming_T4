@@ -12,12 +12,13 @@
         android:id="@+id/editText_calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="35dp"
         android:ems="10"
-        android:layout_alignParentRight="true"
         android:inputType="numberDecimal"
-        android:hint="Calories" />
+        android:hint="Calories"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editText_foodDescription"
+        android:layout_alignStart="@+id/editText_foodDescription" />
 
     <EditText
         android:id="@+id/editText_foodDescription"
@@ -33,10 +34,7 @@
 
     <TextView
         android:id="@+id/textView_Calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:inputType="numberDecimal"
+        style="@style/LabelStyle"
         android:text="Calories: "
         android:layout_alignBaseline="@+id/editText_calories"
         android:layout_alignBottom="@+id/editText_calories"
@@ -44,13 +42,9 @@
         android:layout_toStartOf="@+id/editText_calories" />
     <TextView
         android:id="@+id/textView_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:inputType="numberDecimal"
+        style="@style/LabelStyle"
         android:text="Description: "
-        android:layout_alignBaseline="@+id/editText_foodDescription"
-        android:layout_alignBottom="@+id/editText_foodDescription"
+        android:layout_above="@+id/textView_Date1"
         android:layout_toLeftOf="@+id/editText_foodDescription"
         android:layout_toStartOf="@+id/editText_foodDescription" />
 
@@ -59,12 +53,12 @@
         android:id="@+id/textView_Date1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText_foodDescription"
-        android:layout_alignRight="@+id/editText_foodDescription"
+        android:layout_marginTop="14dp"
+        android:text="Current Date (MM-DD-YYYY) "
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/editText_foodDescription"
-        android:layout_marginTop="15dp"
-        android:text="Current Date (M-D-YYYY) "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignRight="@+id/editText_foodDescription"
+        android:layout_alignEnd="@+id/editText_foodDescription" />
 
     <Button
         android:id="@+id/btnChangeDate"
