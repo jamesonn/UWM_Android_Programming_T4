@@ -5,8 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/hearticon"
-        android:label="Diabetes"
-        android:roundIcon="@mipmap/hearticon"
+        android:label="Diabetes Helper"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
