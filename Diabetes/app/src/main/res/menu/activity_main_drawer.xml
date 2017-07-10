@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_blood"
+            android:icon="@mipmap/dropicon"
+            android:title="Blood" />
+        <item
+            android:id="@+id/nav_graph"
+            android:icon="@mipmap/graphicon"
+            android:title="Graph" />
+        <item
+            android:id="@+id/nav_stats"
+            android:icon="@mipmap/statsicon"
+            android:title="Statistics" />
+    </group>
+
+
+</menu>
