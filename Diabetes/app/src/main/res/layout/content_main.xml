@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Diabetes Tracker"
-        android:textAlignment="center"
         tools:layout_editor_absoluteX="139dp"
         tools:layout_editor_absoluteY="55dp" />
 </android.support.constraint.ConstraintLayout>

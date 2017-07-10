@@ -16,15 +16,19 @@
             android:title="Statistics" />
         <item
             android:id="@+id/nav_reminders"
+            android:icon="@drawable/ic_alarm_black_24dp"
             android:title="Reminders" />
         <item
             android:id="@+id/nav_exercise"
+            android:icon="@drawable/noun_987611_cc"
             android:title="Exercise" />
         <item
             android:id="@+id/nav_regimen"
+            android:icon="@drawable/food"
             android:title="Regimen" />
         <item
             android:id="@+id/nav_medicine"
+            android:icon="@drawable/noun_942710_cc"
             android:title="Medicine" />
     </group>
 

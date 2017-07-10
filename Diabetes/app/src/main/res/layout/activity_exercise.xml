@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <EditText
+        android:id="@+id/editText_caloriesBurned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:layout_alignParentRight="true"
+        android:inputType="numberDecimal"
+        android:hint="Calories Burned" />
+
+    <EditText
+        android:id="@+id/editText_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_caloriesBurned"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Description"/>
+
+    <TextView
+        android:id="@+id/textView_caloriesBurned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:inputType="numberDecimal"
+        android:text="Calories Burned: "
+        android:layout_alignBaseline="@+id/editText_caloriesBurned"
+        android:layout_alignBottom="@+id/editText_caloriesBurned"
+        android:layout_toLeftOf="@+id/editText_caloriesBurned"
+        android:layout_toStartOf="@+id/editText_caloriesBurned" />
+    <TextView
+        android:id="@+id/textView_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:inputType="numberDecimal"
+        android:text="Description: "
+        android:layout_alignBaseline="@+id/editText_Description"
+        android:layout_alignBottom="@+id/editText_Description"
+        android:layout_toLeftOf="@+id/editText_Description"
+        android:layout_toStartOf="@+id/editText_Description" />
+
+
+
+    <TextView
+        android:id="@+id/textView_Date1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText_Description"
+        android:layout_alignRight="@+id/editText_Description"
+        android:layout_below="@+id/editText_Description"
+        android:layout_marginTop="15dp"
+        android:text="Current Date (M-D-YYYY) "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnChangeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Date"
+        android:layout_below="@+id/textView_Date1"
+        android:layout_alignRight="@+id/textView_Date1"
+        android:layout_alignEnd="@+id/textView_Date1" />
+
+
+
+
+</RelativeLayout>
