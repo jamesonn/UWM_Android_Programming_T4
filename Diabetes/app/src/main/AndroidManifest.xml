@@ -24,13 +24,15 @@
         <activity
             android:name=".Activity_Regimen"
             android:label="@string/activity_Regimen"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".ExerciseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExerciseActivity"
             android:label="@string/activity_Exercise"
-            android:theme="@style/AppTheme.NoActionBar">
-            </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MedicineActivity" />
+        <activity android:name=".RemindersActivity" />
+        <activity android:name=".GraphActivity" />
+        <activity android:name=".StatisticsActivity"></activity>
     </application>
 
 </manifest>

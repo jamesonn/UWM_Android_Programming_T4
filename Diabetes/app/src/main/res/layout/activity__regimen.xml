@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
          android:layout_width="match_parent"
          android:layout_height="match_parent">
 
-
-
     <EditText
         android:id="@+id/editText_calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EditTextStyle"
         android:layout_marginTop="35dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -22,8 +16,7 @@
 
     <EditText
         android:id="@+id/editText_foodDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EditTextStyle"
         android:layout_below="@+id/editText_calories"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
@@ -44,7 +37,8 @@
         android:id="@+id/textView_Description"
         style="@style/LabelStyle"
         android:text="Description: "
-        android:layout_above="@+id/textView_Date1"
+        android:layout_alignBaseline="@+id/editText_foodDescription"
+        android:layout_alignBottom="@+id/editText_foodDescription"
         android:layout_toLeftOf="@+id/editText_foodDescription"
         android:layout_toStartOf="@+id/editText_foodDescription" />
 
@@ -68,6 +62,5 @@
         android:layout_below="@+id/textView_Date1"
         android:layout_alignRight="@+id/textView_Date1"
         android:layout_alignEnd="@+id/textView_Date1" />
-
 
 </RelativeLayout>
