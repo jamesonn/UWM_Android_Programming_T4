@@ -8,13 +8,6 @@
     tools:context="edu.uwm.android.diabetes.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/editText"
