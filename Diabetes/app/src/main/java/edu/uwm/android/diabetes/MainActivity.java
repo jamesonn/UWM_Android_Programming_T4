@@ -1,5 +1,6 @@
 package edu.uwm.android.diabetes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -70,19 +71,29 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        Intent intent = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_blood) {
-            // Handle the blood navigation action
+            intent = new Intent(this, RegimenActivity.class );
         } else if (id == R.id.nav_graph) {
-
+            intent = new Intent(this, GraphActivity.class );
         } else if (id == R.id.nav_stats) {
-
+            intent = new Intent(this, StatisticsActivity.class );
+        } else if (id == R.id.nav_reminders) {
+            intent = new Intent(this, RemindersActivity.class );
+        } else if (id == R.id.nav_exercise) {
+            intent = new Intent(this, ExerciseActivity.class );
+        } else if (id == R.id.nav_medicine) {
+            intent = new Intent(this, MedicineActivity.class );
+        } else if (id == R.id.nav_regimen) {
+            intent = new Intent(this, RegimenActivity.class );
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        startActivity(intent);
         return true;
     }
 }
