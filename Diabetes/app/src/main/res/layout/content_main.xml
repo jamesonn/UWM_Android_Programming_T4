@@ -8,15 +8,24 @@
     tools:context="edu.uwm.android.diabetes.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/LabelStyle"
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Diabetes Tracker"
-        android:gravity="center"
-        android:includeFontPadding="false"/>
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/editText"
+        android:layout_centerHorizontal="true" />
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Diabetes Tracker"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
