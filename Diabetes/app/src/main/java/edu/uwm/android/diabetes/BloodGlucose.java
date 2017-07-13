@@ -1,14 +1,15 @@
 package edu.uwm.android.diabetes;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
 public class BloodGlucose {
-    private float value;
+    private double value;
     private Calendar date = GregorianCalendar.getInstance();
 
-    public BloodGlucose(float value,int year,int month,int day,int hour){
+    public BloodGlucose(double value,int year,int month,int day,int hour){
         this.value = value;
         this.setYear(year);
         this.setMonth(month);
@@ -17,7 +18,7 @@ public class BloodGlucose {
         date.set(Calendar.MINUTE,0);
         date.set(Calendar.SECOND,0);
     }
-    public BloodGlucose(float value,int year,int month,int day,int hour,int minutes){
+    public BloodGlucose(double value,int year,int month,int day,int hour,int minutes){
         this.value = value;
         this.setYear(year);
         this.setMonth(month);
@@ -41,12 +42,13 @@ public class BloodGlucose {
         date.set(Calendar.SECOND,0);
     }
 
-    public float getValue(){
+    public double getValue(){
         return this.value;
     }
 
-    public Calendar getDate(){
-        return date;
+    //Output example: Thu Jul 13 15:00:00 CDT 2017
+    public String getDate(){
+        return date.getTime().toString();
     }
 
     public void setYear(int year){

@@ -2,6 +2,7 @@ package edu.uwm.android.diabetes;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -47,8 +48,10 @@ public class Exercise {
         return this.description;
     }
 
-    public Calendar getDate(){
-        return date;
+
+    //Output example: Thu Jul 13 15:00:00 CDT 2017
+    public String getDate(){
+        return date.getTime().toString();
     }
 
     public void setYear(int year){
