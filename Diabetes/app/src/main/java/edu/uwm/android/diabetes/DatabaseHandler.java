@@ -80,7 +80,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String createRegimenTable = "create table " + TABLE_REGIMEN + "("
                 + REGIMEN_ID + " integer primary key autoincrement, "
-                + REGIMEN_DESCRIPTION+ " text not null, ";
+                + REGIMEN_DESCRIPTION+ " text not null);";
 
 
         db.execSQL(createBloodGlucoseTable);
