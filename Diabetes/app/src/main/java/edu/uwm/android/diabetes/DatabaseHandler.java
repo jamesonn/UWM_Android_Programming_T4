@@ -21,6 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_BloodGlucose = "Blood Glucose";
     private static final String TABLE_Exercise= "Exercise";
     private static final String TABLE_Regimen = "Regimen";
+    private static final String TABLE_Medicine= "Medicine";
 
     // We add BloodGlucose Table Columns here
     private static final String KEY_BloodGlucoseID = "id";
@@ -35,6 +36,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_RegimenID = "id";
     private static final String KEY_RegimenDescription = "Description";
+
+    private static final String KEY_MedicineID = "id";
+    private static final String KEY_MedicineDescription = "Description";
+    private static final String KEY_MedicineDate = "Date";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,6 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(TABLE_Regimen);
         db.execSQL(TABLE_BloodGlucose);
         db.execSQL(TABLE_Exercise);
+        db.execSQL(TABLE_Medicine);
 
 
     }
@@ -69,13 +75,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BloodGlucose);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_Exercise);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Medicine);
         onCreate(db);
 
 
     }
 
     //to add BloodGlucose object to TABLE_BloodGlucose
-    public void addBloodGlucose(BloodGlucose BGL) {
+    public void addBloogGlucose(BloodGlucose BGL) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -98,6 +105,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public void addMedicine(Medicine med) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_MedicineDescription , med.getDescription()); //Description
+        values.put(KEY_MedicineDate , med.getDate().getTimeInMillis());////date in milliseconds
+
+        db.insert(TABLE_Medicine, null, values);//Inserting Row
+        db.close(); // Closing database connection
+    }
+
+
     public void addRgeimen(Regimen newRegimen){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -118,6 +137,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteExercise(String x){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_Exercise, KEY_ExerciseID+ "=" + x , null);
+
+        db.close();
+    }
+
+    public void deleteMedicine(String x){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_Medicine, KEY_MedicineID+ "=" + x , null);
 
         db.close();
     }
