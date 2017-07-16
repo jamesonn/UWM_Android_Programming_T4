@@ -154,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
     }
-
+//
     public ArrayList<Exercise> getAllExercises(){
         ArrayList<Exercise> output = new ArrayList<Exercise>();//the holder
         SQLiteDatabase db = this.getWritableDatabase();
