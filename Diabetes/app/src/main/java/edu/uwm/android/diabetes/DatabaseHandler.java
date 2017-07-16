@@ -18,28 +18,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Diabetes";
 
     // We add the tables here
-    private static final String TABLE_BloodGlucose = "Blood Glucose";
-    private static final String TABLE_Exercise= "Exercise";
-    private static final String TABLE_Regimen = "Regimen";
-    private static final String TABLE_Medicine= "Medicine";
+    private static final String TABLE_BLOOD_GLUCOSE = "BloodGlucose";
+    private static final String TABLE_EXERCISE= "Exercise";
+    private static final String TABLE_DIET= "Diet";
+    private static final String TABLE_REGIMEN = "Regimen";
+    private static final String TABLE_MEDICINE= "Medicine";
 
     // We add BloodGlucose Table Columns here
-    private static final String KEY_BloodGlucoseID = "id";
-    private static final String KEY_BloodGlucoseValue = "Value";
-    private static final String KEY_BloodGlucoseDate = "Date";
+    private static final String BLOOD_GLUCOSE_ID = "id";
+    private static final String BLOOD_GLUCOSE_VALUE = "Value";
+    private static final String BLOOD_GLUCOSE_DATE = "Date";
 
 
     // We add Exercise Table Columns here
-    private static final String KEY_ExerciseID = "id";
-    private static final String KEY_ExerciseDescription = "Description";
-    private static final String KEY_ExerciseDate = "Date";
+    private static final String EXERCISE_ID = "id";
+    private static final String EXERCISE_DESCRIPTION = "Description";
+    private static final String EXERCISE_DATE = "Date";
 
-    private static final String KEY_RegimenID = "id";
-    private static final String KEY_RegimenDescription = "Description";
+    // Diet table columns below
+    private static final String DIET_ID = "Id";
+    private static final String DIET_DESCRIPTION = "Description";
+    private static final String DIET_DATE = "Date";
 
-    private static final String KEY_MedicineID = "id";
-    private static final String KEY_MedicineDescription = "Description";
-    private static final String KEY_MedicineDate = "Date";
+    //Medecine table columns below
+    private static final String MEDICINE_ID = "Id";
+    private static final String MEDICINE_DESCRIPTION = "Description";
+    private static final String MEDICINE_DATE = "Date";
+
+    //Regimen table columns below
+    private static final String REGIMEN_ID = "Id";
+    private static final String REGIMEN_DESCRIPTION = "Description";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,116 +58,136 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String create_BloodGlucose_table = "create table " + TABLE_BloodGlucose + "("
-                + KEY_BloodGlucoseID + " integer primary key autoincrement, "
-                + KEY_BloodGlucoseValue + " real, "
-                + KEY_BloodGlucoseDate +" integer);";
+        String createBloodGlucoseTable = "create table " + TABLE_BLOOD_GLUCOSE + "("
+                + BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
+                + BLOOD_GLUCOSE_VALUE + " real, "
+                + BLOOD_GLUCOSE_DATE +" integer);";
 
-        String create_Exerxise_table = "create table " + TABLE_Exercise + "("
-                + KEY_ExerciseID + " integer primary key autoincrement, "
-                + KEY_ExerciseDescription+ " text not null, "
-                + KEY_ExerciseDate+" integer);";
+        String createExerciseTable = "create table " + TABLE_EXERCISE + "("
+                + EXERCISE_ID + " integer primary key autoincrement, "
+                + EXERCISE_DESCRIPTION+ " text not null, "
+                + EXERCISE_DATE+" integer);";
 
-        String create_Regimen_table = "create table " + TABLE_Regimen + "("
-                + KEY_RegimenID + " integer primary key autoincrement, "
-                + KEY_RegimenDescription+ " text not null, ";
+        String createDietTable = "Create table" + TABLE_DIET + "("+
+                DIET_ID + " integer primary key autoincrement, "
+                + DIET_DESCRIPTION+ " Text not null, "
+                + DIET_DATE+" integer);";
 
-        db.execSQL(TABLE_Regimen);
-        db.execSQL(TABLE_BloodGlucose);
-        db.execSQL(TABLE_Exercise);
-        db.execSQL(TABLE_Medicine);
+        String createMedecineTable = "Create table" + TABLE_MEDICINE + "("+
+                MEDICINE_ID + " integer primary key autoincrement, "
+                + MEDICINE_DESCRIPTION+ " Text not null, "
+                + MEDICINE_DATE+" integer);";
+
+        String createRegimenTable = "create table " + TABLE_REGIMEN + "("
+                + REGIMEN_ID + " integer primary key autoincrement, "
+                + REGIMEN_DESCRIPTION+ " text not null);";
+
+
+        db.execSQL(createBloodGlucoseTable);
+        db.execSQL(createExerciseTable);
+        db.execSQL(createDietTable);
+        db.execSQL(createRegimenTable);;
+        db.execSQL(createMedecineTable);
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BloodGlucose);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Exercise);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Medicine);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BLOOD_GLUCOSE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDICINE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGIMEN);
         onCreate(db);
 
 
     }
 
     //to add BloodGlucose object to TABLE_BloodGlucose
-    public void addBloogGlucose(BloodGlucose BGL) {
+    public void addBloodGlucose(BloodGlucose BGL) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_BloodGlucoseValue, BGL.getValue());//value
-        values.put(KEY_BloodGlucoseDate, BGL.getDate().getTimeInMillis()); //date in milliseconds
+        values.put(BLOOD_GLUCOSE_VALUE, BGL.getValue());//value
+        values.put(BLOOD_GLUCOSE_DATE, BGL.getDate().getTimeInMillis()); //date in milliseconds
 
-        db.insert(TABLE_BloodGlucose, null, values);//Inserting Row
+        db.insert(TABLE_BLOOD_GLUCOSE, null, values);//Inserting Row
         db.close(); // Closing database connection
     }
 
-    //to add Exercise object to TABLE_Exercise
-    public void addExercise(Exercise ex) {
+    public void addDiet(Diet diet){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_ExerciseDescription, ex.getDescription()); //Description
-        values.put(KEY_ExerciseDate, ex.getDate().getTimeInMillis());////date in milliseconds
+        values.put(DIET_DESCRIPTION, diet.getDescription());//value
+        values.put(DIET_DATE, diet.getDate().getTimeInMillis()); //date in milliseconds
 
-        db.insert(TABLE_Exercise, null, values);//Inserting Row
+        db.insert(TABLE_DIET, null, values);//Inserting Row
         db.close(); // Closing database connection
     }
 
-    public void addMedicine(Medicine med) {
+    public void addExercise(Exercise exercise) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
-        values.put(KEY_MedicineDescription , med.getDescription()); //Description
-        values.put(KEY_MedicineDate , med.getDate().getTimeInMillis());////date in milliseconds
-
-        db.insert(TABLE_Medicine, null, values);//Inserting Row
-        db.close(); // Closing database connection
-    }
-
-
-    public void addRgeimen(Regimen newRegimen){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_RegimenID, newRegimen.getDescription());
-
-        db.insert(TABLE_Regimen, null, values);
+        values.put(EXERCISE_DESCRIPTION, exercise.getDescription());
+        values.put(EXERCISE_DATE, exercise.getDate().getTimeInMillis());
+        db.insert(TABLE_EXERCISE, null, values);
         db.close();
     }
 
-    public void deleteBloodGlucose(String id){//Deleting by KEY_id
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BloodGlucose, KEY_BloodGlucoseID+ "=" + id , null);
 
+    public void addRegimen(Regimen regimen){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();;
+        values.put(REGIMEN_DESCRIPTION, regimen.getDescription());
+        db.insert(TABLE_REGIMEN, null, values);
         db.close();
     }
 
-    public void deleteExercise(String x){
+    public void addMedicine(Medicine medicine){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_Exercise, KEY_ExerciseID+ "=" + x , null);
-
+        ContentValues values = new ContentValues();;
+        values.put(REGIMEN_DESCRIPTION, medicine.getDescription());
+        values.put(REGIMEN_DESCRIPTION, medicine.getDate().getTimeInMillis());
+        db.insert(TABLE_REGIMEN, null, values);
         db.close();
     }
 
-    public void deleteMedicine(String x){
+    public void deleteBloodGlucose(String bloodGlucoseID){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_Medicine, KEY_MedicineID+ "=" + x , null);
-
+        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + bloodGlucoseID , null);
         db.close();
     }
 
-    public void deleteRegimen(String x){
+    public void deleteDiet(String dietID){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_Regimen, KEY_RegimenID+ "=" + x , null);
-
+        db.delete(TABLE_DIET, DIET_ID+ "=" + dietID , null);
         db.close();
     }
-//
+
+    public void deleteExercise(String exerciseID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_EXERCISE, EXERCISE_ID+ "=" + exerciseID , null);
+        db.close();
+    }
+
+    public void deleteRegimen(String regimenID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_REGIMEN, REGIMEN_ID+ "=" + regimenID , null);
+        db.close();
+    }
+
+    public void deleteMedicine(String medecineID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_MEDICINE, MEDICINE_ID+ "=" + medecineID , null);
+        db.close();
+    }
+
     public ArrayList<Exercise> getAllExercises(){
-        ArrayList<Exercise> output = new ArrayList<Exercise>();//the holder
+        ArrayList<Exercise> output = new ArrayList<>();//the holder
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_Exercise;
+        String query = "SELECT * FROM " + TABLE_EXERCISE;
         Cursor cursor = db.rawQuery(query,null);//pointer
 
         if (cursor.moveToFirst()) {//if not empty, move to the first set of elements
