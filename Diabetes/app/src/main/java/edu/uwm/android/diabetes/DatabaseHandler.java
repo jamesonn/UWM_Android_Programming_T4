@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String EXERCISE_DESCRIPTION = "Description";
     private static final String EXERCISE_DATE = "Date";
 
-    // Diet table colums below
+    // Diet table columns below
     private static final String DIET_ID = "Id";
     private static final String DIET_DESCRIPTION = "Description";
     private static final String DIET_DATE = "Date";
@@ -60,7 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String createDietTable = "Create table" + TABLE_DIET + "("+
                 DIET_ID + " integer primary key autoincrement, "
                 + DIET_DESCRIPTION+ " Text not null, "
-                + DIET_DATE+" Date);";
+                + DIET_DATE+" integer);";
 
 
         db.execSQL(createBloodGlucoseTable);
@@ -92,6 +92,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public void addDiet(Diet diet){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DIET_DESCRIPTION, diet.getDescription());//value
+        values.put(DIET_DATE, diet.getDate().getTimeInMillis()); //date in milliseconds
+
+        db.insert(TABLE_DIET, null, values);//Inserting Row
+        db.close(); // Closing database connection
+    }
+
     //to add Exercise object to TABLE_Exercise
     public void addExercise(Exercise ex) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -104,22 +115,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void deleteBloodGlucose(String id){//Deleting by KEY_id
+    public void deleteBloodGlucose(String bloodGlucoseID){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + id , null);
-
+        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + bloodGlucoseID , null);
         db.close();
     }
 
-    public void deleteExercise(String bloodGlucoseId){
+    public void deleteDiet(String dietID){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + bloodGlucoseId , null);
+        db.delete(TABLE_DIET, DIET_ID+ "=" + dietID , null);
+        db.close();
+    }
 
+    public void deleteExercise(String exerciseID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_EXERCISE, EXERCISE_ID+ "=" + exerciseID , null);
         db.close();
     }
 
     public ArrayList<Exercise> getAllExercises(){
-        ArrayList<Exercise> output = new ArrayList<Exercise>();//the holder
+        ArrayList<Exercise> output = new ArrayList<>();//the holder
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_EXERCISE;
         Cursor cursor = db.rawQuery(query,null);//pointer
