@@ -20,6 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // We add the tables here
     private static final String TABLE_BloodGlucose = "Blood Glucose";
     private static final String TABLE_Exercise= "Exercise";
+    private static final String TABLE_Regimen = "Regimen";
 
     // We add BloodGlucose Table Columns here
     private static final String KEY_BloodGlucoseID = "id";
@@ -31,6 +32,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ExerciseID = "id";
     private static final String KEY_ExerciseDescription = "Description";
     private static final String KEY_ExerciseDate = "Date";
+
+    private static final String KEY_RegimenID = "id";
+    private static final String KEY_RegimenDescription = "Description";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,6 +54,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ExerciseDescription+ " text not null, "
                 + KEY_ExerciseDate+" integer);";
 
+        String create_Regimen_table = "create table " + TABLE_Regimen + "("
+                + KEY_RegimenID + " integer primary key autoincrement, "
+                + KEY_RegimenDescription+ " text not null, ";
+
+        db.execSQL(TABLE_Regimen);
         db.execSQL(TABLE_BloodGlucose);
         db.execSQL(TABLE_Exercise);
 
@@ -89,6 +98,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public void addRgeimen(Regimen newRegimen){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_RegimenID, newRegimen.getDescription());
+
+        db.insert(TABLE_Regimen, null, values);
+        db.close();
+    }
+
     public void deleteBloodGlucose(String id){//Deleting by KEY_id
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_BloodGlucose, KEY_BloodGlucoseID+ "=" + id , null);
@@ -99,6 +118,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteExercise(String x){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_Exercise, KEY_ExerciseID+ "=" + x , null);
+
+        db.close();
+    }
+
+    public void deleteRegimen(String x){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_Regimen, KEY_RegimenID+ "=" + x , null);
 
         db.close();
     }
