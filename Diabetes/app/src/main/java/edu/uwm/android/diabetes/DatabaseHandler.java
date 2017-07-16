@@ -6,6 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -40,12 +43,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String create_BloodGlucose_table = "create table " + TABLE_BloodGlucose + "("
                 + KEY_BloodGlucoseID + " integer primary key autoincrement, "
                 + KEY_BloodGlucoseValue + " real, "
-                + KEY_BloodGlucoseDate +" text not null);";
+                + KEY_BloodGlucoseDate +" integer);";
 
         String create_Exerxise_table = "create table " + TABLE_Exercise + "("
                 + KEY_ExerciseID + " integer primary key autoincrement, "
                 + KEY_ExerciseDescription+ " text not null, "
-                + KEY_ExerciseDate+" text not null);";
+                + KEY_ExerciseDate+" integer);";
 
         db.execSQL(TABLE_BloodGlucose);
         db.execSQL(TABLE_Exercise);
@@ -62,25 +65,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    //Method to add BloogGlucose object to TABLE_BloogGlucose
-    public void addBloogGlucose(BloodGlucose BG) {
+    //to add BloodGlucose object to TABLE_BloodGlucose
+    public void addBloogGlucose(BloodGlucose BGL) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_BloodGlucoseValue, BG.getValue());//value
-        values.put(KEY_BloodGlucoseDate, BG.getDate()); //date
+        values.put(KEY_BloodGlucoseValue, BGL.getValue());//value
+        values.put(KEY_BloodGlucoseDate, BGL.getDate().getTimeInMillis()); //date in milliseconds
 
         db.insert(TABLE_BloodGlucose, null, values);//Inserting Row
         db.close(); // Closing database connection
     }
 
-    //Method to add Exercise object to TABLE_Exercise
+    //to add Exercise object to TABLE_Exercise
     public void addExercise(Exercise ex) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(KEY_ExerciseDescription, ex.getDescription()); //Description
-        values.put(KEY_ExerciseDate, ex.getDate());//date
+        values.put(KEY_ExerciseDate, ex.getDate().getTimeInMillis());////date in milliseconds
 
         db.insert(TABLE_Exercise, null, values);//Inserting Row
         db.close(); // Closing database connection
@@ -98,6 +101,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_Exercise, KEY_ExerciseID+ "=" + x , null);
 
         db.close();
+    }
+
+    public ArrayList<Exercise> getAllExercises(){
+        ArrayList<Exercise> output = new ArrayList<Exercise>();//the holder
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_Exercise;
+        Cursor cursor = db.rawQuery(query,null);//pointer
+
+        if (cursor.moveToFirst()) {//if not empty, move to the first set of elements
+            do {
+                Exercise exercise = new Exercise();//this object needs id, description and date
+
+                //we start with date
+                long date = cursor.getInt(3); //returns long int
+                Calendar cal = new GregorianCalendar();//Calendar object for setDate()
+                cal.setTimeInMillis(date);//now the calendar object holds our date
+
+                exercise.setDate(cal);//done setting date field in Exercise
+                exercise.setId(cursor.getInt(0));//done setting id
+                exercise.setDescription(cursor.getString(1));//done setting Description
+
+                //now exercise has id, description and date, we can add it to the ArrayList
+
+                // Adding Exercise to list
+                output.add(exercise);
+            } while (cursor.moveToNext());//go to the next row
+        }
+        db.close();
+        return output;
+
     }
 
 
