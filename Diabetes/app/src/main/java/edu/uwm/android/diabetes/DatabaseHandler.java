@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //to add BloodGlucose object to TABLE_BloodGlucose
-    public void addBloogGlucose(BloodGlucose BGL) {
+    public void addBloodGlucose(BloodGlucose BGL) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
