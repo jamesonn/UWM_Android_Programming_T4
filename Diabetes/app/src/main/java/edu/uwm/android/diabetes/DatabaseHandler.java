@@ -21,8 +21,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_BLOOD_GLUCOSE = "BloodGlucose";
     private static final String TABLE_EXERCISE= "Exercise";
     private static final String TABLE_DIET= "Diet";
-    private static final String TABLE_Regimen = "Regimen";
-    private static final String TABLE_Medicine= "Medicine";
+    private static final String TABLE_REGIMEN = "Regimen";
+    private static final String TABLE_MEDICINE= "Medicine";
 
     // We add BloodGlucose Table Columns here
     private static final String BLOOD_GLUCOSE_ID = "id";
@@ -39,6 +39,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DIET_ID = "Id";
     private static final String DIET_DESCRIPTION = "Description";
     private static final String DIET_DATE = "Date";
+
+    //Medecine table columns below
+    private static final String MEDICINE_ID = "Id";
+    private static final String MEDICINE_DESCRIPTION = "Description";
+    private static final String MEDICINE_DATE = "Date";
+
+    //Regimen table columns below
+    private static final String REGIMEN_ID = "Id";
+    private static final String REGIMEN_DESCRIPTION = "Description";
 
 
     public DatabaseHandler(Context context) {
@@ -64,16 +73,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + DIET_DESCRIPTION+ " Text not null, "
                 + DIET_DATE+" integer);";
 
-        String create_Regimen_table = "create table " + TABLE_Regimen + "("
-                + KEY_RegimenID + " integer primary key autoincrement, "
-                + KEY_RegimenDescription+ " text not null, ";
+        String createMedecineTable = "Create table" + TABLE_MEDICINE + "("+
+                MEDICINE_ID + " integer primary key autoincrement, "
+                + MEDICINE_DESCRIPTION+ " Text not null, "
+                + MEDICINE_DATE+" integer);";
+
+        String createRegimenTable = "create table " + TABLE_REGIMEN + "("
+                + REGIMEN_ID + " integer primary key autoincrement, "
+                + REGIMEN_DESCRIPTION+ " text not null, ";
 
 
         db.execSQL(createBloodGlucoseTable);
         db.execSQL(createExerciseTable);
         db.execSQL(createDietTable);
-        db.execSQL(create_Regimen_table);;
-        //db.execSQL(TABLE_Medicine);
+        db.execSQL(createRegimenTable);;
+        db.execSQL(createMedecineTable);
 
 
     }
@@ -83,8 +97,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BLOOD_GLUCOSE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET);
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_Medicine);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Regimen);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDICINE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGIMEN);
         onCreate(db);
 
 
@@ -113,32 +127,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    //to add Exercise object to TABLE_Exercise
-    public void addExercise(Exercise ex) {
+    public void addExercise(Exercise exercise) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
-        values.put(EXERCISE_DESCRIPTION, ex.getDescription()); //Description
-        values.put(EXERCISE_DATE, ex.getDate().getTimeInMillis());////date in milliseconds
-
-        db.insert(TABLE_EXERCISE, null, values);//Inserting Row
-        db.close(); // Closing database connection
-    }
-
-
-
-
-    public void addRgeimen(Regimen newRegimen){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_RegimenID, newRegimen.getDescription());
-
-        db.insert(TABLE_Regimen, null, values);
+        values.put(EXERCISE_DESCRIPTION, exercise.getDescription());
+        values.put(EXERCISE_DATE, exercise.getDate().getTimeInMillis());
+        db.insert(TABLE_EXERCISE, null, values);
         db.close();
     }
 
-    public void deleteBloodGlucose(String id){//Deleting by KEY_id
+
+    public void addRegimen(Regimen regimen){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();;
+        values.put(REGIMEN_DESCRIPTION, regimen.getDescription());
+        db.insert(TABLE_REGIMEN, null, values);
+        db.close();
+    }
+
+    public void addMedicine(Medicine medicine){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();;
+        values.put(REGIMEN_DESCRIPTION, medicine.getDescription());
+        values.put(REGIMEN_DESCRIPTION, medicine.getDate().getTimeInMillis());
+        db.insert(TABLE_REGIMEN, null, values);
+        db.close();
+    }
+
+    public void deleteBloodGlucose(String bloodGlucoseID){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + bloodGlucoseID , null);
         db.close();
@@ -153,6 +169,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteExercise(String exerciseID){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EXERCISE, EXERCISE_ID+ "=" + exerciseID , null);
+        db.close();
+    }
+
+    public void deleteRegimen(String regimenID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_REGIMEN, REGIMEN_ID+ "=" + regimenID , null);
+        db.close();
+    }
+
+    public void deleteMedicine(String medecineID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_MEDICINE, MEDICINE_ID+ "=" + medecineID , null);
         db.close();
     }
 
