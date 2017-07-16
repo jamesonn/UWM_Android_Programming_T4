@@ -18,19 +18,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Diabetes";
 
     // We add the tables here
-    private static final String TABLE_BloodGlucose = "Blood Glucose";
-    private static final String TABLE_Exercise= "Exercise";
+    private static final String TABLE_BLOOD_GLUCOSE = "BloodGlucose";
+    private static final String TABLE_EXERCISE= "Exercise";
+    private static final String TABLE_DIET= "Diet";
 
     // We add BloodGlucose Table Columns here
-    private static final String KEY_BloodGlucoseID = "id";
-    private static final String KEY_BloodGlucoseValue = "Value";
-    private static final String KEY_BloodGlucoseDate = "Date";
+    private static final String BLOOD_GLUCOSE_ID = "id";
+    private static final String BLOOD_GLUCOSE_VALUE = "Value";
+    private static final String BLOOD_GLUCOSE_DATE = "Date";
 
 
     // We add Exercise Table Columns here
-    private static final String KEY_ExerciseID = "id";
-    private static final String KEY_ExerciseDescription = "Description";
-    private static final String KEY_ExerciseDate = "Date";
+    private static final String EXERCISE_ID = "id";
+    private static final String EXERCISE_DESCRIPTION = "Description";
+    private static final String EXERCISE_DATE = "Date";
+
+    // Diet table colums below
+    private static final String DIET_ID = "Id";
+    private static final String DIET_DESCRIPTION = "Description";
+    private static final String DIET_DATE = "Date";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,26 +47,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String create_BloodGlucose_table = "create table " + TABLE_BloodGlucose + "("
-                + KEY_BloodGlucoseID + " integer primary key autoincrement, "
-                + KEY_BloodGlucoseValue + " real, "
-                + KEY_BloodGlucoseDate +" integer);";
+        String createBloodGlucoseTable = "create table " + TABLE_BLOOD_GLUCOSE + "("
+                + BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
+                + BLOOD_GLUCOSE_VALUE + " real, "
+                + BLOOD_GLUCOSE_DATE +" integer);";
 
-        String create_Exerxise_table = "create table " + TABLE_Exercise + "("
-                + KEY_ExerciseID + " integer primary key autoincrement, "
-                + KEY_ExerciseDescription+ " text not null, "
-                + KEY_ExerciseDate+" integer);";
+        String createExerciseTable = "create table " + TABLE_EXERCISE + "("
+                + EXERCISE_ID + " integer primary key autoincrement, "
+                + EXERCISE_DESCRIPTION+ " text not null, "
+                + EXERCISE_DATE+" integer);";
 
-        db.execSQL(TABLE_BloodGlucose);
-        db.execSQL(TABLE_Exercise);
+        String createDietTable = "Create table" + TABLE_DIET + "("+
+                DIET_ID + " integer primary key autoincrement, "
+                + DIET_DESCRIPTION+ " Text not null, "
+                + DIET_DATE+" Date);";
+
+
+        db.execSQL(createBloodGlucoseTable);
+        db.execSQL(createExerciseTable);
+        db.execSQL(createDietTable);
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BloodGlucose);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_Exercise);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BLOOD_GLUCOSE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET);
         onCreate(db);
 
 
@@ -70,10 +85,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_BloodGlucoseValue, BGL.getValue());//value
-        values.put(KEY_BloodGlucoseDate, BGL.getDate().getTimeInMillis()); //date in milliseconds
+        values.put(BLOOD_GLUCOSE_VALUE, BGL.getValue());//value
+        values.put(BLOOD_GLUCOSE_DATE, BGL.getDate().getTimeInMillis()); //date in milliseconds
 
-        db.insert(TABLE_BloodGlucose, null, values);//Inserting Row
+        db.insert(TABLE_BLOOD_GLUCOSE, null, values);//Inserting Row
         db.close(); // Closing database connection
     }
 
@@ -82,23 +97,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_ExerciseDescription, ex.getDescription()); //Description
-        values.put(KEY_ExerciseDate, ex.getDate().getTimeInMillis());////date in milliseconds
+        values.put(EXERCISE_DESCRIPTION, ex.getDescription()); //Description
+        values.put(EXERCISE_DATE, ex.getDate().getTimeInMillis());////date in milliseconds
 
-        db.insert(TABLE_Exercise, null, values);//Inserting Row
+        db.insert(TABLE_EXERCISE, null, values);//Inserting Row
         db.close(); // Closing database connection
     }
 
     public void deleteBloodGlucose(String id){//Deleting by KEY_id
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BloodGlucose, KEY_BloodGlucoseID+ "=" + id , null);
+        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + id , null);
 
         db.close();
     }
 
-    public void deleteExercise(String x){
+    public void deleteExercise(String bloodGlucoseId){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_Exercise, KEY_ExerciseID+ "=" + x , null);
+        db.delete(TABLE_BLOOD_GLUCOSE, BLOOD_GLUCOSE_ID+ "=" + bloodGlucoseId , null);
 
         db.close();
     }
@@ -106,7 +121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Exercise> getAllExercises(){
         ArrayList<Exercise> output = new ArrayList<Exercise>();//the holder
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_Exercise;
+        String query = "SELECT * FROM " + TABLE_EXERCISE;
         Cursor cursor = db.rawQuery(query,null);//pointer
 
         if (cursor.moveToFirst()) {//if not empty, move to the first set of elements
