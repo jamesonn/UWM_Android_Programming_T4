@@ -164,7 +164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Exercise exercise = new Exercise();//this object needs id, description and date
 
                 //we start with date
-                long date = cursor.getInt(3); //returns long int
+                long date = cursor.getLong(3); //returns long
                 Calendar cal = new GregorianCalendar();//Calendar object for setDate()
                 cal.setTimeInMillis(date);//now the calendar object holds our date
 
