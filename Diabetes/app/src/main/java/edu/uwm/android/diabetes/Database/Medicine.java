@@ -8,13 +8,11 @@ import java.util.GregorianCalendar;
 
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
-
 public class Medicine implements IDatabaseObject {
-
+    private static final String CLASS_ID = "REGIMEN";
     private int id;
     private String description;
     private Calendar date = GregorianCalendar.getInstance();
-
 
     //constructor 1
     public Medicine(){};
@@ -50,13 +48,16 @@ public class Medicine implements IDatabaseObject {
     public void setID(int id) {
         this.id = id;
     }
+
     public void setDescription(String description){
         this.description = description;
     }
 
     public void setDate(Calendar date){this.date = date;}
 
-
+    public String getClassID(){
+        return CLASS_ID;
+    }
 
 }
 

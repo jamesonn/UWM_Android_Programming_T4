@@ -10,14 +10,12 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
  */
 
 public class Regimen implements IDatabaseObject{
-
+    private static final String CLASS_ID = "REGIMEN";
     private int id;
     private String description;
     private Calendar date = GregorianCalendar.getInstance();
 
-    public Regimen(){
-
-    }
+    public Regimen(){ }
 
     public int getID(){
         return id;
@@ -39,5 +37,9 @@ public class Regimen implements IDatabaseObject{
 
     public Calendar getDate(){
         return this.date;
+    }
+
+    public String getClassID(){
+        return CLASS_ID;
     }
 }

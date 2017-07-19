@@ -10,7 +10,7 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
  */
 
 public class Diet implements IDatabaseObject {
-
+    private static final String CLASS_ID = "REGIMEN";
     private int id;
     private String description;
     private Calendar date;
@@ -42,5 +42,9 @@ public class Diet implements IDatabaseObject {
 
     public void setDate(Calendar date) {
         this.date = date;
+    }
+
+    public String getClassID(){
+        return CLASS_ID;
     }
 }
