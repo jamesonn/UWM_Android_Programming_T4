@@ -1,5 +1,8 @@
 package edu.uwm.android.diabetes.Database;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 /**
@@ -10,6 +13,7 @@ public class Regimen implements IDatabaseObject{
 
     private int id;
     private String description;
+    private Calendar date = GregorianCalendar.getInstance();
 
     public Regimen(){
 
@@ -29,5 +33,11 @@ public class Regimen implements IDatabaseObject{
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public void setDate(Calendar date){this.date = date;}
+
+    public Calendar getDate(){
+        return this.date;
     }
 }

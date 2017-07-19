@@ -200,7 +200,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cal.setTimeInMillis(date);//now the calendar object holds our date
 
                 exercise.setDate(cal);//done setting date field in Exercise
-                exercise.setId(cursor.getInt(0));//done setting id
+                exercise.setID(cursor.getInt(0));//done setting id
                 exercise.setDescription(cursor.getString(1));//done setting Description
 
                 //now exercise has id, description and date, we can add it to the ArrayList

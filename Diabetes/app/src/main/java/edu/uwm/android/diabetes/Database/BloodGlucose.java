@@ -26,7 +26,6 @@ public class BloodGlucose implements IDatabaseObject{
     }
 
     public BloodGlucose(double value, Calendar date){
-        this.id=id;
         this.value = value;
         this.date=date;
 
@@ -54,6 +53,5 @@ public class BloodGlucose implements IDatabaseObject{
     public void setID(int id) {
         this.id = id;
     }
-
 
 }
