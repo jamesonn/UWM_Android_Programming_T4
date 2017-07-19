@@ -1,14 +1,13 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Database;
 
-/**
- * Created by Arham on 7/16/17.
- */
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 
-public class Medicine {
+public class Exercise implements IDatabaseObject{
 
     private int id;
     private String description;
@@ -16,24 +15,23 @@ public class Medicine {
 
 
     //constructor 1
-    public Medicine(){};
-
+    public Exercise(){};
     //constructor 2
-    public Medicine(int id,String description, Calendar date){
+
+    public Exercise(int id,String description, Calendar date){
         this.id = id;
         this.description = description;
         this.date = date;
     }
-
     //constructor 3
-    public Medicine(String description, Calendar date){
+    public Exercise(String description, Calendar date){
         this.id = id;
         this.description = description;
         this.date = date;
     }
 
     //getters
-    public int getId() {
+    public int getID() {
         return id;
     }
     public String getDescription(){
@@ -46,7 +44,7 @@ public class Medicine {
     }
 
     //setters
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
     public void setDescription(String description){
@@ -58,6 +56,3 @@ public class Medicine {
 
 
 }
-
-
-

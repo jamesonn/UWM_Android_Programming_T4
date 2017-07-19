@@ -1,4 +1,4 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Database;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -6,8 +6,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
-public class BloodGlucose {
+
+public class BloodGlucose implements IDatabaseObject{
 
     private int id;
     private double value;
@@ -30,7 +32,7 @@ public class BloodGlucose {
 
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -49,7 +51,7 @@ public class BloodGlucose {
 
     public void setDate(Calendar date){this.date = date;}
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 

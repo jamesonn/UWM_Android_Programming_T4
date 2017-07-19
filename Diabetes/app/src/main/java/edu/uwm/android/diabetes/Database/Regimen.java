@@ -1,10 +1,12 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Database;
+
+import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 /**
  * Created by Nate on 7/16/2017.
  */
 
-public class Regimen {
+public class Regimen implements IDatabaseObject{
 
     private int id;
     private String description;
@@ -13,7 +15,7 @@ public class Regimen {
 
     }
 
-    public int getId(){
+    public int getID(){
         return id;
     }
 
@@ -21,7 +23,7 @@ public class Regimen {
         return description;
     }
 
-    public void setId(int id){
+    public void setID(int id){
         this.id = id;
     }
 

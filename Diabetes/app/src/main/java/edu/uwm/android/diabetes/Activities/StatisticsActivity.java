@@ -1,7 +1,9 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import edu.uwm.android.diabetes.R;
 
 public class StatisticsActivity extends AppCompatActivity {
 

@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uwm.android.diabetes.StatisticsActivity">
+    tools:context="edu.uwm.android.diabetes.Activities.StatisticsActivity">
 
 </android.support.constraint.ConstraintLayout>

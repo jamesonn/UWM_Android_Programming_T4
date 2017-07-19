@@ -1,9 +1,11 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import edu.uwm.android.diabetes.R;
 
 
 public class SplashActivity extends Activity {

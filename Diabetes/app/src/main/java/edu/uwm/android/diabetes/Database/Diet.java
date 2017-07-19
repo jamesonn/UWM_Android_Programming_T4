@@ -1,13 +1,15 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Database;
 
 import java.sql.Date;
 import java.util.Calendar;
+
+import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 /**
  * Created by Rafa on 7/16/2017.
  */
 
-public class Diet {
+public class Diet implements IDatabaseObject {
 
     private int id;
     private String description;
@@ -18,7 +20,7 @@ public class Diet {
         this.date = date;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -30,7 +32,7 @@ public class Diet {
         return date;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 

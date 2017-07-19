@@ -1,4 +1,4 @@
-package edu.uwm.android.diabetes;
+package edu.uwm.android.diabetes.Database;
 
 
 import android.content.ContentValues;
