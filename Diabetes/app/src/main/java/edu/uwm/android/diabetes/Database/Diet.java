@@ -1,13 +1,7 @@
 package edu.uwm.android.diabetes.Database;
 
-import java.sql.Date;
 import java.util.Calendar;
-
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
-
-/**
- * Created by Rafa on 7/16/2017.
- */
 
 public class Diet implements IDatabaseObject {
     private static final String CLASS_ID = "REGIMEN";

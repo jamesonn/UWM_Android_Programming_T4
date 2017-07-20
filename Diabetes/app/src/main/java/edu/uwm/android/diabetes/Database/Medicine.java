@@ -1,8 +1,5 @@
 package edu.uwm.android.diabetes.Database;
 
-/**
- * Created by Arham on 7/16/17.
- */
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -15,7 +12,7 @@ public class Medicine implements IDatabaseObject {
     private Calendar date = GregorianCalendar.getInstance();
 
     //constructor 1
-    public Medicine(){};
+    public Medicine(){}
 
     //constructor 2
     public Medicine(int id,String description, Calendar date){

@@ -5,9 +5,6 @@ import java.util.GregorianCalendar;
 
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
-/**
- * Created by Nate on 7/16/2017.
- */
 
 public class Regimen implements IDatabaseObject{
     private static final String CLASS_ID = "REGIMEN";

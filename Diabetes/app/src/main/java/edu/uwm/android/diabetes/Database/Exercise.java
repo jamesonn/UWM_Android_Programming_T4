@@ -2,9 +2,7 @@ package edu.uwm.android.diabetes.Database;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
-
 
 public class Exercise implements IDatabaseObject{
     private static final String CLASS_ID = "REGIMEN";

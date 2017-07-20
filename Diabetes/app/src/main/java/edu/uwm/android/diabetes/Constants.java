@@ -1,9 +1,5 @@
 package edu.uwm.android.diabetes;
 
-/**
- * Created by Nate on 7/18/2017.
- */
-
 public class Constants {
     public static final int DATABASE_VERSION = 1;
 
@@ -33,7 +29,7 @@ public class Constants {
     public static final String DIET_DESCRIPTION = "Description";
     public static final String DIET_DATE = "Date";
 
-    //Medecine table columns below
+    //Medicine table columns below
     public static final String MEDICINE_ID = "MEDICINE ID";
     public static final String MEDICINE_DESCRIPTION = "Description";
     public static final String MEDICINE_DATE = "Date";

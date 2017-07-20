@@ -1,11 +1,7 @@
 package edu.uwm.android.diabetes.Database;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 
