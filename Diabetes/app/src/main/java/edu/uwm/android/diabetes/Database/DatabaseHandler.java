@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.DIET_DESCRIPTION+ " Text not null, "
                 + Constants.DIET_DATE+" integer);";
 
-        String createMedecineTable = "Create table" + Constants.TABLE_MEDICINE + "("+
+        String createMedicineTable = "Create table" + Constants.TABLE_MEDICINE + "("+
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "
                 + Constants.MEDICINE_DESCRIPTION+ " Text not null, "
                 + Constants.MEDICINE_DATE+" integer);";
@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(createExerciseTable);
         db.execSQL(createDietTable);
         db.execSQL(createRegimenTable);;
-        db.execSQL(createMedecineTable);
+        db.execSQL(createMedicineTable);
     }
 
     @Override
