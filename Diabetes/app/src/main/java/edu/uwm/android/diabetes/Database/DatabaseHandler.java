@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(createBloodGlucoseTable);
         db.execSQL(createExerciseTable);
         db.execSQL(createDietTable);
-        db.execSQL(createRegimenTable);;
+        db.execSQL(createRegimenTable);
         db.execSQL(createMedicineTable);
     }
 
@@ -106,7 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.insert(Constants.TABLE_REGIMEN, null, values);
                     break;
                 default:
-                    //TODO Throw an error?
+                    //TODO Throw an error? Should never happen
                     break;
             }
             db.close(); // Closing database connection
@@ -146,7 +146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     db.delete(Constants.TABLE_REGIMEN, Constants.REGIMEN_ID+ "=" + regimen.getID() , null);
                     break;
                 default:
-                    //TODO Throw an error?
+                    //TODO Throw an error? Should never happen
                     break;
             }
             db.close(); // Closing database connection
