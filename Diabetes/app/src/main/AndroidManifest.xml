@@ -25,11 +25,11 @@
             android:name=".Activities.ExerciseActivity"
             android:label="@string/activity_Exercise"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.MedicineActivity" />
-        <activity android:name=".Activities.RemindersActivity" />
-        <activity android:name=".Activities.GraphActivity" />
-        <activity android:name=".Activities.StatisticsActivity" />
-        <activity android:name=".Activities.RegimenActivity"></activity>
+        <activity android:name=".Activities.MedicineActivity" android:label="Medicine"/>
+        <activity android:name=".Activities.RemindersActivity" android:label="Reminders"/>
+        <activity android:name=".Activities.GraphActivity" android:label="Graph" />
+        <activity android:name=".Activities.StatisticsActivity" android:label="Statistics"/>
+         <activity android:name=".Activities.RegimenActivity" android:label="Regimen"/>
     </application>
 
 </manifest>
