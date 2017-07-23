@@ -79,7 +79,7 @@ public class RegimenActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-        regimenDate.setText(month+1  + "/" + day+ "/" + "/" + year);
+        regimenDate.setText(month+1  + "/" + day+ "/" + year);
 
         regimenDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +92,11 @@ public class RegimenActivity extends AppCompatActivity {
 
 
     public void DateDialog() {
-
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
 
                 regimenDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
 
@@ -106,5 +106,32 @@ public class RegimenActivity extends AppCompatActivity {
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
         dpDialog.show();
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 }
