@@ -30,7 +30,7 @@ public class Constants {
     public static final String DIET_DATE = "Date";
 
     //Medicine table columns below
-    public static final String MEDICINE_ID = "MEDICINE ID";
+    public static final String MEDICINE_ID = "MEDICINE_ID";
     public static final String MEDICINE_DESCRIPTION = "Description";
     public static final String MEDICINE_DATE = "Date";
 

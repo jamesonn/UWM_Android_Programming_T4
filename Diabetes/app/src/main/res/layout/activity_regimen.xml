@@ -44,26 +44,6 @@
         android:layout_toStartOf="@+id/editText_foodDescription" />
 
 
-    <TextView
-        android:id="@+id/textView_Date1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="Current Date (MM-DD-YYYY) "
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/editText_foodDescription"
-        android:layout_alignRight="@+id/editText_foodDescription"
-        android:layout_alignEnd="@+id/editText_foodDescription" />
-
-    <Button
-        android:id="@+id/btnChangeDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Date"
-        android:layout_below="@+id/textView_Date1"
-        android:layout_alignRight="@+id/textView_Date1"
-        android:layout_alignEnd="@+id/textView_Date1" />
-
     <ImageButton
         android:id="@+id/regimenHomeButton"
         android:layout_width="wrap_content"
@@ -72,5 +52,47 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="13dp"
         app:srcCompat="@mipmap/homeicon" />
+
+    <Button
+        android:id="@+id/addRegimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Regimen"
+        android:layout_alignBaseline="@+id/showData"
+        android:layout_alignBottom="@+id/showData"
+        android:layout_alignRight="@+id/regimenDate"
+        android:layout_alignEnd="@+id/regimenDate" />
+
+    <Button
+        android:id="@+id/showData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Data"
+        android:layout_below="@+id/regimenDate"
+        android:layout_toLeftOf="@+id/regimenHomeButton"
+        android:layout_toStartOf="@+id/regimenHomeButton"
+        android:layout_marginTop="71dp" />
+
+    <EditText
+        android:id="@+id/regimenDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/editText_foodDescription"
+        android:layout_alignLeft="@+id/editText_foodDescription"
+        android:layout_alignStart="@+id/editText_foodDescription"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_alignBaseline="@+id/regimenDate"
+        android:layout_alignBottom="@+id/regimenDate"
+        android:layout_toLeftOf="@+id/regimenDate"
+        android:layout_toStartOf="@+id/regimenDate" />
 
 </RelativeLayout>

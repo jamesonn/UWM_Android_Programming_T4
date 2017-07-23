@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 public class Exercise implements IDatabaseObject{
-    private static final String CLASS_ID = "REGIMEN";
+    private static final String CLASS_ID = "EXERCISE";
     private int id;
     private String description;
     private Calendar date = GregorianCalendar.getInstance();

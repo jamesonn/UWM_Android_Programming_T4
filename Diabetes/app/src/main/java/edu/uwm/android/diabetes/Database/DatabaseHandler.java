@@ -22,27 +22,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createBloodGlucoseTable = "create table " + Constants.TABLE_BLOOD_GLUCOSE + "("
+        String createBloodGlucoseTable = "create table " + Constants.TABLE_BLOOD_GLUCOSE + " ("
                 + Constants.BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
                 + Constants.BLOOD_GLUCOSE_VALUE + " real, "
-                + Constants.BLOOD_GLUCOSE_DATE +" integer);";
+                + Constants.BLOOD_GLUCOSE_DATE +" text);";
 
-        String createExerciseTable = "create table " + Constants.TABLE_EXERCISE + "("
+        String createExerciseTable = "create table " + Constants.TABLE_EXERCISE + " ("
                 + Constants.EXERCISE_ID + " integer primary key autoincrement, "
                 + Constants.EXERCISE_DESCRIPTION+ " text not null, "
-                + Constants.EXERCISE_DATE+" integer);";
+                + Constants.EXERCISE_DATE+" text);";
 
-        String createDietTable = "Create table" + Constants.TABLE_DIET + "("+
+        String createDietTable = "Create table " + Constants.TABLE_DIET + " ("+
                 Constants.DIET_ID + " integer primary key autoincrement, "
-                + Constants.DIET_DESCRIPTION+ " Text not null, "
-                + Constants.DIET_DATE+" integer);";
+                + Constants.DIET_DESCRIPTION+ " Text not null); ";
+               // + Constants.DIET_DATE+" integer);";
 
-        String createMedicineTable = "Create table" + Constants.TABLE_MEDICINE + "("+
+        String createMedicineTable = "Create table " + Constants.TABLE_MEDICINE + " ("+
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "
                 + Constants.MEDICINE_DESCRIPTION+ " Text not null, "
                 + Constants.MEDICINE_DATE+" integer);";
 
-        String createRegimenTable = "create table " + Constants.TABLE_REGIMEN + "("
+        String createRegimenTable = "create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.REGIMEN_DESCRIPTION+ " text not null);";
 
@@ -69,41 +69,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
+            System.out.println("The type of the class is "+ classType);
 
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
                     BloodGlucose bgl = (BloodGlucose) object;
 
-                    values.put(Constants.BLOOD_GLUCOSE_VALUE, bgl.getValue());//value
-                    values.put(Constants.BLOOD_GLUCOSE_DATE, bgl.getDate().getTimeInMillis()); //date in milliseconds
-                    db.insert(Constants.TABLE_BLOOD_GLUCOSE, null, values);//Inserting Row
+                    values.put(Constants.BLOOD_GLUCOSE_VALUE, bgl.getValue());
+                    values.put(Constants.BLOOD_GLUCOSE_DATE, bgl.getDate().toString());
+                    db.insert(Constants.TABLE_BLOOD_GLUCOSE, null, values);
                     break;
                 case Constants.DIET_CLASS:
                     Diet diet = (Diet) object;
-
-                    values.put(Constants.DIET_DESCRIPTION, diet.getDescription());//value
-                    values.put(Constants.DIET_DATE, diet.getDate().getTimeInMillis()); //date in milliseconds
-                    db.insert(Constants.TABLE_DIET, null, values);//Inserting Row
+                    values.put(Constants.DIET_DESCRIPTION, diet.getDescription());
+                    values.put(Constants.DIET_DATE, diet.getDate().getTimeInMillis());
+                    db.insert(Constants.TABLE_DIET, null, values);
                     break;
                 case Constants.EXERCISE_CLASS:
+                    System.out.println("-----Exercise case  here");
                     Exercise exercise = (Exercise) object;
-
                     values.put(Constants.EXERCISE_DESCRIPTION, exercise.getDescription());
-                    values.put(Constants.EXERCISE_DATE, exercise.getDate().getTimeInMillis());
+                    //values.put(Constants.EXERCISE_DATE, exercise.getDate().toString());
                     db.insert(Constants.TABLE_EXERCISE, null, values);
                     break;
                 case Constants.MEDICINE_CLASS:
                     Medicine medicine = (Medicine) object;
 
-                    values.put(Constants.REGIMEN_DESCRIPTION, medicine.getDescription());
-                    values.put(Constants.REGIMEN_DESCRIPTION, medicine.getDate().getTimeInMillis());
-                    db.insert(Constants.TABLE_REGIMEN, null, values);
+                    values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
+                    values.put(Constants.MEDICINE_DATE, medicine.getDate().getTimeInMillis());
+                    db.insert(Constants.TABLE_MEDICINE, null, values);
                     break;
                 case Constants.REGIMEN_CLASS:
+                    System.out.println("-----Regimen case  here");
                     Regimen regimen = (Regimen) object;
-
                     values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
                     db.insert(Constants.TABLE_REGIMEN, null, values);
+                    System.out.println("-----------------------> Data inserted in Regimen Table!!!!!!!!!!!!!!!!!!!");
                     break;
                 default:
                     //TODO Throw an error? Should never happen
@@ -152,6 +153,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.close(); // Closing database connection
         }
     }
+
+
+    public Cursor getData(IDatabaseObject object){
+        Cursor result = null;
+        if(object != null) {
+            String classType = object.getClassID();
+
+            SQLiteDatabase db = this.getWritableDatabase();
+             switch (classType) {
+                case Constants.BLOODGLUCOSE_CLASS:
+                    result = db.rawQuery("Select * from " +Constants.TABLE_BLOOD_GLUCOSE, null);
+                    break;
+                case Constants.DIET_CLASS:
+                    result = db.rawQuery("Select * from " +Constants.TABLE_DIET, null);
+                    break;
+                case Constants.EXERCISE_CLASS:
+                    result = db.rawQuery("Select * from " +Constants.TABLE_EXERCISE, null);
+                    break;
+                case Constants.MEDICINE_CLASS:
+                    result = db.rawQuery("Select * from " +Constants.TABLE_MEDICINE, null);
+                    break;
+                case Constants.REGIMEN_CLASS:
+                    result = db.rawQuery("Select * from " +Constants.TABLE_REGIMEN, null);
+                    break;
+                default:
+                    //TODO Throw an error? Should never happen
+                    break;
+            }
+
+        }
+        return result;
+    }
+
 
     public ArrayList<Exercise> getAllExercises(){
         ArrayList<Exercise> output = new ArrayList<>();//the holder

@@ -5,19 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        android:id="@+id/editText_caloriesBurned"
+        android:id="@+id/editTextExerciseCalories"
         style="@style/EditTextStyle"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="35dp"
         android:ems="10"
-        android:layout_alignParentRight="true"
         android:inputType="numberDecimal"
-        android:hint="Calories Burned" />
+        android:hint="Calories"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editTextExerciseDescription"
+        android:layout_alignStart="@+id/editTextExerciseDescription" />
 
     <EditText
-        android:id="@+id/editText_Description"
+        android:id="@+id/editTextExerciseDescription"
         style="@style/EditTextStyle"
-        android:layout_below="@+id/editText_caloriesBurned"
+        android:layout_below="@+id/editTextExerciseCalories"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
@@ -26,41 +27,66 @@
         android:hint="Description"/>
 
     <TextView
-        android:id="@+id/textView_caloriesBurned"
+        android:id="@+id/textViewCaloriesBurnt"
         style="@style/LabelStyle"
-        android:text="Calories Burned: "
-        android:layout_alignBaseline="@+id/editText_caloriesBurned"
-        android:layout_alignBottom="@+id/editText_caloriesBurned"
-        android:layout_toLeftOf="@+id/editText_caloriesBurned"
-        android:layout_toStartOf="@+id/editText_caloriesBurned" />
+        android:text="Calories: "
+        android:layout_alignBaseline="@+id/editTextExerciseCalories"
+        android:layout_alignBottom="@+id/editTextExerciseCalories"
+        android:layout_toLeftOf="@+id/editTextExerciseCalories"
+        android:layout_toStartOf="@+id/editTextExerciseCalories" />
     <TextView
-        android:id="@+id/textView_Description"
+        android:id="@+id/textViewExerciseDescription"
         style="@style/LabelStyle"
         android:text="Description: "
-        android:layout_alignBaseline="@+id/editText_Description"
-        android:layout_alignBottom="@+id/editText_Description"
-        android:layout_toLeftOf="@+id/editText_Description"
-        android:layout_toStartOf="@+id/editText_Description" />
+        android:layout_alignBaseline="@+id/editTextExerciseDescription"
+        android:layout_alignBottom="@+id/editTextExerciseDescription"
+        android:layout_toLeftOf="@+id/editTextExerciseDescription"
+        android:layout_toStartOf="@+id/editTextExerciseDescription" />
 
-    <TextView
-        android:id="@+id/textView_Date1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Current Date (MM-DD-YYYY) "
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/editText_Description"
-        android:layout_alignRight="@+id/editText_Description"
-        android:layout_alignEnd="@+id/editText_Description" />
 
     <Button
-        android:id="@+id/btnChangeDate"
+        android:id="@+id/addExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Date"
-        android:layout_below="@+id/textView_Date1"
-        android:layout_alignRight="@+id/textView_Date1"
-        android:layout_alignEnd="@+id/textView_Date1" />
+        android:text="Add Exercise"
+        android:layout_alignBaseline="@+id/showExerciseData"
+        android:layout_alignBottom="@+id/showExerciseData"
+        android:layout_alignRight="@+id/exerciseDate"
+        android:layout_alignEnd="@+id/exerciseDate" />
+
+    <Button
+        android:id="@+id/showExerciseData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Data"
+        android:layout_below="@+id/exerciseDate"
+        android:layout_toLeftOf="@+id/exerciseHomeButton"
+        android:layout_toStartOf="@+id/exerciseHomeButton"
+        android:layout_marginTop="71dp" />
+
+    <EditText
+        android:id="@+id/exerciseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/editTextExerciseDescription"
+        android:layout_alignLeft="@+id/editTextExerciseDescription"
+        android:layout_alignStart="@+id/editTextExerciseDescription"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/exerciseDateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_alignBaseline="@+id/exerciseDate"
+        android:layout_alignBottom="@+id/exerciseDate"
+        android:layout_toLeftOf="@+id/exerciseDate"
+        android:layout_toStartOf="@+id/exerciseDate" />
+
+
 
     <ImageButton
         android:id="@+id/exerciseHomeButton"
