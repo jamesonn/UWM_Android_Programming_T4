@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,12 +37,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String createDietTable = " Create table " + Constants.TABLE_DIET + " ("+
                 Constants.DIET_ID + " integer primary key autoincrement, "
                 + Constants.DIET_DESCRIPTION+ " Text not null); ";
-               // + Constants.DIET_DATE+" integer);";
 
         String createMedicineTable = " Create table " + Constants.TABLE_MEDICINE + " ("+
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "
                 + Constants.MEDICINE_DESCRIPTION+ " Text not null, "
-                + Constants.MEDICINE_DATE+" integer);";
+                + Constants.MEDICINE_DATE+" Text);";
 
         String createRegimenTable = " create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
@@ -82,29 +83,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 case Constants.DIET_CLASS:
                     Diet diet = (Diet) object;
                     values.put(Constants.DIET_DESCRIPTION, diet.getDescription());
-                    values.put(Constants.DIET_DATE, diet.getDate().getTimeInMillis());
+                    values.put(Constants.DIET_DATE, diet.getDate().toString());
                     db.insert(Constants.TABLE_DIET, null, values);
                     break;
                 case Constants.EXERCISE_CLASS:
-                    System.out.println("-----Exercise case  here");
                     Exercise exercise = (Exercise) object;
                     values.put(Constants.EXERCISE_DESCRIPTION, exercise.getDescription());
-                    //values.put(Constants.EXERCISE_DATE, exercise.getDate().toString());
+                    values.put(Constants.EXERCISE_DATE, exercise.getDate());
                     db.insert(Constants.TABLE_EXERCISE, null, values);
                     break;
                 case Constants.MEDICINE_CLASS:
                     Medicine medicine = (Medicine) object;
 
                     values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
-                    values.put(Constants.MEDICINE_DATE, medicine.getDate().getTimeInMillis());
+                    values.put(Constants.MEDICINE_DATE, medicine.getDate().toString());
                     db.insert(Constants.TABLE_MEDICINE, null, values);
                     break;
                 case Constants.REGIMEN_CLASS:
-                    System.out.println("-----Regimen case  here");
                     Regimen regimen = (Regimen) object;
                     values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
                     db.insert(Constants.TABLE_REGIMEN, null, values);
-                    System.out.println("-----------------------> Data inserted in Regimen Table!!!!!!!!!!!!!!!!!!!");
                     break;
                 default:
                     //TODO Throw an error? Should never happen
@@ -186,33 +184,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
-
-    public ArrayList<Exercise> getAllExercises(){
-        ArrayList<Exercise> output = new ArrayList<>();//the holder
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + Constants.TABLE_EXERCISE;
-        Cursor cursor = db.rawQuery(query,null);//pointer
-
-        if (cursor.moveToFirst()) {//if not empty, move to the first set of elements
-            do {
-                Exercise exercise = new Exercise();//this object needs id, description and date
-
-                //we start with date
-                long date = cursor.getLong(3); //returns long
-                Calendar cal = new GregorianCalendar();//Calendar object for setDate()
-                cal.setTimeInMillis(date);//now the calendar object holds our date
-
-                exercise.setDate(cal);//done setting date field in Exercise
-                exercise.setID(cursor.getInt(0));//done setting id
-                exercise.setDescription(cursor.getString(1));//done setting Description
-
-                //now exercise has id, description and date, we can add it to the ArrayList
-
-                // Adding Exercise to list
-                output.add(exercise);
-            } while (cursor.moveToNext());//go to the next row
-        }
-        db.close();
-        return output;
-    }
 }

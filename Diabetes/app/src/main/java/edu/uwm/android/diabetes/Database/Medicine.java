@@ -6,42 +6,36 @@ import java.util.GregorianCalendar;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 public class Medicine implements IDatabaseObject {
-    private static final String CLASS_ID = "REGIMEN";
+    private static final String CLASS_ID = "MEDICINE";
     private int id;
     private String description;
-    private Calendar date = GregorianCalendar.getInstance();
+    private String date;
 
-    //constructor 1
     public Medicine(){}
 
-    //constructor 2
-    public Medicine(int id,String description, Calendar date){
+    public Medicine(int id,String description, String date){
         this.id = id;
         this.description = description;
         this.date = date;
     }
 
     //constructor 3
-    public Medicine(String description, Calendar date){
+    public Medicine(String description, String date){
         this.id = id;
         this.description = description;
         this.date = date;
     }
 
-    //getters
     public int getID() {
         return id;
     }
     public String getDescription(){
         return this.description;
     }
-    //Output example: Thu Jul 13 15:00:00 CDT 2017 after using
-    //getDate().getTime().toString;
-    public Calendar getDate(){
+    public String getDate(){
         return this.date;
     }
 
-    //setters
     public void setID(int id) {
         this.id = id;
     }
@@ -50,7 +44,7 @@ public class Medicine implements IDatabaseObject {
         this.description = description;
     }
 
-    public void setDate(Calendar date){this.date = date;}
+    public void setDate(String date){this.date = date;}
 
     public String getClassID(){
         return CLASS_ID;

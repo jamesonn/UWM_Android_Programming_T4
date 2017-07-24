@@ -4,12 +4,12 @@ import java.util.Calendar;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 public class Diet implements IDatabaseObject {
-    private static final String CLASS_ID = "REGIMEN";
+    private static final String CLASS_ID = "DIET";
     private int id;
     private String description;
-    private Calendar date;
+    private String date;
 
-    public Diet(String description, Calendar date){
+    public Diet(String description, String date){
         this.description = description;
         this.date = date;
     }
@@ -22,7 +22,7 @@ public class Diet implements IDatabaseObject {
         return description;
     }
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -34,7 +34,7 @@ public class Diet implements IDatabaseObject {
         this.description = description;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

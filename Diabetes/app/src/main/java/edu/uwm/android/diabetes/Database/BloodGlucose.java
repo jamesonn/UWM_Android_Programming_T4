@@ -6,20 +6,20 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 
 public class BloodGlucose implements IDatabaseObject{
-    private static final String CLASS_ID = "REGIMEN";
+    private static final String CLASS_ID = "BLOODGLUCOSE";
     private int id;
     private double value;
-    private Calendar date = GregorianCalendar.getInstance();
+    private String date ;
 
     public BloodGlucose(){}
 
-    public BloodGlucose(int id,double value, Calendar date){
+    public BloodGlucose(int id,double value, String date){
         this.id=id;
         this.value = value;
         this.date=date;
     }
 
-    public BloodGlucose(double value, Calendar date){
+    public BloodGlucose(double value, String date){
         this.value = value;
         this.date=date;
     }
@@ -32,7 +32,7 @@ public class BloodGlucose implements IDatabaseObject{
         return this.value;
     }
 
-    public Calendar getDate(){
+    public String getDate(){
         return this.date;
     }
 
@@ -40,7 +40,7 @@ public class BloodGlucose implements IDatabaseObject{
         this.value = value;
     }
 
-    public void setDate(Calendar date){this.date = date;}
+    public void setDate(String date){this.date = date;}
 
     public void setID(int id) {
         this.id = id;

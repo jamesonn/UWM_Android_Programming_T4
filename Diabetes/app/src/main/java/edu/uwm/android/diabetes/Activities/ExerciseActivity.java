@@ -1,10 +1,12 @@
 package edu.uwm.android.diabetes.Activities;
 
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -27,7 +29,7 @@ public class ExerciseActivity extends AppCompatActivity {
     Calendar calendar;
     int day, month, year;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         databaseHandler = new DatabaseHandler(this);
@@ -37,6 +39,12 @@ public class ExerciseActivity extends AppCompatActivity {
         addExercise = (Button) findViewById(R.id.addExercise);
         showExercise = (Button) findViewById(R.id.showExerciseData);
         homeButton = (ImageButton) findViewById(R.id.exerciseHomeButton);
+        exerciseDate = (EditText) findViewById(R.id.exerciseDate);
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+        exerciseDate.setText(month+1  + "/" + day+ "/" + year);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,19 +59,11 @@ public class ExerciseActivity extends AppCompatActivity {
                 System.out.println("The add Exercise button is called here.");
                 Exercise exercise = new Exercise();
                 exercise.setDescription(exerciseDescription.getText().toString());
+                exercise.setDate(exerciseDate.getText().toString());
 
-               /* Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
-                try {
-                    calendar.setTime(sdf.parse("07/22/2017"));
-                } catch (ParseException e) {
-                    System.out.println("This conversion did not work.");
-                    e.printStackTrace();
-                }
-                exercise.setDate(calendar);
-                */
                 databaseHandler.add(exercise);
-                Toast.makeText(ExerciseActivity.this, "Description "+ exerciseDescription.getText().toString() + " Added",
+                Toast.makeText(ExerciseActivity.this, "Description "+ exerciseDescription.getText().toString() + " Date "+
+                                exerciseDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
 
             }
@@ -81,13 +81,39 @@ public class ExerciseActivity extends AppCompatActivity {
                     while (cursor.moveToNext()) {
                         stringBuffer.append("ID " + cursor.getString(0) + "\n");
                         stringBuffer.append("Description  " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Date " +cursor.getString(2) + "\n");
+                        stringBuffer.append("---------------------");
                     }
                     Toast.makeText(ExerciseActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
         });
+
+        exerciseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialog();
+            }
+        });
     }
+
+    public void DateDialog() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+
+                exerciseDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+
+            }
+        };
+
+        DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
+        dpDialog.show();
+    }
+
 
     @Override
     protected void onStart() {

@@ -52,7 +52,6 @@ public class RegimenActivity extends AppCompatActivity {
                 databaseHandler.add(regimen);
                 Toast.makeText(RegimenActivity.this, foodDescription.getText().toString() + " Added!",
                         Toast.LENGTH_LONG).show();
-
             }
         });
         showRegimen.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +68,6 @@ public class RegimenActivity extends AppCompatActivity {
                         stringBuffer.append("Description  " + cursor.getString(1) + "\n");
                     }
                     Toast.makeText(RegimenActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -90,24 +88,16 @@ public class RegimenActivity extends AppCompatActivity {
 
     }
 
-
     public void DateDialog() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-
-                regimenDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
-
+                 regimenDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
             }
         };
-
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
         dpDialog.show();
-
-
-
     }
 
     @Override

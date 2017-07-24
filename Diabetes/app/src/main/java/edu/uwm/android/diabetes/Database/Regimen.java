@@ -10,7 +10,7 @@ public class Regimen implements IDatabaseObject{
     private static final String CLASS_ID = "REGIMEN";
     private int id;
     private String description;
-    private Calendar date = GregorianCalendar.getInstance();
+    private String date ;
 
     public Regimen(){ }
 
@@ -30,9 +30,9 @@ public class Regimen implements IDatabaseObject{
         this.description = description;
     }
 
-    public void setDate(Calendar date){this.date = date;}
+    public void setDate(String date){this.date = date;}
 
-    public Calendar getDate(){
+    public String getDate(){
         return this.date;
     }
 

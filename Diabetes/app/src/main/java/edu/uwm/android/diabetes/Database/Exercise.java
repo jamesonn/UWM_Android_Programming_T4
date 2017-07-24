@@ -8,19 +8,19 @@ public class Exercise implements IDatabaseObject{
     private static final String CLASS_ID = "EXERCISE";
     private int id;
     private String description;
-    private Calendar date = GregorianCalendar.getInstance();
+    private String date ;
 
     //constructor 1
     public Exercise(){};
     //constructor 2
 
-    public Exercise(int id,String description, Calendar date){
+    public Exercise(int id,String description, String date){
         this.id = id;
         this.description = description;
         this.date = date;
     }
     //constructor 3
-    public Exercise(String description, Calendar date){
+    public Exercise(String description, String date){
         this.id = id;
         this.description = description;
         this.date = date;
@@ -35,7 +35,7 @@ public class Exercise implements IDatabaseObject{
     }
     //Output example: Thu Jul 13 15:00:00 CDT 2017 after using
     //getDate().getTime().toString;
-    public Calendar getDate(){
+    public String getDate(){
         return this.date;
     }
 
@@ -48,7 +48,7 @@ public class Exercise implements IDatabaseObject{
         this.description = description;
     }
 
-    public void setDate(Calendar date){this.date = date;}
+    public void setDate(String date){this.date = date;}
 
     public String getClassID(){
         return CLASS_ID;
