@@ -22,35 +22,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createBloodGlucoseTable = "create table " + Constants.TABLE_BLOOD_GLUCOSE + " ("
+        String createBloodGlucoseTable = " create table " + Constants.TABLE_BLOOD_GLUCOSE + " ("
                 + Constants.BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
                 + Constants.BLOOD_GLUCOSE_VALUE + " real, "
                 + Constants.BLOOD_GLUCOSE_DATE +" text);";
 
-        String createExerciseTable = "create table " + Constants.TABLE_EXERCISE + " ("
+        String createExerciseTable = " create table " + Constants.TABLE_EXERCISE + " ("
                 + Constants.EXERCISE_ID + " integer primary key autoincrement, "
                 + Constants.EXERCISE_DESCRIPTION+ " text not null, "
                 + Constants.EXERCISE_DATE+" text);";
 
-        String createDietTable = "Create table " + Constants.TABLE_DIET + " ("+
+        String createDietTable = " Create table " + Constants.TABLE_DIET + " ("+
                 Constants.DIET_ID + " integer primary key autoincrement, "
                 + Constants.DIET_DESCRIPTION+ " Text not null); ";
                // + Constants.DIET_DATE+" integer);";
 
-        String createMedicineTable = "Create table " + Constants.TABLE_MEDICINE + " ("+
+        String createMedicineTable = " Create table " + Constants.TABLE_MEDICINE + " ("+
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "
                 + Constants.MEDICINE_DESCRIPTION+ " Text not null, "
                 + Constants.MEDICINE_DATE+" integer);";
 
-        String createRegimenTable = "create table " + Constants.TABLE_REGIMEN + " ("
+        String createRegimenTable = " create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.REGIMEN_DESCRIPTION+ " text not null);";
 
         db.execSQL(createBloodGlucoseTable);
         db.execSQL(createExerciseTable);
         db.execSQL(createDietTable);
-        db.execSQL(createRegimenTable);
         db.execSQL(createMedicineTable);
+        db.execSQL(createRegimenTable);
     }
 
     @Override
