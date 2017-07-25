@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:stretchColumns="1">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/usernameLabel"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:gravity="right"
+                android:layout_marginLeft="20dp"
+                style="@style/LabelStyle"
+                android:text="Username: " />
+            <EditText
+                android:id="@+id/username"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginRight="20dp"
+                style="@style/EditTextStyle"
+                android:inputType="text" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:gravity="right"
+                android:layout_marginLeft="20dp"
+                style="@style/LabelStyle"
+                android:text="Password: " />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginRight="20dp"
+                style="@style/EditTextStyle"
+                android:inputType="numberPassword" />
+        </TableRow>
+
+        <TableRow
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="Login"/>
+            <Button
+                android:id="@+id/newUserButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="New User" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
