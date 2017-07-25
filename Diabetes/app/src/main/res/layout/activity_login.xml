@@ -69,5 +69,13 @@
                 android:layout_height="wrap_content"
                 android:text="New User" />
         </TableRow>
+        <TableRow
+            android:gravity="center_horizontal">
+            <CheckBox
+                android:id="@+id/checkboxRememberMe"
+                android:text="Remember me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </TableRow>
     </TableLayout>
 </RelativeLayout>

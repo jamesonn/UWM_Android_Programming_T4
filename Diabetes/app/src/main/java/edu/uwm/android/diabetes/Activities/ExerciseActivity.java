@@ -25,7 +25,7 @@ public class ExerciseActivity extends AppCompatActivity {
     ImageButton homeButton;
     Button addExercise, showExercise;
     DatabaseHandler databaseHandler;
-    EditText exerciseDescription, exerciseDate, exerciseCalories;
+    EditText exerciseDescription, exerciseDate;
     Calendar calendar;
     int day, month, year;
     @Override
@@ -33,7 +33,6 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         databaseHandler = new DatabaseHandler(this);
-        exerciseCalories = (EditText) findViewById(R.id.editTextExerciseCalories);
         exerciseDescription = (EditText) findViewById(R.id.editTextExerciseDescription);
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         addExercise = (Button) findViewById(R.id.addExercise);
