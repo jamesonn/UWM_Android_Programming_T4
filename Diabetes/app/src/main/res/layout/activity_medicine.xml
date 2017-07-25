@@ -6,47 +6,42 @@
     android:layout_height="match_parent"
     tools:context="edu.uwm.android.diabetes.Activities.MedicineActivity">
 
+
+    <EditText
+        android:id="@+id/editTextMedicineDescription"
+        style="@style/EditTextStyle"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="Description"/>
+
     <TextView
         android:id="@+id/textViewMedicineDescription"
         style="@style/LabelStyle"
         android:text="Description: "
-        android:layout_marginRight="27dp"
-        android:layout_marginEnd="27dp"
         android:layout_alignBaseline="@+id/editTextMedicineDescription"
         android:layout_alignBottom="@+id/editTextMedicineDescription"
-        android:layout_toLeftOf="@+id/editTextMedicineDate"
-        android:layout_toStartOf="@+id/editTextMedicineDate" />
+        android:layout_toLeftOf="@+id/editTextMedicineDescription"
+        android:layout_toStartOf="@+id/editTextMedicineDescription"/>
 
     <EditText
-        android:id="@+id/editTextMedicineDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="134dp"
+        android:id="@+id/editTextMedicineDate"
+        style="@style/EditTextStyle"
         android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textViewMedicineDescription"
-        android:layout_toEndOf="@+id/textViewMedicineDescription" />
+        android:layout_below="@+id/editTextMedicineDescription"
+        android:layout_alignLeft="@+id/editTextMedicineDescription"
+        android:layout_alignStart="@+id/editTextMedicineDescription"
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/textViewMedicineDate"
         style="@style/LabelStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Date: "
-        android:layout_below="@+id/editTextMedicineDescription"
-        android:layout_alignRight="@+id/textViewMedicineDescription"
-        android:layout_alignEnd="@+id/textViewMedicineDescription"
-        android:layout_marginTop="56dp" />
-
-    <EditText
-        android:id="@+id/editTextMedicineDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_alignBaseline="@+id/textViewMedicineDate"
-        android:layout_alignBottom="@+id/textViewMedicineDate"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBaseline="@+id/editTextMedicineDate"
+        android:layout_alignBottom="@+id/editTextMedicineDate"
+        android:layout_toLeftOf="@+id/editTextMedicineDate"
+        android:layout_toStartOf="@+id/editTextMedicineDate"/>
 
 
     <Button
