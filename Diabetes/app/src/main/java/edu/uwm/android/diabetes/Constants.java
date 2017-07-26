@@ -12,29 +12,28 @@ public class Constants {
     public static final String TABLE_DIET= "Diet";
     public static final String TABLE_REGIMEN = "Regimen";
     public static final String TABLE_MEDICINE= "Medicine";
+    public static final String TABLE_LOGIN = "Login";
 
-    // We add BloodGlucose Table Columns here
+
+    public static final String LOGIN_USERNAME = "USERNAME";
+    public static final String LOGIN_PASSWORD = "PASSWORD";
+
     public static final String BLOOD_GLUCOSE_ID = "BG_ID";
     public static final String BLOOD_GLUCOSE_VALUE = "Value";
     public static final String BLOOD_GLUCOSE_DATE = "Date";
 
-
-    // We add Exercise Table Columns here
     public static final String EXERCISE_ID = "EXERCISE_ID";
     public static final String EXERCISE_DESCRIPTION = "Description";
     public static final String EXERCISE_DATE = "Date";
 
-    // Diet table columns below
     public static final String DIET_ID = "DIET_ID";
     public static final String DIET_DESCRIPTION = "Description";
     public static final String DIET_DATE = "Date";
 
-    //Medicine table columns below
     public static final String MEDICINE_ID = "MEDICINE_ID";
     public static final String MEDICINE_DESCRIPTION = "Description";
     public static final String MEDICINE_DATE = "Date";
 
-    //Regimen table columns below
     public static final String REGIMEN_ID = "REGIMEN_ID";
     public static final String REGIMEN_DESCRIPTION = "Description";
 

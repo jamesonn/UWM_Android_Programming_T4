@@ -5,6 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import edu.uwm.android.diabetes.Activities.RegimenActivity;
 import edu.uwm.android.diabetes.Constants;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
@@ -17,6 +25,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        String createLoginTable = " create table " + Constants.TABLE_LOGIN + " ("
+                + Constants.LOGIN_USERNAME + " text primary key, "
+                + Constants.LOGIN_PASSWORD +" text);";
 
         String createBloodGlucoseTable = " create table " + Constants.TABLE_BLOOD_GLUCOSE + " ("
                 + Constants.BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
@@ -41,6 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.REGIMEN_DESCRIPTION+ " text not null);";
 
+        db.execSQL(createLoginTable);
         db.execSQL(createBloodGlucoseTable);
         db.execSQL(createExerciseTable);
         db.execSQL(createDietTable);
@@ -51,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_EXERCISE);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_BLOOD_GLUCOSE);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_DIET);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_MEDICINE);
@@ -64,12 +78,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            System.out.println("The type of the class is "+ classType);
 
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
                     BloodGlucose bgl = (BloodGlucose) object;
-
                     values.put(Constants.BLOOD_GLUCOSE_VALUE, bgl.getValue());
                     values.put(Constants.BLOOD_GLUCOSE_DATE, bgl.getDate().toString());
                     db.insert(Constants.TABLE_BLOOD_GLUCOSE, null, values);
@@ -88,7 +100,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     break;
                 case Constants.MEDICINE_CLASS:
                     Medicine medicine = (Medicine) object;
-
                     values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
                     values.put(Constants.MEDICINE_DATE, medicine.getDate().toString());
                     db.insert(Constants.TABLE_MEDICINE, null, values);
@@ -104,6 +115,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             db.close(); // Closing database connection
         }
+    }
+
+    public void addUser(User user){
+         SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constants.LOGIN_USERNAME, user.getUserName());
+        values.put(Constants.LOGIN_PASSWORD, user.getPassword());
+        db.insert(Constants.TABLE_LOGIN, null, values);
     }
 
     public void delete(IDatabaseObject object){
@@ -146,6 +165,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public boolean isUserRegistered (String userName){
+        boolean found = false;
+        Cursor result;
+        User userFound = new User();
+        SQLiteDatabase db = this.getWritableDatabase();
+        result = db.rawQuery("Select * from " +Constants.TABLE_LOGIN+ " WHERE " + Constants.LOGIN_USERNAME+ " = '" +userName+"'", null);
+        if (result.getCount() == 0) {
+            System.out.println("No Records");
+            found = false;
+        } else {
+            found = true;
+            while (result.moveToNext()) {
+                userFound.setUserName(result.getString(0));
+                userFound.setPassword(result.getString(1));
+            }
+        }
+
+        return found;
+    }
+
+    public User getUserByUserName (String userName){
+        Cursor result;
+        User userFound = new User();
+        SQLiteDatabase db = this.getWritableDatabase();
+        result = db.rawQuery("Select * from " +Constants.TABLE_LOGIN+ " WHERE " + Constants.LOGIN_USERNAME+ " = '" +userName+"'", null);
+        if (result.getCount() == 0) {
+            System.out.println("No Records");
+        } else {
+                while (result.moveToNext()) {
+                userFound.setUserName(result.getString(0));
+                userFound.setPassword(result.getString(1));
+            }
+        }
+        return userFound;
+    }
 
     public Cursor getData(IDatabaseObject object){
         Cursor result = null;
