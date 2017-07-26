@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editText_calories"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="35dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="Calories"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editText_foodDescription"
+        android:layout_alignStart="@+id/editText_foodDescription" />
+
+    <EditText
+        android:id="@+id/editText_foodDescription"
+        style="@style/EditTextStyle"
+        android:layout_below="@+id/editText_calories"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Description"/>
+
+    <TextView
+        android:id="@+id/textView_Calories"
+        style="@style/LabelStyle"
+        android:text="Calories: "
+        android:layout_alignBaseline="@+id/editText_calories"
+        android:layout_alignBottom="@+id/editText_calories"
+        android:layout_toLeftOf="@+id/editText_calories"
+        android:layout_toStartOf="@+id/editText_calories" />
+    <TextView
+        android:id="@+id/textView_Description"
+        style="@style/LabelStyle"
+        android:text="Description: "
+        android:layout_alignBaseline="@+id/editText_foodDescription"
+        android:layout_alignBottom="@+id/editText_foodDescription"
+        android:layout_toLeftOf="@+id/editText_foodDescription"
+        android:layout_toStartOf="@+id/editText_foodDescription" />
+
+
+    <ImageButton
+        android:id="@+id/regimenHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        app:srcCompat="@mipmap/homeicon" />
+
+    <Button
+        android:id="@+id/addRegimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Regimen"
+        android:layout_alignBaseline="@+id/showData"
+        android:layout_alignBottom="@+id/showData"
+        android:layout_alignRight="@+id/regimenDate"
+        android:layout_alignEnd="@+id/regimenDate" />
+
+    <Button
+        android:id="@+id/showData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Data"
+        android:layout_below="@+id/regimenDate"
+        android:layout_toLeftOf="@+id/regimenHomeButton"
+        android:layout_toStartOf="@+id/regimenHomeButton"
+        android:layout_marginTop="71dp" />
+
+    <EditText
+        android:id="@+id/regimenDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/editText_foodDescription"
+        android:layout_alignLeft="@+id/editText_foodDescription"
+        android:layout_alignStart="@+id/editText_foodDescription"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_alignBaseline="@+id/regimenDate"
+        android:layout_alignBottom="@+id/regimenDate"
+        android:layout_toLeftOf="@+id/regimenDate"
+        android:layout_toStartOf="@+id/regimenDate" />
+
+</RelativeLayout>

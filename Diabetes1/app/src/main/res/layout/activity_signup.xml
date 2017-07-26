@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/signUpUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Username" />
+
+    <EditText
+        android:id="@+id/signUpPassword1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signUpUsername"
+        android:layout_alignStart="@+id/signUpUsername"
+        android:layout_below="@+id/signUpUsername"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:hint="Type Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/signUpPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signUpPassword1"
+        android:layout_alignStart="@+id/signUpPassword1"
+        android:layout_below="@+id/signUpPassword1"
+        android:layout_marginTop="70dp"
+        android:hint="Confirm Password"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUpPassword2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:text="Sign up" />
+</RelativeLayout>
