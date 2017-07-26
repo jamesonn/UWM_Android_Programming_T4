@@ -23,7 +23,7 @@
                 android:gravity="right"
                 android:layout_marginLeft="20dp" />
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/editTextExerciseDescription"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/exerciseDate"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"

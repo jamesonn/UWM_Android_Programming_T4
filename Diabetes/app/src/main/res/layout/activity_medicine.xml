@@ -23,7 +23,7 @@
                 android:gravity="right"
                 android:layout_marginLeft="20dp" />
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/editTextMedicineDescription"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/editTextMedicineDate"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add Medicine"/>
             <Button
-                android:id="@+id/showExerciseData"
+                android:id="@+id/showMedincineData"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"

@@ -30,7 +30,6 @@ public class MedicineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
-        homeButton = (ImageButton) findViewById(R.id.medicineHomeButton);
 
         databaseHandler = new DatabaseHandler(this);
         medicineDescription = (EditText) findViewById(R.id.editTextMedicineDescription);
