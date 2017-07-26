@@ -14,22 +14,22 @@ import java.util.List;
 
 import edu.uwm.android.diabetes.Activities.ListDataActivity;
 import edu.uwm.android.diabetes.Database.Exercise;
+import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
-//TODO:this adapter works only for exercises, so far. Try to add exercises and check the list in the menu.
-
+//TODO: A more general adapter. It works for Exercises and Medicines
 public class DataAdapter extends
         RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     // Store a member variable for the data
-    private ArrayList<Exercise> exercises;
+    private ArrayList<IDatabaseObject> objects;
 
     private Context context;
 
     // Pass in the fruit array into the constructor
-    public DataAdapter(Context context, ArrayList<Exercise> exercises) {
-        this.exercises = exercises;
+    public DataAdapter(Context context, ArrayList<IDatabaseObject> objects) {
+        this.objects = objects;
         this.context = context;
     }
 
@@ -37,7 +37,6 @@ public class DataAdapter extends
     private Context getContext() {
         return context;
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate the custom layout
@@ -50,15 +49,29 @@ public class DataAdapter extends
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        Exercise e = exercises.get(position);
+        IDatabaseObject object = objects.get(position);
+        String type = object.getClassID();
+        switch (type){
+            case Constants.EXERCISE_CLASS:
+                Exercise exercise = (Exercise) object;
                 viewHolder.typeTextView.setText("EXERCISE");
-                viewHolder.infoTextView.setText(e.getDescription());
-                viewHolder.dateTextView.setText(e.getDate());
+                viewHolder.infoTextView.setText(exercise.getDescription());
+                viewHolder.dateTextView.setText(exercise.getDate());
+                break;
+            case Constants.MEDICINE_CLASS:
+                Medicine medicine= (Medicine) object;
+                viewHolder.typeTextView.setText("MEDICINE");
+                viewHolder.infoTextView.setText(medicine.getDescription());
+                viewHolder.dateTextView.setText(medicine.getDate());
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return exercises.size();
+        return objects.size();
     }
 
 

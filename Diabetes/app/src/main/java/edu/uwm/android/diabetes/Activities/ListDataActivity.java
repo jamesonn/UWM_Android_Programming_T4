@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import edu.uwm.android.diabetes.DataAdapter;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.Exercise;
+import edu.uwm.android.diabetes.Database.Medicine;
+import edu.uwm.android.diabetes.Database.Regimen;
+import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 import edu.uwm.android.diabetes.R;
 
 public class ListDataActivity extends AppCompatActivity {
 
     DatabaseHandler db;
-    private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
+    private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
 
 
     @Override
@@ -26,21 +29,37 @@ public class ListDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_data);
 
         db= new DatabaseHandler(this);
-        Exercise exercise = new Exercise();
-        Cursor cursor = db.getData(exercise);
 
-        if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+        Exercise exercise = new Exercise();
+        Cursor cursor1 = db.getData(exercise);
+
+        Medicine medicine = new Medicine();
+        Cursor cursor2 = db.getData(medicine);
+
+
+        if (cursor1.moveToFirst()) {
+            while (cursor1.moveToNext()) {
                 Exercise e = new Exercise();
-                e.setID(Integer.parseInt(cursor.getString(0)));
-                e.setDescription(cursor.getString(1));
-                e.setDate(cursor.getString(2));
-                exercises.add(e);
+                e.setID(Integer.parseInt(cursor1.getString(0)));
+                e.setDescription(cursor1.getString(1));
+                e.setDate(cursor1.getString(2));
+                objects.add(e);
             }
-        }else {Log.w("List Data Activity","Empty");}
+        }else {Log.w("List Data Activity","Cursor1 Empty");}
+
+        if (cursor2.moveToFirst()) {
+            while (cursor2.moveToNext()) {
+                Medicine m = new Medicine();
+                m.setID(Integer.parseInt(cursor2.getString(0)));
+                m.setDescription(cursor2.getString(1));
+                m.setDate(cursor2.getString(2));
+                objects.add(m);
+            }
+        }else {Log.w("List Data Activity","Cursor2 Empty");}
+
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
-        DataAdapter adapter = new DataAdapter(this, exercises);
+        DataAdapter adapter = new DataAdapter(this, objects);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

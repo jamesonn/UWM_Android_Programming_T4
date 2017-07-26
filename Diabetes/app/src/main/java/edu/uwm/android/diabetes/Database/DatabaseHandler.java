@@ -147,7 +147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Medicine medicine = (Medicine) object;
 
                     values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
-                    values.put(Constants.MEDICINE_DATE, medicine.getDate().toString());
+                    values.put(Constants.MEDICINE_DATE, medicine.getDate());
                     db.insert(Constants.TABLE_MEDICINE, null, values);
                     break;
                 case Constants.REGIMEN_CLASS:
