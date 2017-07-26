@@ -14,11 +14,10 @@ import edu.uwm.android.diabetes.Database.User;
 import edu.uwm.android.diabetes.R;
 
 /**
- * Created by Rafa on 7/24/2017.
+ * Created by Rafa on 7/25/2017.
  */
 
 public class LoginActivity extends AppCompatActivity {
-
     TextView signUp;
     Button login;
     EditText userName, password;

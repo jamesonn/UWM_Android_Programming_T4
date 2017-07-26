@@ -1,7 +1,7 @@
 package edu.uwm.android.diabetes.Database;
 
 /**
- * Created by Rafa on 7/24/2017.
+ * Created by Rafa on 7/25/2017.
  */
 
 public class User {

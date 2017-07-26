@@ -6,7 +6,6 @@ public class Constants {
     //Database name
     public static final String DATABASE_NAME = "Diabetes";
 
-    // We add the tables here
     public static final String TABLE_BLOOD_GLUCOSE = "BloodGlucose";
     public static final String TABLE_EXERCISE= "Exercise";
     public static final String TABLE_DIET= "Diet";

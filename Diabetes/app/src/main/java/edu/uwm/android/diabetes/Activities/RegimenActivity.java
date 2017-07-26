@@ -35,6 +35,7 @@ public class RegimenActivity extends AppCompatActivity {
         foodDescription = (EditText) findViewById(R.id.editText_foodDescription);
         addRegimen = (Button) findViewById(R.id.addRegimen);
         showRegimen = (Button) findViewById(R.id.showData);
+        homeButton = (ImageButton) findViewById(R.id.regimenHomeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

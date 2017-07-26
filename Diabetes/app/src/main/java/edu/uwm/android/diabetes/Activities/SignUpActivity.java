@@ -1,7 +1,6 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,7 @@ import edu.uwm.android.diabetes.Database.User;
 import edu.uwm.android.diabetes.R;
 
 /**
- * Created by Rafa on 7/24/2017.
+ * Created by Rafa on 7/25/2017.
  */
 
 public class SignUpActivity extends AppCompatActivity {
