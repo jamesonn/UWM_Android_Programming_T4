@@ -5,7 +5,7 @@
 
     <ImageView android:id="@+id/splashscreen" android:layout_width="282dp"
         android:layout_height="fill_parent"
-        android:src="@mipmap/splashscreenMedium"
+        android:src="@mipmap/splashscreenmedium"
         android:layout_gravity="center"/>
 
 
