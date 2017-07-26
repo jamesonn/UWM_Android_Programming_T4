@@ -1,10 +1,13 @@
 package edu.uwm.android.diabetes.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     EditText userName, password;
     DatabaseHandler databaseHandler;
+    CheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
         databaseHandler = new DatabaseHandler(this);
+        rememberMe = (CheckBox) findViewById(R.id.checkboxRememberMe);
+        showSharedPreferences();
         System.out.println("This is called man!");
 
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -61,5 +67,61 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //use this inside onPause()
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("name", userName.getText().toString());
+        editor.putString("password",password.getText().toString());
+        if(rememberMe.isChecked())
+            editor.putString("checkBox","checked");
+        else editor.putString("checkBox","");
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        if(!sp.equals(null)) {
+            userName.setText(sp.getString("name", ""));
+            password.setText(sp.getString("password", ""));
+            if(sp.getString("checkBox","").equals("checked"))
+            rememberMe.setChecked(true);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(rememberMe.isChecked()){
+            saveSharedPreferences();
+        }else{
+            SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.clear();
+            editor.commit();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 }
