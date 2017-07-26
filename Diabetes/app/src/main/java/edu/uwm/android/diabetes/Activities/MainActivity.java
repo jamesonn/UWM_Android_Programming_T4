@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, MedicineActivity.class );
         } else if (id == R.id.nav_regimen) {
             intent = new Intent(this, RegimenActivity.class );
+        } else if (id == R.id.nav_List){
+            intent = new Intent(this, ListDataActivity.class);
         }
 
         startActivity(intent);

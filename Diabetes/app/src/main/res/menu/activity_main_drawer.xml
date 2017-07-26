@@ -30,6 +30,9 @@
             android:id="@+id/nav_medicine"
             android:icon="@drawable/noun_942710_cc"
             android:title="Medicine" />
+        <item
+            android:id="@+id/nav_List"
+            android:title="List" />
     </group>
 
 

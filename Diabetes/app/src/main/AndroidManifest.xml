@@ -12,18 +12,14 @@
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.SignUpActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name=".Activities.SplashActivity"
             android:label="Splash screen">
@@ -37,11 +33,23 @@
             android:name=".Activities.ExerciseActivity"
             android:label="@string/activity_Exercise"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.MedicineActivity" android:label="Medicine"/>
-        <activity android:name=".Activities.RemindersActivity" android:label="Reminders"/>
-        <activity android:name=".Activities.GraphActivity" android:label="Graph" />
-        <activity android:name=".Activities.StatisticsActivity" android:label="Statistics"/>
-         <activity android:name=".Activities.RegimenActivity" android:label="Regimen"/>
+        <activity
+            android:name=".Activities.MedicineActivity"
+            android:label="Medicine" />
+        <activity
+            android:name=".Activities.RemindersActivity"
+            android:label="Reminders" />
+        <activity
+            android:name=".Activities.GraphActivity"
+            android:label="Graph" />
+        <activity
+            android:name=".Activities.StatisticsActivity"
+            android:label="Statistics" />
+        <activity
+            android:name=".Activities.RegimenActivity"
+            android:label="Regimen" />
+        <activity android:name=".Activities.ListDataActivity"
+            android:label="Data List"></activity>
     </application>
 
 </manifest>
