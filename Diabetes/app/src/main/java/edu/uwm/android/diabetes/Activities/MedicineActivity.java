@@ -26,6 +26,7 @@ public class MedicineActivity extends AppCompatActivity {
     EditText medicineDescription, medicineDate;
     Calendar calendar;
     int day, month, year;
+    String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +58,8 @@ public class MedicineActivity extends AppCompatActivity {
                 Medicine medicine = new Medicine();
                 medicine.setDescription(medicineDescription.getText().toString());
                 medicine.setDate(medicineDate.getText().toString());
-
-                databaseHandler.add(medicine);
+                userName =  getIntent().getStringExtra("userName");
+                databaseHandler.add(medicine, userName);
                 Toast.makeText(MedicineActivity.this, "Description "+ medicineDescription.getText().toString() + " Date "+
                                 medicineDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
@@ -69,16 +70,17 @@ public class MedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Medicine medicine = new Medicine();
-                Cursor cursor = databaseHandler.getData(medicine);
+                Cursor cursor = databaseHandler.getDatabyUserName(medicine,userName);
                 if (cursor.getCount() == 0) {
-                    Toast.makeText(MedicineActivity.this, "No data to show", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MedicineActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
                 } else {
                     StringBuffer stringBuffer = new StringBuffer();
                     while (cursor.moveToNext()) {
                         stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(2) + "\n");
-                        stringBuffer.append("---------------------");
+                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
+                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
+                        stringBuffer.append("---------------------\n");
                     }
                     Toast.makeText(MedicineActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
 

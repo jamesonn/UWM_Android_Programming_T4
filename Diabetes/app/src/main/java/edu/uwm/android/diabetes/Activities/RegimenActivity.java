@@ -25,6 +25,7 @@ public class RegimenActivity extends AppCompatActivity {
     EditText foodDescription, regimenDate;
     Calendar calendar;
     int day, month, year;
+    String userName;
 
 
     @Override
@@ -49,7 +50,8 @@ public class RegimenActivity extends AppCompatActivity {
                 System.out.println("The add Regimen button is called here.");
                 Regimen regimen = new Regimen();
                 regimen.setDescription(foodDescription.getText().toString());
-                databaseHandler.add(regimen);
+                userName =  getIntent().getStringExtra("userName");
+                databaseHandler.add(regimen, userName);
                 Toast.makeText(RegimenActivity.this, foodDescription.getText().toString() + " Added!",
                         Toast.LENGTH_LONG).show();
             }
@@ -58,16 +60,17 @@ public class RegimenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Regimen regimen = new Regimen();
-                Cursor cursor = databaseHandler.getData(regimen);
+                Cursor cursor = databaseHandler.getDatabyUserName(regimen, userName);
                 if (cursor.getCount() == 0) {
-                    Toast.makeText(RegimenActivity.this, "No data to show", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegimenActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
                 } else {
                     StringBuffer stringBuffer = new StringBuffer();
                     while (cursor.moveToNext()) {
                         stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(1) + "\n");
+                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
                     }
-                    Toast.makeText(RegimenActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegimenActivity.this, stringBuffer.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

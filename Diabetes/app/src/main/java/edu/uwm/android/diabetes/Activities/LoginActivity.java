@@ -53,16 +53,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //See if user exists
                 if(!databaseHandler.isUserRegistered(userName.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "User not registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "User not registered", Toast.LENGTH_SHORT).show();
                 }else{
-                    User user = new User();
+                    User user;
                     user = databaseHandler.getUserByUserName(userName.getText().toString());
                     System.out.println("-----> Entered "+password+ " userDB "+user.getPassword());
                     if(user.getPassword().equals(password.getText().toString())){
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("userName", user.getUserName());
                         startActivity(intent);
                     }else{
-                        Toast.makeText(getApplicationContext(), "Password incorrect", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Password incorrect", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

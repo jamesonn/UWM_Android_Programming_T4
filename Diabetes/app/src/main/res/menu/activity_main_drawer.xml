@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group  android:id="@+id/healthGroup" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_blood"
             android:icon="@mipmap/dropicon"
@@ -32,7 +32,14 @@
             android:title="Medicine" />
         <item
             android:id="@+id/nav_List"
-            android:title="List" />
+            android:title="List"
+            android:icon="@mipmap/listicon"/>
+    </group>
+    <group android:id="@+id/logOutGroup" android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="Logout"
+            android:icon="@mipmap/logouticon"/>
     </group>
 
 

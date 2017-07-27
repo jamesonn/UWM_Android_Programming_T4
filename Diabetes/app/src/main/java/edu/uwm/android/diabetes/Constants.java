@@ -14,6 +14,7 @@ public class Constants {
     public static final String TABLE_LOGIN = "Login";
 
 
+    public static final String USERNAME = "USERNAME";
     public static final String LOGIN_USERNAME = "USERNAME";
     public static final String LOGIN_PASSWORD = "PASSWORD";
 
