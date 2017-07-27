@@ -183,13 +183,13 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/MEDL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_weight="1"
 
-        android:backgroundTint="#52ad56"
-
-        android:id="@+id/cardioBtn">
+        android:backgroundTint="#52ad56">
 
         <ImageView
             android:layout_width="wrap_content"

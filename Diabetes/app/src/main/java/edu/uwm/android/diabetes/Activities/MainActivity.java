@@ -35,33 +35,11 @@ public class MainActivity extends AppCompatActivity
         welcomeMessage.setText("Welcome "+userName);
 
 
-//        RelativeLayout BGL = (RelativeLayout)findViewById(R.id.BGLL);
-//        RelativeLayout exercise = (RelativeLayout)findViewById(R.id.EXERCISEL);
-//        RelativeLayout diet = (RelativeLayout)findViewById(R.id.DIETL);
-//
-//
-//        BGL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadDetailActivity(MainActivity.EXERCISE_WEIGHTS);
-//            }
-//        });
-//
-//        exercise.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadDetailActivity(MainActivity.EXERCISE_YOGA);
-//            }
-//        });
-//
-//        diet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadDetailActivity(MainActivity.EXERCISE_CARDIO);
-//            }
-//        });
-//    }
-//
+        RelativeLayout BGL = (RelativeLayout)findViewById(R.id.BGLL);
+        RelativeLayout exercise = (RelativeLayout)findViewById(R.id.EXERCISEL);
+        RelativeLayout diet = (RelativeLayout)findViewById(R.id.DIETL);
+        RelativeLayout med = (RelativeLayout)findViewById(R.id.MEDL);
+
 
 
 
@@ -76,7 +54,49 @@ public class MainActivity extends AppCompatActivity
 
         //Calling the database
         databaseHandler = new DatabaseHandler(this);
+
+
+        BGL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, RegimenActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
+            }
+        });
+
+        exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, ExerciseActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
+            }
+        });
+
+        diet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, MedicineActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
+            }
+        });
+        med.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, MedicineActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
+            }
+        });
     }
+
+
 
 //    private void loadDetailActivity(String activityName) {
 //        Intent intent = new Intent(this, DetailsActivity.class);
