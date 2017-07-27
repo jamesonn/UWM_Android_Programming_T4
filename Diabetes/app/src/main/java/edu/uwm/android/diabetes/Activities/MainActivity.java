@@ -10,7 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
@@ -33,6 +34,37 @@ public class MainActivity extends AppCompatActivity
         userName =  getIntent().getStringExtra("userName");
         welcomeMessage.setText("Welcome "+userName);
 
+
+//        RelativeLayout BGL = (RelativeLayout)findViewById(R.id.BGLL);
+//        RelativeLayout exercise = (RelativeLayout)findViewById(R.id.EXERCISEL);
+//        RelativeLayout diet = (RelativeLayout)findViewById(R.id.DIETL);
+//
+//
+//        BGL.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadDetailActivity(MainActivity.EXERCISE_WEIGHTS);
+//            }
+//        });
+//
+//        exercise.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadDetailActivity(MainActivity.EXERCISE_YOGA);
+//            }
+//        });
+//
+//        diet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loadDetailActivity(MainActivity.EXERCISE_CARDIO);
+//            }
+//        });
+//    }
+//
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -45,6 +77,12 @@ public class MainActivity extends AppCompatActivity
         //Calling the database
         databaseHandler = new DatabaseHandler(this);
     }
+
+//    private void loadDetailActivity(String activityName) {
+//        Intent intent = new Intent(this, DetailsActivity.class);
+//        intent.putExtra(MainActivity.EXTRA_ITEM_TITLE, exerciseTitle);
+//        startActivity(intent);
+//    }
 
     @Override
     public void onBackPressed() {
