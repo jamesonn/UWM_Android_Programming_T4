@@ -54,13 +54,13 @@ public class DataAdapter extends
         switch (type){
             case Constants.EXERCISE_CLASS:
                 Exercise exercise = (Exercise) object;
-                viewHolder.typeTextView.setText("EXERCISE");
+                viewHolder.typeTextView.setText(R.string.activity_Exercise);
                 viewHolder.infoTextView.setText(exercise.getDescription());
                 viewHolder.dateTextView.setText(exercise.getDate());
                 break;
             case Constants.MEDICINE_CLASS:
                 Medicine medicine= (Medicine) object;
-                viewHolder.typeTextView.setText("MEDICINE");
+                viewHolder.typeTextView.setText(R.string.activity_Medicine);
                 viewHolder.infoTextView.setText(medicine.getDescription());
                 viewHolder.dateTextView.setText(medicine.getDate());
                 break;

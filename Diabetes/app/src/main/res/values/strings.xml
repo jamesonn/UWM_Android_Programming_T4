@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="activity_Regimen">Regimen</string>
     <string name="activity_Exercise">Exercise</string>
+    <string name="activity_Medicine">Medicine</string>
+
 
 </resources>
