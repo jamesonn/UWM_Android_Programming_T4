@@ -26,14 +26,16 @@
             android:gravity="center"
             android:text="TextView"
             android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:layout_marginBottom="5dp"
+            />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/BGLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
@@ -84,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_marginBottom="5dp"
+
         android:layout_weight="1"
         android:background="@color/colorAccent">
 
@@ -134,7 +136,7 @@
         android:layout_height="match_parent"
 
         android:layout_alignBottom="@+id/EXERCISEL"
-        android:layout_marginBottom="5dp"
+
         android:layout_toEndOf="@+id/textView6"
         android:layout_toRightOf="@+id/textView6"
         android:layout_weight="1"
@@ -186,7 +188,7 @@
         android:layout_weight="1"
 
         android:backgroundTint="#52ad56"
-        android:layout_marginBottom="5dp"
+
         android:id="@+id/cardioBtn">
 
         <ImageView
