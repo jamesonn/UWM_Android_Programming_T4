@@ -41,8 +41,8 @@ public class ListDataActivity extends AppCompatActivity {
             do {
                 Exercise e = new Exercise();
                 e.setID(Integer.parseInt(cursor1.getString(0)));
-                e.setDescription(cursor1.getString(1));
-                e.setDate(cursor1.getString(2));
+                e.setDescription(cursor1.getString(2));
+                e.setDate(cursor1.getString(3));
                 objects.add(e);
             }while (cursor1.moveToNext());
         }else {Log.w("List Data Activity","Cursor1 Empty");}
@@ -51,8 +51,8 @@ public class ListDataActivity extends AppCompatActivity {
             do {
                 Medicine m = new Medicine();
                 m.setID(Integer.parseInt(cursor2.getString(0)));
-                m.setDescription(cursor2.getString(1));
-                m.setDate(cursor2.getString(2));
+                m.setDescription(cursor2.getString(2));
+                m.setDate(cursor2.getString(3));
                 objects.add(m);
             }while(cursor2.moveToNext());
         }else {Log.w("List Data Activity","Cursor2 Empty");}
