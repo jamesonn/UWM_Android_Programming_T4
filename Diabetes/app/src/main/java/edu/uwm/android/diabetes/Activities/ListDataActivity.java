@@ -21,6 +21,7 @@ public class ListDataActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
+    String userName;
 
 
     @Override
@@ -29,6 +30,7 @@ public class ListDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_data);
 
         db= new DatabaseHandler(this);
+        userName = getIntent().getStringExtra("userName");
 
         Exercise exercise = new Exercise();
         Cursor cursor1 = db.getData(exercise);
@@ -39,21 +41,25 @@ public class ListDataActivity extends AppCompatActivity {
 
         if (cursor1.moveToFirst()) {
             do {
-                Exercise e = new Exercise();
-                e.setID(Integer.parseInt(cursor1.getString(0)));
-                e.setDescription(cursor1.getString(2));
-                e.setDate(cursor1.getString(3));
-                objects.add(e);
+                if (cursor1.getString(1).equals(userName)) {
+                    Exercise e = new Exercise();
+                    e.setID(Integer.parseInt(cursor1.getString(0)));
+                    e.setDescription(cursor1.getString(2));
+                    e.setDate(cursor1.getString(3));
+                    objects.add(e);
+                }
             }while (cursor1.moveToNext());
         }else {Log.w("List Data Activity","Cursor1 Empty");}
 
         if (cursor2.moveToFirst()) {
             do {
-                Medicine m = new Medicine();
-                m.setID(Integer.parseInt(cursor2.getString(0)));
-                m.setDescription(cursor2.getString(2));
-                m.setDate(cursor2.getString(3));
-                objects.add(m);
+                if (cursor2.getString(1).equals(userName)) {
+                    Medicine m = new Medicine();
+                    m.setID(Integer.parseInt(cursor2.getString(0)));
+                    m.setDescription(cursor2.getString(2));
+                    m.setDate(cursor2.getString(3));
+                    objects.add(m);
+                }
             }while(cursor2.moveToNext());
         }else {Log.w("List Data Activity","Cursor2 Empty");}
 
