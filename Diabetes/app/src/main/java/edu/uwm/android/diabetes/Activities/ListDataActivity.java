@@ -34,7 +34,6 @@ public class ListDataActivity extends AppCompatActivity {
 
         Exercise exercise = new Exercise();
         Cursor cursor1 = db.getData(exercise);
-
         Medicine medicine = new Medicine();
         Cursor cursor2 = db.getData(medicine);
 

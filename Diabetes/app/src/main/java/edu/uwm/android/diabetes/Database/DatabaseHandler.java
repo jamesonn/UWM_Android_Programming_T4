@@ -26,35 +26,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String createLoginTable = " create table " + Constants.TABLE_LOGIN + " ("
                 + Constants.LOGIN_USERNAME + " text primary key, "
-                + Constants.LOGIN_PASSWORD +" text);";
+                + Constants.LOGIN_PASSWORD + " text);";
 
         String createBloodGlucoseTable = " create table " + Constants.TABLE_BLOOD_GLUCOSE + " ("
                 + Constants.BLOOD_GLUCOSE_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
                 + Constants.BLOOD_GLUCOSE_VALUE + " real, "
-                + Constants.BLOOD_GLUCOSE_DATE +" text);";
+                + Constants.BLOOD_GLUCOSE_DATE + " text);";
 
         String createExerciseTable = " create table " + Constants.TABLE_EXERCISE + " ("
                 + Constants.EXERCISE_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.EXERCISE_DESCRIPTION+ " text not null, "
-                + Constants.EXERCISE_DATE+" text);";
+                + Constants.EXERCISE_DESCRIPTION + " text not null, "
+                + Constants.EXERCISE_DATE + " text);";
 
-        String createDietTable = " Create table " + Constants.TABLE_DIET + " ("+
+        String createDietTable = " Create table " + Constants.TABLE_DIET + " (" +
                 Constants.DIET_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.DIET_DESCRIPTION+ " Text not null); ";
+                + Constants.DIET_DESCRIPTION + " Text not null); ";
 
-        String createMedicineTable = " Create table " + Constants.TABLE_MEDICINE + " ("+
+        String createMedicineTable = " Create table " + Constants.TABLE_MEDICINE + " (" +
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.MEDICINE_DESCRIPTION+ " Text not null, "
-                + Constants.MEDICINE_DATE+" Text);";
+                + Constants.MEDICINE_DESCRIPTION + " Text not null, "
+                + Constants.MEDICINE_DATE + " Text);";
 
         String createRegimenTable = " create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.REGIMEN_DESCRIPTION+ " text not null);";
+                + Constants.REGIMEN_DESCRIPTION + " text not null);";
 
 
         db.execSQL(createLoginTable);
@@ -76,7 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser(User user){
+    public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Constants.LOGIN_USERNAME, user.getUserName());
@@ -84,11 +84,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(Constants.TABLE_LOGIN, null, values);
     }
 
-    public User getUserByUserName (String userName){
+    public User getUserByUserName(String userName) {
         Cursor result;
         User userFound = new User();
         SQLiteDatabase db = this.getWritableDatabase();
-        result = db.rawQuery("Select * from " +Constants.TABLE_LOGIN+ " WHERE " + Constants.LOGIN_USERNAME+ " = '" +userName+"'", null);
+        result = db.rawQuery("Select * from " + Constants.TABLE_LOGIN + " WHERE " + Constants.LOGIN_USERNAME + " = '" + userName + "'", null);
         if (result.getCount() == 0) {
             System.out.println("No Records");
         } else {
@@ -100,12 +100,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return userFound;
     }
 
-    public boolean isUserRegistered (String userName){
+    public boolean isUserRegistered(String userName) {
         boolean found = false;
         Cursor result;
         User userFound = new User();
         SQLiteDatabase db = this.getWritableDatabase();
-        result = db.rawQuery("Select * from " +Constants.TABLE_LOGIN+ " WHERE " + Constants.LOGIN_USERNAME+ " = '" +userName+"'", null);
+        result = db.rawQuery("Select * from " + Constants.TABLE_LOGIN + " WHERE " + Constants.LOGIN_USERNAME + " = '" + userName + "'", null);
         if (result.getCount() == 0) {
             System.out.println("No Records");
             found = false;
@@ -120,13 +120,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return found;
     }
 
-    public void add(IDatabaseObject object, String userName){
-        if(object != null) {
+    public void add(IDatabaseObject object, String userName) {
+        if (object != null) {
             String classType = object.getClassID();
 
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            System.out.println("The type of the class is "+ classType);
+            System.out.println("The type of the class is " + classType);
 
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
@@ -173,8 +173,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void delete(IDatabaseObject object){
-        if(object != null) {
+    public void delete(IDatabaseObject object) {
+        if (object != null) {
             String classType = object.getClassID();
 
             SQLiteDatabase db = this.getWritableDatabase();
@@ -183,27 +183,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 case Constants.BLOODGLUCOSE_CLASS:
                     BloodGlucose bgl = (BloodGlucose) object;
 
-                    db.delete(Constants.TABLE_BLOOD_GLUCOSE, Constants.BLOOD_GLUCOSE_ID+ "=" + bgl.getID() , null);
+                    db.delete(Constants.TABLE_BLOOD_GLUCOSE, Constants.BLOOD_GLUCOSE_ID + "=" + bgl.getID(), null);
                     break;
                 case Constants.DIET_CLASS:
                     Diet diet = (Diet) object;
 
-                    db.delete(Constants.TABLE_DIET, Constants.DIET_ID+ "=" + diet.getID() , null);
+                    db.delete(Constants.TABLE_DIET, Constants.DIET_ID + "=" + diet.getID(), null);
                     break;
                 case Constants.EXERCISE_CLASS:
                     Exercise exercise = (Exercise) object;
 
-                    db.delete(Constants.TABLE_EXERCISE, Constants.EXERCISE_ID+ "=" + exercise.getID() , null);
+                    db.delete(Constants.TABLE_EXERCISE, Constants.EXERCISE_ID + "=" + exercise.getID(), null);
                     break;
                 case Constants.MEDICINE_CLASS:
                     Medicine medicine = (Medicine) object;
 
-                    db.delete(Constants.TABLE_MEDICINE, Constants.MEDICINE_ID+ "=" + medicine.getID() , null);
+                    db.delete(Constants.TABLE_MEDICINE, Constants.MEDICINE_ID + "=" + medicine.getID(), null);
                     break;
                 case Constants.REGIMEN_CLASS:
                     Regimen regimen = (Regimen) object;
 
-                    db.delete(Constants.TABLE_REGIMEN, Constants.REGIMEN_ID+ "=" + regimen.getID() , null);
+                    db.delete(Constants.TABLE_REGIMEN, Constants.REGIMEN_ID + "=" + regimen.getID(), null);
                     break;
                 default:
                     //TODO Throw an error? Should never happen
@@ -214,58 +214,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getData(IDatabaseObject object){
+    public Cursor getData(IDatabaseObject object) {
         Cursor result = null;
-        if(object != null) {
-            String classType = object.getClassID();
-
-            SQLiteDatabase db = this.getWritableDatabase();
-             switch (classType) {
-                case Constants.BLOODGLUCOSE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_BLOOD_GLUCOSE, null);
-                    break;
-                case Constants.DIET_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_DIET, null);
-                    break;
-                case Constants.EXERCISE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_EXERCISE, null);
-                    break;
-                case Constants.MEDICINE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_MEDICINE, null);
-                    break;
-                case Constants.REGIMEN_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_REGIMEN, null);
-                    break;
-                default:
-                    //TODO Throw an error? Should never happen
-                    break;
-            }
-
-        }
-        return result;
-    }
-
-    public Cursor getDatabyUserName(IDatabaseObject object, String userName){
-        Cursor result = null;
-        if(object != null) {
+        if (object != null) {
             String classType = object.getClassID();
 
             SQLiteDatabase db = this.getWritableDatabase();
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_BLOOD_GLUCOSE+ " WHERE USERNAME='"+userName+"'", null);
+                    result = db.rawQuery("Select * from " + Constants.TABLE_BLOOD_GLUCOSE, null);
                     break;
                 case Constants.DIET_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_DIET+ " WHERE USERNAME='"+userName+"'", null);
+                    result = db.rawQuery("Select * from " + Constants.TABLE_DIET, null);
                     break;
                 case Constants.EXERCISE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_EXERCISE+ " WHERE USERNAME='"+userName+"'", null);
+                    result = db.rawQuery("Select * from " + Constants.TABLE_EXERCISE, null);
                     break;
                 case Constants.MEDICINE_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_MEDICINE+ " WHERE USERNAME='"+userName+"'", null);
+                    result = db.rawQuery("Select * from " + Constants.TABLE_MEDICINE, null);
                     break;
                 case Constants.REGIMEN_CLASS:
-                    result = db.rawQuery("Select * from " +Constants.TABLE_REGIMEN+" WHERE USERNAME='"+userName+"'", null);
+                    result = db.rawQuery("Select * from " + Constants.TABLE_REGIMEN, null);
                     break;
                 default:
                     //TODO Throw an error? Should never happen
@@ -276,4 +245,82 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getDatabyUserName(IDatabaseObject object, String userName) {
+        Cursor result = null;
+        if (object != null) {
+            String classType = object.getClassID();
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            switch (classType) {
+                case Constants.BLOODGLUCOSE_CLASS:
+                    result = db.rawQuery("Select * from " + Constants.TABLE_BLOOD_GLUCOSE + " WHERE USERNAME='" + userName + "'", null);
+                    break;
+                case Constants.DIET_CLASS:
+                    result = db.rawQuery("Select * from " + Constants.TABLE_DIET + " WHERE USERNAME='" + userName + "'", null);
+                    break;
+                case Constants.EXERCISE_CLASS:
+                    result = db.rawQuery("Select * from " + Constants.TABLE_EXERCISE + " WHERE USERNAME='" + userName + "'", null);
+                    break;
+                case Constants.MEDICINE_CLASS:
+                    result = db.rawQuery("Select * from " + Constants.TABLE_MEDICINE + " WHERE USERNAME='" + userName + "'", null);
+                    break;
+                case Constants.REGIMEN_CLASS:
+                    result = db.rawQuery("Select * from " + Constants.TABLE_REGIMEN + " WHERE USERNAME='" + userName + "'", null);
+                    break;
+                default:
+                    //TODO Throw an error? Should never happen
+                    break;
+            }
+
+        }
+        return result;
+    }
+
+    public void update(int id, IDatabaseObject object) {
+        if (object != null) {
+            String classType = object.getClassID();
+            ContentValues values = new ContentValues();
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            switch (classType) {
+                case Constants.EXERCISE_CLASS:
+                    Exercise exercise = (Exercise) object;
+                    values.put(Constants.EXERCISE_DESCRIPTION, exercise.getDescription());
+                    values.put(Constants.EXERCISE_DATE, exercise.getDate());
+                    db.update(Constants.TABLE_EXERCISE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    db.close();
+                    break;
+                case Constants.MEDICINE_CLASS:
+                    Medicine medicine = (Medicine) object;
+                    values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
+                    values.put(Constants.MEDICINE_DATE, medicine.getDate());
+                    db.update(Constants.TABLE_MEDICINE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    db.close();
+                    break;
+                case Constants.DIET_CLASS:
+                    Diet diet = (Diet) object;
+                    values.put(Constants.DIET_DESCRIPTION, diet.getDescription());
+                    values.put(Constants.DIET_DATE, diet.getDate());
+                    db.update(Constants.TABLE_DIET, values, "id = ? ", new String[]{Integer.toString(id)});
+                    db.close();
+                    break;
+                case Constants.BLOODGLUCOSE_CLASS:
+                    BloodGlucose bgl = (BloodGlucose) object;
+                    values.put(Constants.BLOOD_GLUCOSE_VALUE, bgl.getValue());
+                    values.put(Constants.BLOOD_GLUCOSE_DATE, bgl.getDate());
+                    db.update(Constants.TABLE_BLOOD_GLUCOSE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    db.close();
+                    break;
+                case Constants.REGIMEN_CLASS:
+                    Regimen regimen = (Regimen) object;
+                    values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
+                    db.update(Constants.TABLE_REGIMEN, values, "id = ? ", new String[]{Integer.toString(id)});
+                    db.close();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
 }
