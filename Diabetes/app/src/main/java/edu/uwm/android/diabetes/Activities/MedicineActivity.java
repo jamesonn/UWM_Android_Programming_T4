@@ -63,6 +63,8 @@ public class MedicineActivity extends AppCompatActivity {
                 Toast.makeText(MedicineActivity.this, "Description "+ medicineDescription.getText().toString() + " Date "+
                                 medicineDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
+                medicineDate.getText().clear();
+                medicineDescription.getText().clear();
 
             }
         });

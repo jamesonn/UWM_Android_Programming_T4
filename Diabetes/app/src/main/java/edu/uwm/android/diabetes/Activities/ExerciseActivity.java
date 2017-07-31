@@ -67,6 +67,8 @@ public class ExerciseActivity extends AppCompatActivity {
                 Toast.makeText(ExerciseActivity.this, "Description "+ exerciseDescription.getText().toString() + " Date "+
                                 exerciseDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
+                exerciseDate.getText().clear();
+                exerciseDescription.getText().clear();
 
             }
         });
