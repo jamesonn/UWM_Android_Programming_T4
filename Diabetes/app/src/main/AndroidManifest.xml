@@ -48,8 +48,10 @@
         <activity
             android:name=".Activities.RegimenActivity"
             android:label="Regimen" />
-        <activity android:name=".Activities.ListDataActivity"
-            android:label="Data List"></activity>
+        <activity
+            android:name=".Activities.ListDataActivity"
+            android:label="Data List" />
+        <activity android:name=".Activities.BGLActivity"></activity>
     </application>
 
 </manifest>

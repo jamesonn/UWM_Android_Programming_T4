@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, MedicineActivity.class );
+                intent = new Intent(MainActivity.this, DietActivity.class );
                 intent.putExtra("userName", userName );
                 startActivity(intent);
             }
@@ -145,10 +145,8 @@ public class MainActivity extends AppCompatActivity
         Intent intent = null;
         int id = item.getItemId();
 
-        if (id == R.id.nav_blood) {
-            intent = new Intent(this, RegimenActivity.class );
-            intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_graph) {
+
+         if (id == R.id.nav_graph) {
             intent = new Intent(this, GraphActivity.class );
             intent.putExtra("userName", userName );
         } else if (id == R.id.nav_stats) {
@@ -157,13 +155,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_reminders) {
             intent = new Intent(this, RemindersActivity.class );
             intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_exercise) {
-            intent = new Intent(this, ExerciseActivity.class );
-            intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_medicine) {
-            intent = new Intent(this, MedicineActivity.class );
-            intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_regimen) {
+        }
+
+         else if (id == R.id.nav_regimen) {
             intent = new Intent(this, RegimenActivity.class );
             intent.putExtra("userName", userName );
         } else if (id == R.id.nav_List){

@@ -9,6 +9,16 @@ public class Diet implements IDatabaseObject {
     private String description;
     private String date;
 
+    public Diet() {
+
+    }
+
+    public Diet(int id, String description, String date) {
+        this.id = id;
+        this.description = description;
+        this.date = date;
+    }
+
     public Diet(String description, String date){
         this.description = description;
         this.date = date;
