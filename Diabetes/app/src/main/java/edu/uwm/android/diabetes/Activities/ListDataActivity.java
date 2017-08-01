@@ -39,9 +39,9 @@ public class ListDataActivity extends AppCompatActivity {
         Medicine medicine = new Medicine();
         Cursor cursor2 = db.getData(medicine);
         Diet diet= new Diet();
-        Cursor cursor3 = db.getData(medicine);
+        Cursor cursor3 = db.getData(diet);
         BloodGlucose bgl = new BloodGlucose();
-        Cursor cursor4 = db.getData(medicine);
+        Cursor cursor4 = db.getData(bgl);
 
         if (cursor1.moveToFirst()) {
             do {

@@ -57,17 +57,17 @@ public class DActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("The add Diet button is called here.");
-                Diet Diet = new Diet();
-                Diet.setDescription(DietDescription.getText().toString());
-                Diet.setDate(DietDate.getText().toString());
+                Diet diet = new Diet();
+                diet.setDescription(dietDescription.getText().toString());
+                diet.setDate(dietDate.getText().toString());
                 userName =  getIntent().getStringExtra("userName");
 
-                databaseHandler.add(Diet,userName);
-                Toast.makeText(DietActivity.this, "Description "+ DietDescription.getText().toString() + " Date "+
-                                DietDate.getText().toString()+" Added",
+                databaseHandler.add(diet,userName);
+                Toast.makeText(DActivity.this, "Description "+ dietDescription.getText().toString() + " Date "+
+                                dietDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
-                DietDate.getText().clear();
-                DietDescription.getText().clear();
+                dietDate.getText().clear();
+                dietDescription.getText().clear();
 
             }
         });
@@ -75,10 +75,10 @@ public class DActivity extends AppCompatActivity {
         showDiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Diet Diet = new Diet();
-                Cursor cursor = databaseHandler.getDatabyUserName(Diet, userName);
+                Diet diet = new Diet();
+                Cursor cursor = databaseHandler.getDatabyUserName(diet, userName);
                 if (cursor.getCount() == 0) {
-                    Toast.makeText(DietActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
                 } else {
                     StringBuffer stringBuffer = new StringBuffer();
                     while (cursor.moveToNext()) {
@@ -88,13 +88,13 @@ public class DActivity extends AppCompatActivity {
                         stringBuffer.append("Date " +cursor.getString(3) + "\n");
                         stringBuffer.append("---------------------\n");
                     }
-                    Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(DActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
 
                 }
             }
         });
 
-        DietDate.setOnClickListener(new View.OnClickListener() {
+        dietDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DateDialog();
@@ -109,7 +109,7 @@ public class DActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
 
-                DietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+                dietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
 
             }
         };
