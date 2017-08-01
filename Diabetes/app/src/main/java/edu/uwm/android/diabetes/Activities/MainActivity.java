@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent bglIntent;
-                bglIntent = new Intent(MainActivity.this, RegimenActivity.class );
+                bglIntent = new Intent(MainActivity.this, BGLActivity.class );
                 bglIntent.putExtra("userName", userName );
                 startActivity(bglIntent);
             }
