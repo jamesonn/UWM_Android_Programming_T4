@@ -52,70 +52,70 @@ public class DActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        addDiet.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("The add Diet button is called here.");
-//                Diet Diet = new Diet();
-//                Diet.setDescription(DietDescription.getText().toString());
-//                Diet.setDate(DietDate.getText().toString());
-//                userName =  getIntent().getStringExtra("userName");
-//
-//                databaseHandler.add(Diet,userName);
-//                Toast.makeText(DietActivity.this, "Description "+ DietDescription.getText().toString() + " Date "+
-//                                DietDate.getText().toString()+" Added",
-//                        Toast.LENGTH_LONG).show();
-//                DietDate.getText().clear();
-//                DietDescription.getText().clear();
-//
-//            }
-//        });
+        addDiet.setOnClickListener(new View.OnClickListener() {
 
-//        showDiet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Diet Diet = new Diet();
-//                Cursor cursor = databaseHandler.getDatabyUserName(Diet, userName);
-//                if (cursor.getCount() == 0) {
-//                    Toast.makeText(DietActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    StringBuffer stringBuffer = new StringBuffer();
-//                    while (cursor.moveToNext()) {
-//                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-//                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-//                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-//                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-//                        stringBuffer.append("---------------------\n");
-//                    }
-//                    Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-//
-//                }
-//            }
-//        });
-//
-//        DietDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DateDialog();
-//            }
-//        });
-//    }
-//
-//    public void DateDialog() {
-//        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
-//
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//
-//
-//                DietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
-//
-//            }
-//        };
-//
-//        DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
-//        dpDialog.show();
+            @Override
+            public void onClick(View v) {
+                System.out.println("The add Diet button is called here.");
+                Diet Diet = new Diet();
+                Diet.setDescription(DietDescription.getText().toString());
+                Diet.setDate(DietDate.getText().toString());
+                userName =  getIntent().getStringExtra("userName");
+
+                databaseHandler.add(Diet,userName);
+                Toast.makeText(DietActivity.this, "Description "+ DietDescription.getText().toString() + " Date "+
+                                DietDate.getText().toString()+" Added",
+                        Toast.LENGTH_LONG).show();
+                DietDate.getText().clear();
+                DietDescription.getText().clear();
+
+            }
+        });
+
+        showDiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Diet Diet = new Diet();
+                Cursor cursor = databaseHandler.getDatabyUserName(Diet, userName);
+                if (cursor.getCount() == 0) {
+                    Toast.makeText(DietActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
+                } else {
+                    StringBuffer stringBuffer = new StringBuffer();
+                    while (cursor.moveToNext()) {
+                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
+                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
+                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
+                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
+                        stringBuffer.append("---------------------\n");
+                    }
+                    Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+        DietDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialog();
+            }
+        });
+    }
+
+    public void DateDialog() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+
+                DietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+
+            }
+        };
+
+        DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
+        dpDialog.show();
     }
 
 

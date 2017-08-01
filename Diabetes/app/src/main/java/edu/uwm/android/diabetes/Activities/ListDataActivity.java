@@ -10,7 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import edu.uwm.android.diabetes.DataAdapter;
+import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.Database.Regimen;
@@ -36,7 +38,10 @@ public class ListDataActivity extends AppCompatActivity {
         Cursor cursor1 = db.getData(exercise);
         Medicine medicine = new Medicine();
         Cursor cursor2 = db.getData(medicine);
-
+        Diet diet= new Diet();
+        Cursor cursor3 = db.getData(medicine);
+        BloodGlucose bgl = new BloodGlucose();
+        Cursor cursor4 = db.getData(medicine);
 
         if (cursor1.moveToFirst()) {
             do {
@@ -61,6 +66,30 @@ public class ListDataActivity extends AppCompatActivity {
                 }
             }while(cursor2.moveToNext());
         }else {Log.w("List Data Activity","Cursor2 Empty");}
+
+        if (cursor3.moveToFirst()) {
+            do {
+                if (cursor3.getString(1).equals(userName)) {
+                    Diet d = new Diet();
+                    d.setID(Integer.parseInt(cursor3.getString(0)));
+                    d.setDescription(cursor3.getString(2));
+                    d.setDate(cursor3.getString(3));
+                    objects.add(d);
+                }
+            }while(cursor3.moveToNext());
+        }else {Log.w("List Data Activity","Cursor3 Empty");}
+
+        if (cursor4.moveToFirst()) {
+            do {
+                if (cursor4.getString(1).equals(userName)) {
+                    BloodGlucose b = new BloodGlucose();
+                    b.setID(Integer.parseInt(cursor4.getString(0)));
+                    b.setValue(Double.parseDouble(cursor4.getString(2)));
+                    b.setDate(cursor4.getString(3));
+                    objects.add(b);
+                }
+            }while(cursor4.moveToNext());
+        }else {Log.w("List Data Activity","Cursor4 Empty");}
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);

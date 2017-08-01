@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uwm.android.diabetes.Activities.ListDataActivity;
+import edu.uwm.android.diabetes.Database.BloodGlucose;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.Database.Regimen;
@@ -63,6 +65,18 @@ public class DataAdapter extends
                 viewHolder.typeTextView.setText(R.string.activity_Medicine);
                 viewHolder.infoTextView.setText(medicine.getDescription());
                 viewHolder.dateTextView.setText(medicine.getDate());
+                break;
+            case Constants.DIET_CLASS:
+                Diet diet= (Diet) object;
+                viewHolder.typeTextView.setText("Diet");
+                viewHolder.infoTextView.setText(diet.getDescription());
+                viewHolder.dateTextView.setText(diet.getDate());
+                break;
+            case Constants.BLOODGLUCOSE_CLASS:
+                BloodGlucose bgl= (BloodGlucose) object;
+                viewHolder.typeTextView.setText("BGL");
+                viewHolder.infoTextView.setText(String.valueOf(bgl.getValue()));
+                viewHolder.dateTextView.setText(bgl.getDate());
                 break;
             default:
                 break;
