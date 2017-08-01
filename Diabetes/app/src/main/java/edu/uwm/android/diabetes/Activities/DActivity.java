@@ -32,7 +32,7 @@ public class DActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diet);
+        setContentView(R.layout.activity_d);
         databaseHandler = new DatabaseHandler(this);
         dietDescription = (EditText) findViewById(R.id.editTextDietDescription);
         dietDate = (EditText) findViewById(R.id.dietDate);
