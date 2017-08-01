@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
-//import edu.uwm.android.diabetes.Database.BGL;
+import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
@@ -32,8 +32,8 @@ public class BGLActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bgl);
-        databaseHandler = new DatabaseHandler(this);
-        //BGLCalories = (EditText) findViewById(R.id.editTextBGLCalories);
+//        databaseHandler = new DatabaseHandler(this);
+//        //BGLCalories = (EditText) findViewById(R.id.editTextBGLCalories);
 //        BGLDescription = (EditText) findViewById(R.id.editTextBGLDescription);
 //        BGLDate = (EditText) findViewById(R.id.BGLDate);
 //        addBGL = (Button) findViewById(R.id.addBGL);
