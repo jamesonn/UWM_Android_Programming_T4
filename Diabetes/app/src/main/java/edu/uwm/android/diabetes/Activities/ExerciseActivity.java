@@ -21,8 +21,6 @@ import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class ExerciseActivity extends AppCompatActivity {
-
-    ImageButton homeButton;
     Button addExercise, showExercise;
     DatabaseHandler databaseHandler;
     EditText exerciseDescription, exerciseDate, exerciseCalories;
@@ -39,7 +37,7 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         addExercise = (Button) findViewById(R.id.addExercise);
         showExercise = (Button) findViewById(R.id.showExerciseData);
-        homeButton = (ImageButton) findViewById(R.id.exerciseHomeButton);
+
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -47,12 +45,6 @@ public class ExerciseActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         addExercise.setOnClickListener(new View.OnClickListener() {
 
             @Override

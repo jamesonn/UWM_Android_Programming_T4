@@ -20,7 +20,6 @@ import edu.uwm.android.diabetes.R;
 
 public class MedicineActivity extends AppCompatActivity {
 
-    ImageButton homeButton;
     Button addMedicine, showMedicine;
     DatabaseHandler databaseHandler;
     EditText medicineDescription, medicineDate;
@@ -43,12 +42,6 @@ public class MedicineActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         addMedicine.setOnClickListener(new View.OnClickListener() {
 
             @Override

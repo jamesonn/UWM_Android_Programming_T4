@@ -59,20 +59,20 @@ public class MainActivity extends AppCompatActivity
         BGL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, RegimenActivity.class );
-                intent.putExtra("userName", userName );
-                startActivity(intent);
+                Intent bglIntent;
+                bglIntent = new Intent(MainActivity.this, RegimenActivity.class );
+                bglIntent.putExtra("userName", userName );
+                startActivity(bglIntent);
             }
         });
 
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, ExerciseActivity.class );
-                intent.putExtra("userName", userName );
-                startActivity(intent);
+                Intent exerciseIntent;
+                exerciseIntent = new Intent(MainActivity.this, ExerciseActivity.class );
+                exerciseIntent.putExtra("userName", userName );
+                startActivity(exerciseIntent);
             }
         });
 
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity
         med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, MedicineActivity.class );
-                intent.putExtra("userName", userName );
-                startActivity(intent);
+                Intent medIntent;
+                medIntent = new Intent(MainActivity.this, MedicineActivity.class );
+                medIntent.putExtra("userName", userName );
+                startActivity(medIntent);
             }
         });
     }
