@@ -43,16 +43,6 @@
         android:layout_toLeftOf="@+id/editText_foodDescription"
         android:layout_toStartOf="@+id/editText_foodDescription" />
 
-
-    <ImageButton
-        android:id="@+id/regimenHomeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        app:srcCompat="@mipmap/homeicon" />
-
     <Button
         android:id="@+id/addRegimen"
         android:layout_width="wrap_content"

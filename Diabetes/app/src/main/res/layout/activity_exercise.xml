@@ -86,15 +86,4 @@
         android:layout_toLeftOf="@+id/exerciseDate"
         android:layout_toStartOf="@+id/exerciseDate" />
 
-
-
-    <ImageButton
-        android:id="@+id/exerciseHomeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        app:srcCompat="@mipmap/homeicon" />
-
 </RelativeLayout>
