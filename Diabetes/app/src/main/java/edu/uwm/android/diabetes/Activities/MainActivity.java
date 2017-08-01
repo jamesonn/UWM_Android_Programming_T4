@@ -59,39 +59,39 @@ public class MainActivity extends AppCompatActivity
         BGL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent bglIntent;
-                bglIntent = new Intent(MainActivity.this, BGLActivity.class );
-                bglIntent.putExtra("userName", userName );
-                startActivity(bglIntent);
+                Intent intent;
+                intent = new Intent(MainActivity.this, RegimenActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
             }
         });
 
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent exerciseIntent;
-                exerciseIntent = new Intent(MainActivity.this, ExerciseActivity.class );
-                exerciseIntent.putExtra("userName", userName );
-                startActivity(exerciseIntent);
+                Intent intent;
+                intent = new Intent(MainActivity.this, ExerciseActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
             }
         });
 
-     //   diet.setOnClickListener(new View.OnClickListener() {
-      //      @Override
-       //     public void onClick(View v) {
-     //           Intent intent;
-      //          intent = new Intent(MainActivity.this, DietActivity.class );
-       //         intent.putExtra("userName", userName );
-        //        startActivity(intent);
-        //    }
-       // });
+//        diet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent;
+//                intent = new Intent(MainActivity.this, DietActivity.class );
+//                intent.putExtra("userName", userName );
+//                startActivity(intent);
+//            }
+//        });
         med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent medIntent;
-                medIntent = new Intent(MainActivity.this, MedicineActivity.class );
-                medIntent.putExtra("userName", userName );
-                startActivity(medIntent);
+                Intent intent;
+                intent = new Intent(MainActivity.this, MedicineActivity.class );
+                intent.putExtra("userName", userName );
+                startActivity(intent);
             }
         });
     }
