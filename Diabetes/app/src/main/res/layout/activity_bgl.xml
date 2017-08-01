@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,4 +7,81 @@
     android:layout_height="match_parent"
     tools:context="edu.uwm.android.diabetes.Activities.BGLActivity">
 
+
+    <TextView
+        android:id="@+id/textViewBGLDescription"
+        style="@style/LabelStyle"
+        android:text="Enter BGL: "
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_alignBaseline="@+id/editTextBGLDescription"
+        android:layout_alignBottom="@+id/editTextBGLDescription"
+        android:layout_toLeftOf="@+id/editTextBGLDate"
+        android:layout_toStartOf="@+id/editTextBGLDate" />
+
+    <EditText
+        android:id="@+id/editTextBGLDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="134dp"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textViewBGLDescription"
+        android:layout_toEndOf="@+id/textViewBGLDescription" />
+
+    <TextView
+        android:id="@+id/textViewBGLDate"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_below="@+id/editTextBGLDescription"
+        android:layout_alignRight="@+id/textViewBGLDescription"
+        android:layout_alignEnd="@+id/textViewBGLDescription"
+        android:layout_marginTop="56dp" />
+
+    <EditText
+        android:id="@+id/editTextBGLDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_alignBaseline="@+id/textViewBGLDate"
+        android:layout_alignBottom="@+id/textViewBGLDate"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <Button
+        android:id="@+id/addBGL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add BGL"
+        android:layout_below="@+id/editTextBGLDescription"
+        android:layout_toRightOf="@+id/BGLHomeButton"
+        android:layout_toEndOf="@+id/BGLHomeButton"
+        android:layout_marginTop="139dp" />
+
+    <Button
+        android:id="@+id/showMedincineData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Data"
+        android:layout_alignBaseline="@+id/addBGL"
+        android:layout_alignBottom="@+id/addBGL"
+        android:layout_toLeftOf="@+id/editTextBGLDate"
+        android:layout_toStartOf="@+id/editTextBGLDate" />
+
+
+
+    <ImageButton
+        android:id="@+id/BGLHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        app:srcCompat="@mipmap/homeicon" />
+
+
 </RelativeLayout>
+

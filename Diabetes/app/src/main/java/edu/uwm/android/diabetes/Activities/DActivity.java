@@ -15,64 +15,70 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
-import edu.uwm.android.diabetes.Database.BloodGlucose;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
-public class BGLActivity extends AppCompatActivity {
-    Button addBGL, showBGL;
+public class DActivity extends AppCompatActivity {
+
+    ImageButton homeButton;
+    Button addDiet, showDiet;
     DatabaseHandler databaseHandler;
-    EditText BGLDescription, BGLDate, BGLCalories;
+    EditText dietDescription, dietDate, dietCalories;
     Calendar calendar;
     int day, month, year;
     String userName;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bgl);
-//        databaseHandler = new DatabaseHandler(this);
-//        //BGLCalories = (EditText) findViewById(R.id.editTextBGLCalories);
-//        BGLDescription = (EditText) findViewById(R.id.editTextBGLDescription);
-//        BGLDate = (EditText) findViewById(R.id.BGLDate);
-//        addBGL = (Button) findViewById(R.id.addBGL);
-//        showBGL = (Button) findViewById(R.id.showBGLData);
-//
-//        BGLDate = (EditText) findViewById(R.id.BGLDate);
-//        calendar = Calendar.getInstance();
-//        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        month = calendar.get(Calendar.MONTH);
-//        year = calendar.get(Calendar.YEAR);
-//        BGLDate.setText(month+1  + "/" + day+ "/" + year);
-//
-//        addBGL.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_d);
+        databaseHandler = new DatabaseHandler(this);
+        dietDescription = (EditText) findViewById(R.id.editTextDietDescription);
+        dietDate = (EditText) findViewById(R.id.dietDate);
+        addDiet = (Button) findViewById(R.id.addDiet);
+        showDiet = (Button) findViewById(R.id.showDietData);
+        homeButton = (ImageButton) findViewById(R.id.dietHomeButton);
+        dietDate = (EditText) findViewById(R.id.dietDate);
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+        dietDate.setText(month+1  + "/" + day+ "/" + year);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+//        addDiet.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
 //            public void onClick(View v) {
-//                System.out.println("The add BGL button is called here.");
-//                BloodGlucose BGL = new BloodGlucose();
-//                BGL.getValue(BGLDescription.getText().toString());
-//                BGL.setDate(BGLDate.getText().toString());
+//                System.out.println("The add Diet button is called here.");
+//                Diet Diet = new Diet();
+//                Diet.setDescription(DietDescription.getText().toString());
+//                Diet.setDate(DietDate.getText().toString());
 //                userName =  getIntent().getStringExtra("userName");
 //
-//                databaseHandler.add(BGL,userName);
-//                Toast.makeText(BGLActivity.this, "Description "+ BGLDescription.getText().toString() + " Date "+
-//                                BGLDate.getText().toString()+" Added",
+//                databaseHandler.add(Diet,userName);
+//                Toast.makeText(DietActivity.this, "Description "+ DietDescription.getText().toString() + " Date "+
+//                                DietDate.getText().toString()+" Added",
 //                        Toast.LENGTH_LONG).show();
-//                BGLDate.getText().clear();
-//                BGLDescription.getText().clear();
+//                DietDate.getText().clear();
+//                DietDescription.getText().clear();
 //
 //            }
 //        });
-//
-//        showBGL.setOnClickListener(new View.OnClickListener() {
+
+//        showDiet.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                BloodGlucose BGL = new BloodGlucose();
-//                Cursor cursor = databaseHandler.getDatabyUserName(BGL, userName);
+//                Diet Diet = new Diet();
+//                Cursor cursor = databaseHandler.getDatabyUserName(Diet, userName);
 //                if (cursor.getCount() == 0) {
-//                    Toast.makeText(BGLActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DietActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
 //                } else {
 //                    StringBuffer stringBuffer = new StringBuffer();
 //                    while (cursor.moveToNext()) {
@@ -82,13 +88,13 @@ public class BGLActivity extends AppCompatActivity {
 //                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
 //                        stringBuffer.append("---------------------\n");
 //                    }
-//                    Toast.makeText(BGLActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
 //
 //                }
 //            }
 //        });
 //
-//        BGLDate.setOnClickListener(new View.OnClickListener() {
+//        DietDate.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                DateDialog();
@@ -103,7 +109,7 @@ public class BGLActivity extends AppCompatActivity {
 //            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 //
 //
-//                BGLDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+//                DietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
 //
 //            }
 //        };

@@ -11,7 +11,9 @@ public class BloodGlucose implements IDatabaseObject{
     private double value;
     private String date ;
 
-    public BloodGlucose(){}
+    public BloodGlucose(){
+
+    }
 
     public BloodGlucose(int id,double value, String date){
         this.id=id;
