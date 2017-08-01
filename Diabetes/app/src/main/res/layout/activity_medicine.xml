@@ -55,8 +55,7 @@
         android:layout_height="wrap_content"
         android:text="Add Medicine"
         android:layout_below="@+id/editTextMedicineDescription"
-        android:layout_toRightOf="@+id/medicineHomeButton"
-        android:layout_toEndOf="@+id/medicineHomeButton"
+
         android:layout_marginTop="139dp" />
 
     <Button
