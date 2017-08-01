@@ -43,7 +43,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String createDietTable = " Create table " + Constants.TABLE_DIET + " (" +
                 Constants.DIET_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.DIET_DESCRIPTION + " Text not null); ";
+                + Constants.DIET_DESCRIPTION + " Text not null, "
+                + Constants.DIET_DATE+ " Text);";
 
         String createMedicineTable = " Create table " + Constants.TABLE_MEDICINE + " (" +
                 Constants.MEDICINE_ID + " integer primary key autoincrement, "

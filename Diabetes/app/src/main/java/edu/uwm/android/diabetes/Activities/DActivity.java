@@ -22,10 +22,9 @@ import edu.uwm.android.diabetes.R;
 
 public class DActivity extends AppCompatActivity {
 
-    ImageButton homeButton;
     Button addDiet, showDiet;
     DatabaseHandler databaseHandler;
-    EditText dietDescription, dietDate, dietCalories;
+    EditText dietDescription, dietDate;
     Calendar calendar;
     int day, month, year;
     String userName;
@@ -34,29 +33,22 @@ public class DActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_d);
         databaseHandler = new DatabaseHandler(this);
-        dietDescription = (EditText) findViewById(R.id.editTextDietDescription);
-        dietDate = (EditText) findViewById(R.id.dietDate);
+        dietDescription= (EditText) findViewById(R.id.editTextDietDescription);
+        dietDate= (EditText) findViewById(R.id.dietDate);
         addDiet = (Button) findViewById(R.id.addDiet);
         showDiet = (Button) findViewById(R.id.showDietData);
-        homeButton = (ImageButton) findViewById(R.id.dietHomeButton);
-        dietDate = (EditText) findViewById(R.id.dietDate);
+
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         dietDate.setText(month+1  + "/" + day+ "/" + year);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         addDiet.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                System.out.println("The add Diet button is called here.");
+                System.out.println("The add BGL button is called here.");
                 Diet diet = new Diet();
                 diet.setDescription(dietDescription.getText().toString());
                 diet.setDate(dietDate.getText().toString());

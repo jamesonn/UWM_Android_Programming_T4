@@ -49,24 +49,26 @@
         android:layout_alignParentEnd="true" />
 
 
+
     <Button
         android:id="@+id/addMedicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Medicine"
-        android:layout_below="@+id/editTextMedicineDescription"
-
-        android:layout_marginTop="139dp" />
+        android:text="Add Exercise"
+        android:layout_alignBaseline="@+id/showMedincineData"
+        android:layout_alignBottom="@+id/showMedincineData"
+        android:layout_alignRight="@+id/editTextMedicineDate"
+        android:layout_alignEnd="@+id/editTextMedicineDate" />
 
     <Button
         android:id="@+id/showMedincineData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Data"
-        android:layout_alignBaseline="@+id/addMedicine"
-        android:layout_alignBottom="@+id/addMedicine"
-        android:layout_toLeftOf="@+id/editTextMedicineDate"
-        android:layout_toStartOf="@+id/editTextMedicineDate" />
+        android:layout_below="@+id/editTextMedicineDate"
+        android:layout_toLeftOf="@+id/exerciseHomeButton"
+        android:layout_toStartOf="@+id/exerciseHomeButton"
+        android:layout_marginTop="71dp" />
 
 
 </RelativeLayout>
