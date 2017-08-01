@@ -76,15 +76,15 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        diet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, DietActivity.class );
-                intent.putExtra("userName", userName );
-                startActivity(intent);
-            }
-        });
+     //   diet.setOnClickListener(new View.OnClickListener() {
+      //      @Override
+       //     public void onClick(View v) {
+     //           Intent intent;
+      //          intent = new Intent(MainActivity.this, DietActivity.class );
+       //         intent.putExtra("userName", userName );
+        //        startActivity(intent);
+        //    }
+       // });
         med.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
