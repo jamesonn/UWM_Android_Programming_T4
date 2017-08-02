@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="134dp"
         android:ems="10"
+        android:inputType="phone"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/textViewBGLDescription"
         android:layout_toEndOf="@+id/textViewBGLDescription" />
@@ -70,17 +71,6 @@
         android:layout_alignBottom="@+id/addBGL"
         android:layout_toLeftOf="@+id/editTextBGLDate"
         android:layout_toStartOf="@+id/editTextBGLDate" />
-
-
-
-    <ImageButton
-        android:id="@+id/BGLHomeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        app:srcCompat="@mipmap/homeicon" />
 
 
 </RelativeLayout>

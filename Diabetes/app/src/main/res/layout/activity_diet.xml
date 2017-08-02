@@ -49,10 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add diet"
-        android:layout_alignBaseline="@+id/showdietData"
-        android:layout_alignBottom="@+id/showdietData"
-        android:layout_alignRight="@+id/dietDate"
-        android:layout_alignEnd="@+id/dietDate" />
+        android:layout_alignBaseline="@+id/showDietData"
+        android:layout_alignBottom="@+id/showDietData"
+        android:layout_alignLeft="@+id/dietDate"
+        android:layout_alignStart="@+id/dietDate" />
 
     <Button
         android:id="@+id/showDietData"
@@ -60,8 +60,6 @@
         android:layout_height="wrap_content"
         android:text="Show Data"
         android:layout_below="@+id/dietDate"
-        android:layout_toLeftOf="@+id/dietHomeButton"
-        android:layout_toStartOf="@+id/dietHomeButton"
         android:layout_marginTop="71dp" />
 
     <EditText
@@ -88,13 +86,5 @@
 
 
 
-    <ImageButton
-        android:id="@+id/dietHomeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
-        app:srcCompat="@mipmap/homeicon" />
 
 </RelativeLayout>

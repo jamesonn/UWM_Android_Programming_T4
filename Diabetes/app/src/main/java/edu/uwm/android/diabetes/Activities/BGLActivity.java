@@ -33,7 +33,6 @@ public class BGLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bgl);
         databaseHandler = new DatabaseHandler(this);
-        //BGLCalories = (EditText) findViewById(R.id.editTextBGLCalories);
         BGLDescription = (EditText) findViewById(R.id.editTextBGLDescription);
         BGLDate = (EditText) findViewById(R.id.editTextBGLDate);
         addBGL = (Button) findViewById(R.id.addBGL);
