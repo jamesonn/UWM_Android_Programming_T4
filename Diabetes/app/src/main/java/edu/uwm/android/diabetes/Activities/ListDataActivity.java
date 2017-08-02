@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class ListDataActivity extends AppCompatActivity {
     DatabaseHandler db;
     private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
     String userName;
-
+    public DataAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +95,21 @@ public class ListDataActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
-        DataAdapter adapter = new DataAdapter(this, objects);
+        final DataAdapter adapter = new DataAdapter(this, objects);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                String type = objects.get(position).getClassID();
+                db.delete(objects.get(position));
+                objects.remove(position);
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+                Toast.makeText(ListDataActivity.this, type + " was deleted", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 }

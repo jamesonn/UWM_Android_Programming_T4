@@ -54,7 +54,7 @@
         android:id="@+id/addMedicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Exercise"
+        android:text="Add Medicine"
         android:layout_alignBaseline="@+id/showMedincineData"
         android:layout_alignBottom="@+id/showMedincineData"
         android:layout_alignRight="@+id/editTextMedicineDate"
@@ -66,8 +66,6 @@
         android:layout_height="wrap_content"
         android:text="Show Data"
         android:layout_below="@+id/editTextMedicineDate"
-        android:layout_toLeftOf="@+id/exerciseHomeButton"
-        android:layout_toStartOf="@+id/exerciseHomeButton"
         android:layout_marginTop="71dp" />
 
 
