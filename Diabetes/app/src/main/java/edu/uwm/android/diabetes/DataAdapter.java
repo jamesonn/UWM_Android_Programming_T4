@@ -93,6 +93,17 @@ public class DataAdapter extends
         return objects.size();
     }
 
+    private OnItemLongClickListener lonListener;
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View itemView, int position);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener longListener) {
+        this.lonListener = longListener;
+
+    }
+
     private OnItemClickListener listener;
     // Define the listener interface
     public interface OnItemClickListener {
@@ -130,6 +141,20 @@ public class DataAdapter extends
                             listener.onItemClick(itemView, position);
                         }
                     }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (lonListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            lonListener.onItemLongClick(itemView, position);
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             });
         }

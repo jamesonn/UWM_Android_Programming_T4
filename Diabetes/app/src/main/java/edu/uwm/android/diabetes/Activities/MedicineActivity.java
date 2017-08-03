@@ -20,7 +20,7 @@ import edu.uwm.android.diabetes.R;
 
 public class MedicineActivity extends AppCompatActivity {
 
-    Button addMedicine, showMedicine;
+    Button addMedicine, updateMedicine;
     DatabaseHandler databaseHandler;
     EditText medicineDescription, medicineDate;
     Calendar calendar;
@@ -35,7 +35,7 @@ public class MedicineActivity extends AppCompatActivity {
         medicineDescription = (EditText) findViewById(R.id.editTextMedicineDescription);
         medicineDate = (EditText) findViewById(R.id.editTextMedicineDate);
         addMedicine = (Button) findViewById(R.id.addMedicine);
-        showMedicine = (Button) findViewById(R.id.showMedincineData);
+        updateMedicine = (Button) findViewById(R.id.updateMedincineData);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
@@ -60,24 +60,23 @@ public class MedicineActivity extends AppCompatActivity {
 
             }
         });
-        showMedicine.setOnClickListener(new View.OnClickListener() {
+        updateMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Medicine medicine = new Medicine();
-                Cursor cursor = databaseHandler.getDatabyUserName(medicine,userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(MedicineActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(MedicineActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                medicine.setDescription(medicineDescription.getText().toString());
+                medicine.setDate(medicineDate.getText().toString());
+                int id =getIntent().getIntExtra("medicineId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("medicineId", -1), medicine,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("medicineDate");
+                    getIntent().removeExtra("medicineDescription");
+                    getIntent().removeExtra("medicineId");
+                    Toast.makeText(MedicineActivity.this, "Medicine was updated", Toast.LENGTH_LONG).show();
+                    medicineDate.getText().clear();
+                    medicineDescription.getText().clear();
+                }else{
+                    Toast.makeText(MedicineActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
             }
         });

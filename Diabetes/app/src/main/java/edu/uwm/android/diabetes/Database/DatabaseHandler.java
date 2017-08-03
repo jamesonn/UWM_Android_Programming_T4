@@ -277,7 +277,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
-    public void update(int id, IDatabaseObject object) {
+    public void update(int id, IDatabaseObject object, String userName) {
         if (object != null) {
             String classType = object.getClassID();
             ContentValues values = new ContentValues();
@@ -288,34 +288,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Exercise exercise = (Exercise) object;
                     values.put(Constants.EXERCISE_DESCRIPTION, exercise.getDescription());
                     values.put(Constants.EXERCISE_DATE, exercise.getDate());
-                    db.update(Constants.TABLE_EXERCISE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    values.put(Constants.USERNAME, userName);
+                    db.update(Constants.TABLE_EXERCISE, values, Constants.EXERCISE_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();
                     break;
                 case Constants.MEDICINE_CLASS:
                     Medicine medicine = (Medicine) object;
                     values.put(Constants.MEDICINE_DESCRIPTION, medicine.getDescription());
                     values.put(Constants.MEDICINE_DATE, medicine.getDate());
-                    db.update(Constants.TABLE_MEDICINE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    values.put(Constants.USERNAME, userName);
+                    db.update(Constants.TABLE_MEDICINE, values, Constants.MEDICINE_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();
                     break;
                 case Constants.DIET_CLASS:
                     Diet diet = (Diet) object;
                     values.put(Constants.DIET_DESCRIPTION, diet.getDescription());
                     values.put(Constants.DIET_DATE, diet.getDate());
-                    db.update(Constants.TABLE_DIET, values, "id = ? ", new String[]{Integer.toString(id)});
+                    values.put(Constants.USERNAME, userName);
+                    db.update(Constants.TABLE_DIET, values, Constants.DIET_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();
                     break;
                 case Constants.BLOODGLUCOSE_CLASS:
                     BloodGlucose bgl = (BloodGlucose) object;
                     values.put(Constants.BLOOD_GLUCOSE_VALUE, bgl.getValue());
                     values.put(Constants.BLOOD_GLUCOSE_DATE, bgl.getDate());
-                    db.update(Constants.TABLE_BLOOD_GLUCOSE, values, "id = ? ", new String[]{Integer.toString(id)});
+                    values.put(Constants.USERNAME, userName);
+                    db.update(Constants.TABLE_BLOOD_GLUCOSE, values, Constants.BLOOD_GLUCOSE_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();
                     break;
                 case Constants.REGIMEN_CLASS:
                     Regimen regimen = (Regimen) object;
                     values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
-                    db.update(Constants.TABLE_REGIMEN, values, "id = ? ", new String[]{Integer.toString(id)});
+                    values.put(Constants.USERNAME, userName);
+                    db.update(Constants.TABLE_REGIMEN, values, Constants.REGIMEN_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();
                     break;
                 default:

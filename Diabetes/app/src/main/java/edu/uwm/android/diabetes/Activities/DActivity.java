@@ -22,7 +22,7 @@ import edu.uwm.android.diabetes.R;
 
 public class DActivity extends AppCompatActivity {
 
-    Button addDiet, showDiet;
+    Button addDiet, updateDietData;
     DatabaseHandler databaseHandler;
     EditText dietDescription, dietDate;
     Calendar calendar;
@@ -36,7 +36,7 @@ public class DActivity extends AppCompatActivity {
         dietDescription= (EditText) findViewById(R.id.editTextDietDescription);
         dietDate= (EditText) findViewById(R.id.dietDate);
         addDiet = (Button) findViewById(R.id.addDiet);
-        showDiet = (Button) findViewById(R.id.showDietData);
+        updateDietData = (Button) findViewById(R.id.updateDietData);
 
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -64,24 +64,23 @@ public class DActivity extends AppCompatActivity {
             }
         });
 
-        showDiet.setOnClickListener(new View.OnClickListener() {
+        updateDietData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Diet diet = new Diet();
-                Cursor cursor = databaseHandler.getDatabyUserName(diet, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(DActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(DActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                diet.setDescription(dietDescription.getText().toString());
+                diet.setDate(dietDate.getText().toString());
+                int id =getIntent().getIntExtra("dietId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("dietId", -1), diet,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("dietDate");
+                    getIntent().removeExtra("dietDescription");
+                    getIntent().removeExtra("dietId");
+                    Toast.makeText(DActivity.this, "Diet was updated", Toast.LENGTH_LONG).show();
+                    dietDate.getText().clear();
+                    dietDescription.getText().clear();
+                }else{
+                    Toast.makeText(DActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
             }
         });

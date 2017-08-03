@@ -1,9 +1,11 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,7 +23,7 @@ import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class ExerciseActivity extends AppCompatActivity {
-    Button addExercise, showExercise;
+    Button addExercise, updateExercise;
     DatabaseHandler databaseHandler;
     EditText exerciseDescription, exerciseDate, exerciseCalories;
     Calendar calendar;
@@ -36,7 +38,7 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseDescription = (EditText) findViewById(R.id.editTextExerciseDescription);
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         addExercise = (Button) findViewById(R.id.addExercise);
-        showExercise = (Button) findViewById(R.id.showExerciseData);
+        updateExercise = (Button) findViewById(R.id.updateExerciseData);
 
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         calendar = Calendar.getInstance();
@@ -44,6 +46,11 @@ public class ExerciseActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
+
+//        if(!(getIntent().getStringExtra("id").equals(null) && getIntent().getStringExtra("description").equals(null)
+//                && getIntent().getStringExtra("date").equals(null)) ){
+
+//        }
 
         addExercise.setOnClickListener(new View.OnClickListener() {
 
@@ -65,24 +72,23 @@ public class ExerciseActivity extends AppCompatActivity {
             }
         });
 
-        showExercise.setOnClickListener(new View.OnClickListener() {
+        updateExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Exercise exercise = new Exercise();
-                Cursor cursor = databaseHandler.getDatabyUserName(exercise, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(ExerciseActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(ExerciseActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                exercise.setDescription(exerciseDescription.getText().toString());
+                exercise.setDate(exerciseDate.getText().toString());
+                int id =getIntent().getIntExtra("exerciseId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("exerciseId", -1), exercise,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("exerciseDate");
+                    getIntent().removeExtra("exerciseDescription");
+                    getIntent().removeExtra("exerciseId");
+                    Toast.makeText(ExerciseActivity.this, "Exercise was updated", Toast.LENGTH_LONG).show();
+                    exerciseDate.getText().clear();
+                    exerciseDescription.getText().clear();
+                }else{
+                    Toast.makeText(ExerciseActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -123,9 +129,7 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
+    protected void onPause() {super.onPause();}
 
     @Override
     protected void onStop() {
@@ -133,7 +137,5 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
+    protected void onRestart() {super.onRestart();}
 }

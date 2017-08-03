@@ -49,21 +49,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add diet"
-
-        android:layout_alignBaseline="@+id/showdietData"
-        android:layout_alignBottom="@+id/showdietData"
+        android:layout_alignBaseline="@+id/updateDietData"
+        android:layout_alignBottom="@+id/updateDietData"
         android:layout_alignRight="@+id/dietDate"
         android:layout_alignEnd="@+id/dietDate"
         android:layout_below="@+id/dietDate"/>
 
     <Button
-        android:id="@+id/showDietData"
+        android:id="@+id/updateDietData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Data"
-
-        android:layout_toLeftOf="@+id/dietHomeButton"
-        android:layout_toStartOf="@+id/dietHomeButton"
+        android:text="Update Medicine"
         android:layout_below="@+id/dietDate" />
 
     <EditText

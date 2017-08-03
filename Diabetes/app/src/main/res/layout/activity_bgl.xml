@@ -14,13 +14,13 @@
         android:text="Enter BGL: "
         android:layout_marginRight="27dp"
         android:layout_marginEnd="27dp"
-        android:layout_alignBaseline="@+id/editTextBGLDescription"
-        android:layout_alignBottom="@+id/editTextBGLDescription"
+        android:layout_alignBaseline="@+id/editTextBGLValue"
+        android:layout_alignBottom="@+id/editTextBGLValue"
         android:layout_toLeftOf="@+id/editTextBGLDate"
         android:layout_toStartOf="@+id/editTextBGLDate" />
 
     <EditText
-        android:id="@+id/editTextBGLDescription"
+        android:id="@+id/editTextBGLValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="134dp"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date: "
-        android:layout_below="@+id/editTextBGLDescription"
+        android:layout_below="@+id/editTextBGLValue"
         android:layout_alignRight="@+id/textViewBGLDescription"
         android:layout_alignEnd="@+id/textViewBGLDescription"
         android:layout_marginTop="56dp" />
@@ -57,20 +57,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add BGL"
-        android:layout_below="@+id/editTextBGLDescription"
-        android:layout_toRightOf="@+id/BGLHomeButton"
-        android:layout_toEndOf="@+id/BGLHomeButton"
-        android:layout_marginTop="139dp" />
+        android:layout_alignBaseline="@+id/updateBglData"
+        android:layout_alignBottom="@+id/updateBglData"
+        android:layout_alignRight="@+id/editTextBGLDate"
+        android:layout_alignEnd="@+id/editTextBGLDate"
+        android:layout_below="@+id/editTextBGLDate"/>/>
 
     <Button
-        android:id="@+id/showBglData"
+        android:id="@+id/updateBglData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Data"
-        android:layout_alignBaseline="@+id/addBGL"
-        android:layout_alignBottom="@+id/addBGL"
-        android:layout_toLeftOf="@+id/editTextBGLDate"
-        android:layout_toStartOf="@+id/editTextBGLDate" />
+        android:text="Update BGL"
+        android:layout_below="@+id/editTextBGLDate"/>
 
 
 </RelativeLayout>

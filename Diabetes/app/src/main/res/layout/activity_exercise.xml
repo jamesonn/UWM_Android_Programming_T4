@@ -49,16 +49,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Exercise"
-        android:layout_alignBaseline="@+id/showExerciseData"
-        android:layout_alignBottom="@+id/showExerciseData"
+        android:layout_alignBaseline="@+id/updateExerciseData"
+        android:layout_alignBottom="@+id/updateExerciseData"
         android:layout_alignRight="@+id/exerciseDate"
         android:layout_alignEnd="@+id/exerciseDate" />
 
     <Button
-        android:id="@+id/showExerciseData"
+        android:id="@+id/updateExerciseData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Data"
+        android:text="Update Exercise"
         android:layout_below="@+id/exerciseDate"
         android:layout_marginTop="71dp" />
 

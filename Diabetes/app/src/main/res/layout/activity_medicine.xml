@@ -55,16 +55,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Medicine"
-        android:layout_alignBaseline="@+id/showMedincineData"
-        android:layout_alignBottom="@+id/showMedincineData"
+        android:layout_alignBaseline="@+id/updateMedincineData"
+        android:layout_alignBottom="@+id/updateMedincineData"
         android:layout_alignRight="@+id/editTextMedicineDate"
         android:layout_alignEnd="@+id/editTextMedicineDate" />
 
     <Button
-        android:id="@+id/showMedincineData"
+        android:id="@+id/updateMedincineData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Data"
+        android:text="Update Medicine"
         android:layout_below="@+id/editTextMedicineDate"
         android:layout_marginTop="71dp" />
 
