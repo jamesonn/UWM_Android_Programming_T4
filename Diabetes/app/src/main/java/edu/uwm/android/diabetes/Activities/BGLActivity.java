@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +45,8 @@ public class BGLActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         BGLDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
 
         addBGL.setOnClickListener(new View.OnClickListener() {
 
@@ -60,6 +64,10 @@ public class BGLActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 BGLDate.getText().clear();
                 BGLValue.getText().clear();
+                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
@@ -82,6 +90,10 @@ public class BGLActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(BGLActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
 
@@ -109,6 +121,23 @@ public class BGLActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("value", BGLValue.getText().toString());
+        editor.putString("date",BGLDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            BGLValue.setText(sp.getString("value", ""));
+            BGLDate.setText(sp.getString("date", ""));
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -123,7 +152,9 @@ public class BGLActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
+        saveSharedPreferences();
+        }
+
 
     @Override
     protected void onStop() {

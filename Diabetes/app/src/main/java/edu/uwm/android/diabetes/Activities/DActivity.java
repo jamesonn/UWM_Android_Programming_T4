@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +45,8 @@ public class DActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         dietDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
 
         addDiet.setOnClickListener(new View.OnClickListener() {
 
@@ -60,6 +64,10 @@ public class DActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 dietDate.getText().clear();
                 dietDescription.getText().clear();
+                SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
@@ -82,6 +90,10 @@ public class DActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(DActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
 
@@ -109,6 +121,23 @@ public class DActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("description", dietDescription.getText().toString());
+        editor.putString("date",dietDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            dietDescription.setText(sp.getString("description", ""));
+            dietDate.setText(sp.getString("date", ""));
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -123,6 +152,7 @@ public class DActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveSharedPreferences();
     }
 
     @Override

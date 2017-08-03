@@ -1,7 +1,9 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,11 +48,8 @@ public class ExerciseActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
 
-//        if(!(getIntent().getStringExtra("id").equals(null) && getIntent().getStringExtra("description").equals(null)
-//                && getIntent().getStringExtra("date").equals(null)) ){
-
-//        }
 
         addExercise.setOnClickListener(new View.OnClickListener() {
 
@@ -68,6 +67,10 @@ public class ExerciseActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 exerciseDate.getText().clear();
                 exerciseDescription.getText().clear();
+                SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
@@ -90,6 +93,11 @@ public class ExerciseActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(ExerciseActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+
+                SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
 
@@ -117,6 +125,23 @@ public class ExerciseActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("description", exerciseDescription.getText().toString());
+        editor.putString("date",exerciseDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            exerciseDescription.setText(sp.getString("description", ""));
+            exerciseDate.setText(sp.getString("date", ""));
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -129,7 +154,9 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {super.onPause();}
+    protected void onPause() {
+        super.onPause();
+        saveSharedPreferences();}
 
     @Override
     protected void onStop() {

@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +43,8 @@ public class MedicineActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
 
         addMedicine.setOnClickListener(new View.OnClickListener() {
 
@@ -57,6 +61,10 @@ public class MedicineActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 medicineDate.getText().clear();
                 medicineDescription.getText().clear();
+                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
@@ -78,6 +86,10 @@ public class MedicineActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(MedicineActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
         medicineDate.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +114,23 @@ public class MedicineActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("description", medicineDescription.getText().toString());
+        editor.putString("date",medicineDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            medicineDescription.setText(sp.getString("description", ""));
+            medicineDate.setText(sp.getString("date", ""));
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -115,6 +144,7 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveSharedPreferences();
     }
 
     @Override
