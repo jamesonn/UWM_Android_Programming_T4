@@ -47,6 +47,12 @@ public class DActivity extends AppCompatActivity {
         dietDate.setText(month+1  + "/" + day+ "/" + year);
         showSharedPreferences();
 
+        if(getIntent().getIntExtra("dietId",-1) == -1){
+            updateDietData.setEnabled(false);
+        }else{
+            addDiet.setEnabled(false);
+        }
+
 
         addDiet.setOnClickListener(new View.OnClickListener() {
 

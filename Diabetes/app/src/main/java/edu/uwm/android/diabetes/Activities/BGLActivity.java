@@ -39,13 +39,18 @@ public class BGLActivity extends AppCompatActivity {
         BGLDate = (EditText) findViewById(R.id.editTextBGLDate);
         addBGL = (Button) findViewById(R.id.addBGL);
         updateBGL = (Button) findViewById(R.id.updateBglData);
-
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         BGLDate.setText(month+1  + "/" + day+ "/" + year);
         showSharedPreferences();
+
+        if(getIntent().getIntExtra("bglId",-1) == -1){
+            updateBGL.setEnabled(false);
+        }else{
+            addBGL.setEnabled(false);
+        }
 
 
         addBGL.setOnClickListener(new View.OnClickListener() {

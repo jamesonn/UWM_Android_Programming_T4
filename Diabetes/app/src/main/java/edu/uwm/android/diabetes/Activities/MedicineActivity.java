@@ -45,6 +45,12 @@ public class MedicineActivity extends AppCompatActivity {
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
         showSharedPreferences();
 
+        if(getIntent().getIntExtra("medicineId",-1) == -1){
+            updateMedicine.setEnabled(false);
+        }else{
+            addMedicine.setEnabled(false);
+        }
+
 
         addMedicine.setOnClickListener(new View.OnClickListener() {
 

@@ -50,6 +50,12 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
         showSharedPreferences();
 
+        if(getIntent().getIntExtra("exerciseId",-1) == -1){
+            updateExercise.setEnabled(false);
+        }else{
+            addExercise.setEnabled(false);
+        }
+
 
         addExercise.setOnClickListener(new View.OnClickListener() {
 
