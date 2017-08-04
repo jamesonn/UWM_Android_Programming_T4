@@ -1,14 +1,18 @@
 package edu.uwm.android.diabetes.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.uwm.android.diabetes.Constants;
 import edu.uwm.android.diabetes.DataAdapter;
 import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
@@ -24,7 +28,7 @@ public class ListDataActivity extends AppCompatActivity {
     DatabaseHandler db;
     private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
     String userName;
-
+    public DataAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +97,72 @@ public class ListDataActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
-        DataAdapter adapter = new DataAdapter(this, objects);
+        final DataAdapter adapter = new DataAdapter(this, objects);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                String type = objects.get(position).getClassID();
+                db.delete(objects.get(position));
+                objects.remove(position);
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
+                Toast.makeText(ListDataActivity.this, type + " was deleted", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        adapter.setOnItemLongClickListener(new DataAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View itemView, int position) {
+                Intent intent;
+                String type = objects.get(position).getClassID();
+                switch (type){
+                   case Constants.EXERCISE_CLASS:
+                       Exercise exercise = (Exercise) objects.get(position);
+                       intent = new Intent(ListDataActivity.this, ExerciseActivity.class );
+                       intent.putExtra("exerciseId", exercise.getID());
+                       intent.putExtra("exerciseDescription",exercise.getDescription());
+                       intent.putExtra("exerciseDate",exercise.getDate());
+                       intent.putExtra("userName",userName);
+                       startActivity(intent);
+                       ListDataActivity.this.finish();
+                       break;
+                    case Constants.DIET_CLASS:
+                        Diet diet = (Diet) objects.get(position);
+                        intent = new Intent(ListDataActivity.this, DActivity.class );
+                        intent.putExtra("dietId", diet.getID());
+                        intent.putExtra("dietDescription",diet.getDescription());
+                        intent.putExtra("dietDate",diet.getDate());
+                        intent.putExtra("userName",userName);
+                        startActivity(intent);
+                        ListDataActivity.this.finish();
+                        break;
+                    case Constants.BLOODGLUCOSE_CLASS:
+                        BloodGlucose bloodGlucose = (BloodGlucose) objects.get(position);
+                        intent = new Intent(ListDataActivity.this, BGLActivity.class );
+                        intent.putExtra("bglId", bloodGlucose.getID());
+                        intent.putExtra("bglValue",bloodGlucose.getValue());
+                        intent.putExtra("bglDate",bloodGlucose.getDate());
+                        intent.putExtra("userName",userName);
+                        startActivity(intent);
+                        ListDataActivity.this.finish();
+                        break;
+                    case Constants.MEDICINE_CLASS:
+                        Medicine medicine = (Medicine) objects.get(position);
+                        intent = new Intent(ListDataActivity.this, MedicineActivity.class );
+                        intent.putExtra("medicineId", medicine.getID());
+                        intent.putExtra("medicineDescription",medicine.getDescription());
+                        intent.putExtra("medicineDate",medicine.getDate());
+                        intent.putExtra("userName",userName);
+                        startActivity(intent);
+                        ListDataActivity.this.finish();
+                        break;
+                }
+
+            }
+        });
     }
 }

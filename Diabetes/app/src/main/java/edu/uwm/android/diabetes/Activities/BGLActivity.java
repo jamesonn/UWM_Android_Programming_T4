@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,9 +24,9 @@ import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class BGLActivity extends AppCompatActivity {
-    Button addBGL, showBGL;
+    Button addBGL, updateBGL;
     DatabaseHandler databaseHandler;
-    EditText BGLDescription, BGLDate, BGLCalories;
+    EditText BGLValue, BGLDate, BGLCalories;
     Calendar calendar;
     int day, month, year;
     String userName;
@@ -33,16 +35,23 @@ public class BGLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bgl);
         databaseHandler = new DatabaseHandler(this);
-        BGLDescription = (EditText) findViewById(R.id.editTextBGLDescription);
+        BGLValue = (EditText) findViewById(R.id.editTextBGLValue);
         BGLDate = (EditText) findViewById(R.id.editTextBGLDate);
         addBGL = (Button) findViewById(R.id.addBGL);
-        showBGL = (Button) findViewById(R.id.showBglData);
-
+        updateBGL = (Button) findViewById(R.id.updateBglData);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         BGLDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
+        if(getIntent().getIntExtra("bglId",-1) == -1){
+            updateBGL.setEnabled(false);
+        }else{
+            addBGL.setEnabled(false);
+        }
+
 
         addBGL.setOnClickListener(new View.OnClickListener() {
 
@@ -50,39 +59,46 @@ public class BGLActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("The add BGL button is called here.");
                 BloodGlucose BGL = new BloodGlucose();
-                BGL.setValue(Double.parseDouble(BGLDescription.getText().toString()));
+                BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
                 BGL.setDate(BGLDate.getText().toString());
                 userName =  getIntent().getStringExtra("userName");
 
                 databaseHandler.add(BGL,userName);
-                Toast.makeText(BGLActivity.this, "Description "+ BGLDescription.getText().toString() + " Date "+
+                Toast.makeText(BGLActivity.this, "Value "+ BGLValue.getText().toString() + " Date "+
                                 BGLDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
                 BGLDate.getText().clear();
-                BGLDescription.getText().clear();
+                BGLValue.getText().clear();
+                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
 
-        showBGL.setOnClickListener(new View.OnClickListener() {
+        updateBGL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BloodGlucose BGL = new BloodGlucose();
-                Cursor cursor = databaseHandler.getDatabyUserName(BGL, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(BGLActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(BGLActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                BloodGlucose bgl = new BloodGlucose();
+                bgl.setValue(Double.parseDouble(BGLValue.getText().toString()));
+                bgl.setDate(BGLDate.getText().toString());
+                int id =getIntent().getIntExtra("bglId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("bglId", -1), bgl,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("bglDate");
+                    getIntent().removeExtra("bglValue");
+                    getIntent().removeExtra("bglId");
+                    Toast.makeText(BGLActivity.this, "BGL was updated", Toast.LENGTH_LONG).show();
+                    BGLDate.getText().clear();
+                    BGLValue.getText().clear();
+                }else{
+                    Toast.makeText(BGLActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
 
@@ -110,6 +126,23 @@ public class BGLActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("value", BGLValue.getText().toString());
+        editor.putString("date",BGLDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            BGLValue.setText(sp.getString("value", ""));
+            BGLDate.setText(sp.getString("date", ""));
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -124,7 +157,9 @@ public class BGLActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
+        saveSharedPreferences();
+        }
+
 
     @Override
     protected void onStop() {

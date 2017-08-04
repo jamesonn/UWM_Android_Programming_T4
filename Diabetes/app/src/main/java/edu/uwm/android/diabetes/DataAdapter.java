@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -58,11 +59,13 @@ public class DataAdapter extends
                 Exercise exercise = (Exercise) object;
                 viewHolder.typeTextView.setText(R.string.activity_Exercise);
                 viewHolder.infoTextView.setText(exercise.getDescription());
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.ExerciseThemeColoe));
                 viewHolder.dateTextView.setText(exercise.getDate());
                 break;
             case Constants.MEDICINE_CLASS:
                 Medicine medicine= (Medicine) object;
                 viewHolder.typeTextView.setText(R.string.activity_Medicine);
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.MedicationThemeColor));
                 viewHolder.infoTextView.setText(medicine.getDescription());
                 viewHolder.dateTextView.setText(medicine.getDate());
                 break;
@@ -70,10 +73,12 @@ public class DataAdapter extends
                 Diet diet= (Diet) object;
                 viewHolder.typeTextView.setText("Diet");
                 viewHolder.infoTextView.setText(diet.getDescription());
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
                 viewHolder.dateTextView.setText(diet.getDate());
                 break;
             case Constants.BLOODGLUCOSE_CLASS:
                 BloodGlucose bgl= (BloodGlucose) object;
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.BGLThemeColor));
                 viewHolder.typeTextView.setText("BGL");
                 viewHolder.infoTextView.setText(String.valueOf(bgl.getValue()));
                 viewHolder.dateTextView.setText(bgl.getDate());
@@ -88,22 +93,70 @@ public class DataAdapter extends
         return objects.size();
     }
 
+    private OnItemLongClickListener lonListener;
 
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View itemView, int position);
+    }
 
+    public void setOnItemLongClickListener(OnItemLongClickListener longListener) {
+        this.lonListener = longListener;
+
+    }
+
+    private OnItemClickListener listener;
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+
+    }
 
     //-------------- View Holder below ---------------------------------
 
     //View holder class for all the objects
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public LinearLayout layout;
         public TextView typeTextView;
         public TextView infoTextView; //value for BGL, and description for the others
         public TextView dateTextView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
+            layout = (LinearLayout) itemView.findViewById(R.id.linearLayoutHorizontal);
             typeTextView = (TextView) itemView.findViewById(R.id.TextView_type);
             infoTextView = (TextView) itemView.findViewById(R.id.TextView_info);
             dateTextView = (TextView) itemView.findViewById(R.id.TextView_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Triggers click upwards to the adapter on click
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(itemView, position);
+                        }
+                    }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (lonListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            lonListener.onItemLongClick(itemView, position);
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 }

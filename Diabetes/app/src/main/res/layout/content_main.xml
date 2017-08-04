@@ -38,7 +38,7 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:backgroundTint="#2ca5f5">
+        android:backgroundTint="@color/BGLThemeColor">
 
         <ImageView
             android:id="@+id/imageView"
@@ -140,7 +140,7 @@
         android:layout_toEndOf="@+id/textView6"
         android:layout_toRightOf="@+id/textView6"
         android:layout_weight="1"
-        android:background="@android:color/holo_green_light">
+        android:background="@color/ExerciseThemeColoe">
 
         <ImageView
             android:layout_width="100dp"
@@ -189,8 +189,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-
-        android:background="@android:color/holo_orange_dark">
+        android:background="@color/MedicationThemeColor">
 
         <ImageView
             android:layout_width="100dp"

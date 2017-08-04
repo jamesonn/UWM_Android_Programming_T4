@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +22,7 @@ import edu.uwm.android.diabetes.R;
 
 public class MedicineActivity extends AppCompatActivity {
 
-    Button addMedicine, showMedicine;
+    Button addMedicine, updateMedicine;
     DatabaseHandler databaseHandler;
     EditText medicineDescription, medicineDate;
     Calendar calendar;
@@ -35,12 +37,20 @@ public class MedicineActivity extends AppCompatActivity {
         medicineDescription = (EditText) findViewById(R.id.editTextMedicineDescription);
         medicineDate = (EditText) findViewById(R.id.editTextMedicineDate);
         addMedicine = (Button) findViewById(R.id.addMedicine);
-        showMedicine = (Button) findViewById(R.id.showMedincineData);
+        updateMedicine = (Button) findViewById(R.id.updateMedincineData);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
+        if(getIntent().getIntExtra("medicineId",-1) == -1){
+            updateMedicine.setEnabled(false);
+        }else{
+            addMedicine.setEnabled(false);
+        }
+
 
         addMedicine.setOnClickListener(new View.OnClickListener() {
 
@@ -57,28 +67,35 @@ public class MedicineActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 medicineDate.getText().clear();
                 medicineDescription.getText().clear();
+                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
-        showMedicine.setOnClickListener(new View.OnClickListener() {
+        updateMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Medicine medicine = new Medicine();
-                Cursor cursor = databaseHandler.getDatabyUserName(medicine,userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(MedicineActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(MedicineActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                medicine.setDescription(medicineDescription.getText().toString());
+                medicine.setDate(medicineDate.getText().toString());
+                int id =getIntent().getIntExtra("medicineId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("medicineId", -1), medicine,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("medicineDate");
+                    getIntent().removeExtra("medicineDescription");
+                    getIntent().removeExtra("medicineId");
+                    Toast.makeText(MedicineActivity.this, "Medicine was updated", Toast.LENGTH_LONG).show();
+                    medicineDate.getText().clear();
+                    medicineDescription.getText().clear();
+                }else{
+                    Toast.makeText(MedicineActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
         medicineDate.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +120,23 @@ public class MedicineActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("description", medicineDescription.getText().toString());
+        editor.putString("date",medicineDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            medicineDescription.setText(sp.getString("description", ""));
+            medicineDate.setText(sp.getString("date", ""));
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,6 +150,7 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveSharedPreferences();
     }
 
     @Override

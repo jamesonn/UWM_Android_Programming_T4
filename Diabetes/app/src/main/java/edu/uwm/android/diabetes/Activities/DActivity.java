@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +24,7 @@ import edu.uwm.android.diabetes.R;
 
 public class DActivity extends AppCompatActivity {
 
-    Button addDiet, showDiet;
+    Button addDiet, updateDietData;
     DatabaseHandler databaseHandler;
     EditText dietDescription, dietDate;
     Calendar calendar;
@@ -36,13 +38,21 @@ public class DActivity extends AppCompatActivity {
         dietDescription= (EditText) findViewById(R.id.editTextDietDescription);
         dietDate= (EditText) findViewById(R.id.dietDate);
         addDiet = (Button) findViewById(R.id.addDiet);
-        showDiet = (Button) findViewById(R.id.showDietData);
+        updateDietData = (Button) findViewById(R.id.updateDietData);
 
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         dietDate.setText(month+1  + "/" + day+ "/" + year);
+        showSharedPreferences();
+
+        if(getIntent().getIntExtra("dietId",-1) == -1){
+            updateDietData.setEnabled(false);
+        }else{
+            addDiet.setEnabled(false);
+        }
+
 
         addDiet.setOnClickListener(new View.OnClickListener() {
 
@@ -60,29 +70,36 @@ public class DActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 dietDate.getText().clear();
                 dietDescription.getText().clear();
+                SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
 
             }
         });
 
-        showDiet.setOnClickListener(new View.OnClickListener() {
+        updateDietData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Diet diet = new Diet();
-                Cursor cursor = databaseHandler.getDatabyUserName(diet, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(DActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date " +cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------------\n");
-                    }
-                    Toast.makeText(DActivity.this, stringBuffer.toString(), Toast.LENGTH_LONG).show();
-
+                diet.setDescription(dietDescription.getText().toString());
+                diet.setDate(dietDate.getText().toString());
+                int id =getIntent().getIntExtra("dietId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("dietId", -1), diet,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("dietDate");
+                    getIntent().removeExtra("dietDescription");
+                    getIntent().removeExtra("dietId");
+                    Toast.makeText(DActivity.this, "Diet was updated", Toast.LENGTH_LONG).show();
+                    dietDate.getText().clear();
+                    dietDescription.getText().clear();
+                }else{
+                    Toast.makeText(DActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
 
@@ -110,6 +127,23 @@ public class DActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+    public void saveSharedPreferences(){
+        SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("description", dietDescription.getText().toString());
+        editor.putString("date",dietDate.getText().toString());
+        editor.commit();
+    }
+
+    //use this inside onCreate()
+    public void showSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("dietInfo", Context.MODE_PRIVATE);
+        if (!sp.equals(null)) {
+            dietDescription.setText(sp.getString("description", ""));
+            dietDate.setText(sp.getString("date", ""));
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -124,6 +158,7 @@ public class DActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveSharedPreferences();
     }
 
     @Override
