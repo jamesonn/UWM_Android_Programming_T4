@@ -49,18 +49,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add diet"
-        android:layout_alignBaseline="@+id/showDietData"
-        android:layout_alignBottom="@+id/showDietData"
-        android:layout_alignLeft="@+id/dietDate"
-        android:layout_alignStart="@+id/dietDate" />
+        android:layout_below="@+id/dietTime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp" />
 
     <Button
         android:id="@+id/showDietData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Data"
-        android:layout_below="@+id/dietDate"
-        android:layout_marginTop="71dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/dietDate"
@@ -88,12 +88,11 @@
         android:id="@+id/dietTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/addDiet"
-        android:layout_alignStart="@+id/addDiet"
-        android:layout_centerVertical="true"
         android:ems="10"
         android:inputType="time"
-         />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/dietDate"
+        android:layout_alignStart="@+id/dietDate" />
 
     <TextView
         android:id="@+id/dietTimeTextView"

@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -27,9 +29,9 @@ import edu.uwm.android.diabetes.R;
 public class ExerciseActivity extends AppCompatActivity {
     Button addExercise, updateExercise;
     DatabaseHandler databaseHandler;
-    EditText exerciseDescription, exerciseDate, exerciseCalories;
+    EditText exerciseDescription, exerciseDate, exerciseCalories, exerciseTime;
     Calendar calendar;
-    int day, month, year;
+    int day, month, year, minute, hour;
     String userName;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -43,12 +45,35 @@ public class ExerciseActivity extends AppCompatActivity {
         updateExercise = (Button) findViewById(R.id.updateExerciseData);
 
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
+        exerciseTime = (EditText) findViewById(R.id.exerciseTime);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
+        exerciseTime.setText(hour + ":" + minute);
         showSharedPreferences();
+
+        exerciseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ExerciseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        exerciseTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
 
         if(getIntent().getIntExtra("exerciseId",-1) == -1){
             updateExercise.setEnabled(false);
@@ -61,13 +86,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                System.out.println("The add Exercise button is called here.");
                 Exercise exercise = new Exercise();
                 exercise.setDescription(exerciseDescription.getText().toString());
-                exercise.setDate(exerciseDate.getText().toString());
+                exercise.setDate(exerciseDate.getText().toString() +" " + exerciseTime.getText().toString());
                 userName =  getIntent().getStringExtra("userName");
-
-                databaseHandler.add(exercise,userName);
+                 databaseHandler.add(exercise,userName);
                 Toast.makeText(ExerciseActivity.this, "Description "+ exerciseDescription.getText().toString() + " Date "+
                                 exerciseDate.getText().toString()+" Added",
                         Toast.LENGTH_LONG).show();
@@ -120,11 +143,8 @@ public class ExerciseActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-
-                exerciseDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
-
-            }
+                  exerciseDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+             }
         };
 
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);

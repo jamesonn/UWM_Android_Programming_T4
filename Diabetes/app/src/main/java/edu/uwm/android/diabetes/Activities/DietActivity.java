@@ -25,7 +25,7 @@ public class DietActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     EditText dietCalories, dietDate, dietTime;
     Calendar calendar;
-    int day, month, year;
+    int day, month, year, hour, minute;
     String userName;
 
     @Override
@@ -37,7 +37,6 @@ public class DietActivity extends AppCompatActivity {
         dietCalories = (EditText) findViewById(R.id.editTextdietCalories);
         addDiet = (Button) findViewById(R.id.addDiet);
         showDiet = (Button) findViewById(R.id.showDietData);
-
         addDiet.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -66,6 +65,8 @@ public class DietActivity extends AppCompatActivity {
                         stringBuffer.append("ID " + cursor.getString(0) + "\n");
                         stringBuffer.append("User  " + cursor.getString(1) + "\n");
                         stringBuffer.append("Description  " + cursor.getString(2) + "\n");
+                        stringBuffer.append("Date and Time" + cursor.getString(3) + "\n");
+                        stringBuffer.append("---------------" + "\n");
                     }
                     Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_SHORT).show();
                 }
@@ -77,8 +78,12 @@ public class DietActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
         dietDate.setText(month+1  + "/" + day+ "/" + year);
         dietTime = (EditText) findViewById(R.id.dietTime);
+        dietTime.setText(hour + ":" + minute);
+
 
         dietDate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -65,8 +65,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update Medicine"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="19dp" />
+
+    <EditText
+        android:id="@+id/medicineTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/editTextMedicineDate"
-        android:layout_marginTop="71dp" />
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="time"/>
+
+    <TextView
+        android:id="@+id/medicineTimeTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time:"
+        android:layout_alignBottom="@+id/medicineTime"
+        android:layout_alignRight="@+id/textViewMedicineDate"
+        android:layout_alignEnd="@+id/textViewMedicineDate" />
 
 
 </RelativeLayout>

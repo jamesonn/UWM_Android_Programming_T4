@@ -97,13 +97,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-//    private void loadDetailActivity(String activityName) {
-//        Intent intent = new Intent(this, DetailsActivity.class);
-//        intent.putExtra(MainActivity.EXTRA_ITEM_TITLE, exerciseTitle);
-//        startActivity(intent);
-//    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

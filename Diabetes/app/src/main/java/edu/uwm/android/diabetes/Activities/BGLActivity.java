@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -26,9 +28,9 @@ import edu.uwm.android.diabetes.R;
 public class BGLActivity extends AppCompatActivity {
     Button addBGL, updateBGL;
     DatabaseHandler databaseHandler;
-    EditText BGLValue, BGLDate, BGLCalories;
+    EditText BGLValue, BGLDate, BGLTime;
     Calendar calendar;
-    int day, month, year;
+    int day, month, year, minute, hour;
     String userName;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -37,13 +39,17 @@ public class BGLActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         BGLValue = (EditText) findViewById(R.id.editTextBGLValue);
         BGLDate = (EditText) findViewById(R.id.editTextBGLDate);
+        BGLTime = (EditText) findViewById(R.id.bglTime);
         addBGL = (Button) findViewById(R.id.addBGL);
         updateBGL = (Button) findViewById(R.id.updateBglData);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
         BGLDate.setText(month+1  + "/" + day+ "/" + year);
+        BGLTime.setText(hour + ":" + minute);
         showSharedPreferences();
 
         if(getIntent().getIntExtra("bglId",-1) == -1){
@@ -60,9 +66,8 @@ public class BGLActivity extends AppCompatActivity {
                 System.out.println("The add BGL button is called here.");
                 BloodGlucose BGL = new BloodGlucose();
                 BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
-                BGL.setDate(BGLDate.getText().toString());
+                BGL.setDate(BGLDate.getText().toString() + " "+ BGLTime.getText().toString() );
                 userName =  getIntent().getStringExtra("userName");
-
                 databaseHandler.add(BGL,userName);
                 Toast.makeText(BGLActivity.this, "Value "+ BGLValue.getText().toString() + " Date "+
                                 BGLDate.getText().toString()+" Added",
@@ -74,6 +79,24 @@ public class BGLActivity extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
 
+            }
+        });
+
+        BGLTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(BGLActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        BGLTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
 

@@ -68,7 +68,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update BGL"
-        android:layout_below="@+id/editTextBGLDate"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="62dp" />
+
+    <EditText
+        android:id="@+id/bglTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextBGLDate"
+        android:layout_alignStart="@+id/editTextBGLDate"
+        android:layout_below="@+id/editTextBGLDate"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:inputType="time"
+         />
+
+    <TextView
+        android:id="@+id/bglTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bglTime"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/updateBglData"
+        android:layout_toRightOf="@+id/updateBglData"
+        style="@style/LabelStyle"
+        android:text="Time:" />
 
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -24,9 +26,9 @@ public class MedicineActivity extends AppCompatActivity {
 
     Button addMedicine, updateMedicine;
     DatabaseHandler databaseHandler;
-    EditText medicineDescription, medicineDate;
+    EditText medicineDescription, medicineDate, medicineTime;
     Calendar calendar;
-    int day, month, year;
+    int day, month, year, hour, minute;
     String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,36 @@ public class MedicineActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         medicineDescription = (EditText) findViewById(R.id.editTextMedicineDescription);
         medicineDate = (EditText) findViewById(R.id.editTextMedicineDate);
+        medicineTime = (EditText) findViewById(R.id.medicineTime);
         addMedicine = (Button) findViewById(R.id.addMedicine);
         updateMedicine = (Button) findViewById(R.id.updateMedincineData);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
+        medicineTime.setText(hour + ":" + minute);
         showSharedPreferences();
+
+        medicineTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        medicineTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
 
         if(getIntent().getIntExtra("medicineId",-1) == -1){
             updateMedicine.setEnabled(false);
@@ -56,10 +80,9 @@ public class MedicineActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                System.out.println("The add Exercise button is called here.");
                 Medicine medicine = new Medicine();
                 medicine.setDescription(medicineDescription.getText().toString());
-                medicine.setDate(medicineDate.getText().toString());
+                medicine.setDate(medicineDate.getText().toString()+" "+ medicineTime.getText().toString());
                 userName =  getIntent().getStringExtra("userName");
                 databaseHandler.add(medicine, userName);
                 Toast.makeText(MedicineActivity.this, "Description "+ medicineDescription.getText().toString() + " Date "+
@@ -128,7 +151,6 @@ public class MedicineActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    //use this inside onCreate()
     public void showSharedPreferences() {
         SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
         if (!sp.equals(null)) {

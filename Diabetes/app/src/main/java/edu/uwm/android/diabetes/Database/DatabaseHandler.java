@@ -55,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String createRegimenTable = " create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.REGIMEN_DESCRIPTION + " text not null"
+                + Constants.REGIMEN_DESCRIPTION + " text not null, "
                 + Constants.REGIMEN_DATE + " Text);";
 
 
