@@ -51,7 +51,7 @@
             android:name=".Activities.ListDataActivity"
             android:label="Data List" />
         <activity android:name=".Activities.BGLActivity" />
-        <activity android:name=".Activities.DActivity"></activity>
+        <activity android:name=".Activities.DietActivity"></activity>
     </application>
 
 </manifest>

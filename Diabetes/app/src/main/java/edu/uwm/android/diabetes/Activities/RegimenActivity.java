@@ -1,14 +1,19 @@
 package edu.uwm.android.diabetes.Activities;
 
         import android.app.DatePickerDialog;
+        import android.app.Dialog;
+        import android.app.DialogFragment;
+        import android.app.TimePickerDialog;
         import android.database.Cursor;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.text.format.DateFormat;
         import android.view.View;
         import android.widget.Button;
         import android.widget.DatePicker;
         import android.widget.EditText;
         import android.widget.ImageButton;
+        import android.widget.TimePicker;
         import android.widget.Toast;
 
         import java.util.Calendar;
@@ -19,10 +24,9 @@ package edu.uwm.android.diabetes.Activities;
 
 public class RegimenActivity extends AppCompatActivity {
 
-    ImageButton homeButton;
     Button addRegimen, showRegimen;
     DatabaseHandler databaseHandler;
-    EditText foodDescription, regimenDate;
+    EditText foodDescription, regimenDate, regimenTime;
     Calendar calendar;
     int day, month, year;
     String userName;
@@ -43,13 +47,14 @@ public class RegimenActivity extends AppCompatActivity {
                 System.out.println("The add Regimen button is called here.");
                 Regimen regimen = new Regimen();
                 regimen.setDescription(foodDescription.getText().toString());
+                regimen.setDate(regimenDate.getText().toString() + " " + regimenTime.getText().toString() );
                 userName =  getIntent().getStringExtra("userName");
                 databaseHandler.add(regimen, userName);
                 Toast.makeText(RegimenActivity.this, foodDescription.getText().toString() + " Added!",
                         Toast.LENGTH_LONG).show();
             }
         });
-        showRegimen.setOnClickListener(new View.OnClickListener() {
+       showRegimen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Regimen regimen = new Regimen();
@@ -74,11 +79,30 @@ public class RegimenActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         regimenDate.setText(month+1  + "/" + day+ "/" + year);
+        regimenTime = (EditText) findViewById(R.id.regimenTime);
 
         regimenDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DateDialog();
+            }
+        });
+        regimenTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(RegimenActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        regimenTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
             }
         });
 
@@ -95,6 +119,7 @@ public class RegimenActivity extends AppCompatActivity {
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);
         dpDialog.show();
     }
+
 
     @Override
     protected void onStart() {

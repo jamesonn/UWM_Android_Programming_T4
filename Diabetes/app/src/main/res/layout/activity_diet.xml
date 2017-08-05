@@ -84,7 +84,26 @@
         android:layout_toLeftOf="@+id/dietDate"
         android:layout_toStartOf="@+id/dietDate" />
 
+    <EditText
+        android:id="@+id/dietTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/addDiet"
+        android:layout_alignStart="@+id/addDiet"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="time"
+         />
 
+    <TextView
+        android:id="@+id/dietTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/dietTime"
+        android:layout_toStartOf="@+id/dietTime"
+        style="@style/LabelStyle"
+        android:text="Time:" />
 
 
 </RelativeLayout>

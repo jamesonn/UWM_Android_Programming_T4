@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, DActivity.class );
+                intent = new Intent(MainActivity.this, DietActivity.class );
                 intent.putExtra("userName", userName );
                 startActivity(intent);
             }

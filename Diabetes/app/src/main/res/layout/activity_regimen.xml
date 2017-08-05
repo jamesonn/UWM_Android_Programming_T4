@@ -48,18 +48,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Regimen"
-        android:layout_alignBaseline="@+id/showData"
-        android:layout_alignBottom="@+id/showData"
-        android:layout_alignRight="@+id/regimenDate"
-        android:layout_alignEnd="@+id/regimenDate" />
-
-    <Button
-        android:id="@+id/showData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Data"
-        android:layout_below="@+id/regimenDate"
-        android:layout_marginTop="71dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/dateTextView"
+        android:layout_alignStart="@+id/dateTextView"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="99dp" />
 
     <EditText
         android:id="@+id/regimenDate"
@@ -82,5 +76,38 @@
         android:layout_alignBottom="@+id/regimenDate"
         android:layout_toLeftOf="@+id/regimenDate"
         android:layout_toStartOf="@+id/regimenDate" />
+
+    <EditText
+        android:id="@+id/regimenTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:layout_below="@+id/regimenDate"
+        android:layout_alignLeft="@+id/regimenDate"
+        android:layout_alignStart="@+id/regimenDate"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/regimenTime"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/regimenTime"
+        android:layout_toStartOf="@+id/regimenTime"
+        android:text="Time" />
+
+    <Button
+        android:id="@+id/showData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="show" />
 
 </RelativeLayout>

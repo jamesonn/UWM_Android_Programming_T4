@@ -36,6 +36,7 @@ public class Constants {
 
     public static final String REGIMEN_ID = "REGIMEN_ID";
     public static final String REGIMEN_DESCRIPTION = "Description";
+    public static final String REGIMEN_DATE = "Date";
 
     public static final String REGIMEN_CLASS = "REGIMEN";
     public static final String DIET_CLASS = "DIET";
