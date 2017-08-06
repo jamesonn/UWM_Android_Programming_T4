@@ -62,6 +62,16 @@ public class BGLActivity extends AppCompatActivity {
             addBGL.setEnabled(false);
         }
 
+        if(getIntent().getIntExtra("bglId",-1) == -1){
+            updateBGL.setVisibility(View.INVISIBLE);
+        }else{
+            addBGL.setVisibility(View.INVISIBLE);
+            BGLValue.setText(getIntent().getStringExtra("bglValue"));
+            String dateAndTime = getIntent().getStringExtra("bglDate");
+            BGLDate.setText(dateAndTime.substring(0,8));
+            BGLTime.setText(dateAndTime.substring(9,14));
+        }
+
 
         addBGL.setOnClickListener(new View.OnClickListener() {
 

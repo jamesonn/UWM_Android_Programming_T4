@@ -69,9 +69,6 @@ public class RegimenActivity extends AppCompatActivity {
             addRegimen.setVisibility(View.INVISIBLE);
             foodDescription.setText(getIntent().getStringExtra("regimenDescription"));
             String dateAndTime = getIntent().getStringExtra("regimenDate");
-            System.out.println("The date and time are " + dateAndTime);
-            System.out.println("Date - >   "+dateAndTime.substring(0,8));
-            System.out.println("Time - >   "+dateAndTime.substring(9,14));
             regimenDate.setText(dateAndTime.substring(0,8));
             regimenTime.setText(dateAndTime.substring(9,14));
 

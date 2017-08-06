@@ -70,7 +70,16 @@ public class ExerciseActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(ExerciseActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        exerciseTime.setText( selectedHour + ":" + selectedMinute);
+                        String selectedHourString, selectedMinuteString;
+                        selectedHourString = Integer.toString(selectedHour);
+                        selectedMinuteString = Integer.toString(selectedMinute);
+                        if(selectedHour<10){
+                            selectedHourString = "0"+Integer.toString(selectedHour);
+                        }
+                        if(selectedMinute<10){
+                            selectedMinuteString = "0"+Integer.toString(selectedMinute);
+                        }
+                        exerciseTime.setText( selectedHourString + ":" + selectedMinuteString);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -82,6 +91,10 @@ public class ExerciseActivity extends AppCompatActivity {
             updateExercise.setVisibility(View.INVISIBLE);
         }else{
             addExercise.setVisibility(View.INVISIBLE);
+            exerciseDescription.setText(getIntent().getStringExtra("exerciseDescription"));
+            String dateAndTime = getIntent().getStringExtra("exerciseDate");
+            exerciseDate.setText(dateAndTime.substring(0,8));
+            exerciseTime.setText(dateAndTime.substring(9,14));
         }
 
         addExercise.setOnClickListener(new View.OnClickListener() {

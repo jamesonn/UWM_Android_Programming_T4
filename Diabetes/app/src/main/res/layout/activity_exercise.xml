@@ -5,17 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        android:id="@+id/editTextExerciseCalories"
-        style="@style/EditTextStyle"
-        android:layout_marginTop="35dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:hint="Calories"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/editTextExerciseDescription"
-        android:layout_alignStart="@+id/editTextExerciseDescription" />
-
-    <EditText
         android:id="@+id/editTextExerciseDescription"
         style="@style/EditTextStyle"
         android:layout_below="@+id/editTextExerciseCalories"
@@ -26,14 +15,6 @@
         android:inputType="textPersonName"
         android:hint="Description"/>
 
-    <TextView
-        android:id="@+id/textViewCaloriesBurnt"
-        style="@style/LabelStyle"
-        android:text="Calories: "
-        android:layout_alignBaseline="@+id/editTextExerciseCalories"
-        android:layout_alignBottom="@+id/editTextExerciseCalories"
-        android:layout_toLeftOf="@+id/editTextExerciseCalories"
-        android:layout_toStartOf="@+id/editTextExerciseCalories" />
     <TextView
         android:id="@+id/textViewExerciseDescription"
         style="@style/LabelStyle"

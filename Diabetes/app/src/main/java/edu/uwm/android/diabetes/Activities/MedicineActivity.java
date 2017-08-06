@@ -66,7 +66,16 @@ public class MedicineActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        medicineTime.setText( selectedHour + ":" + selectedMinute);
+                        String selectedHourString, selectedMinuteString;
+                        selectedHourString = Integer.toString(selectedHour);
+                        selectedMinuteString = Integer.toString(selectedMinute);
+                        if(selectedHour<10){
+                            selectedHourString = "0"+Integer.toString(selectedHour);
+                        }
+                        if(selectedMinute<10){
+                            selectedMinuteString = "0"+Integer.toString(selectedMinute);
+                        }
+                        medicineTime.setText( selectedHourString + ":" + selectedMinuteString);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -79,8 +88,12 @@ public class MedicineActivity extends AppCompatActivity {
             System.out.println("Update is invisible");
         }else{
             addMedicine.setVisibility(View.INVISIBLE);
-            System.out.println("Add is invisible");
+            medicineDescription.setText(getIntent().getStringExtra("medicineDescription"));
+            String dateAndTime = getIntent().getStringExtra("medicineDate");
+            medicineDate.setText(dateAndTime.substring(0,8));
+            medicineTime.setText(dateAndTime.substring(9,14));
         }
+
         addMedicine.setOnClickListener(new View.OnClickListener() {
 
             @Override
