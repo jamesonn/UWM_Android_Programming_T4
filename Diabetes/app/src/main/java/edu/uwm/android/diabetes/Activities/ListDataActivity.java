@@ -132,7 +132,7 @@ public class ListDataActivity extends AppCompatActivity {
                        break;
                     case Constants.DIET_CLASS:
                         Diet diet = (Diet) objects.get(position);
-                        intent = new Intent(ListDataActivity.this, DActivity.class );
+                        intent = new Intent(ListDataActivity.this, DietActivity.class );
                         intent.putExtra("dietId", diet.getID());
                         intent.putExtra("dietDescription",diet.getDescription());
                         intent.putExtra("dietDate",diet.getDate());
