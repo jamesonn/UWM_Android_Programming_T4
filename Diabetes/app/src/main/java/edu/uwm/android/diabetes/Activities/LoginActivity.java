@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("name", userName.getText().toString());
         editor.putString("password",password.getText().toString());
+        editor.putBoolean("loggedin",true);
         if(rememberMe.isChecked())
             editor.putString("checkBox","checked");
         else editor.putString("checkBox","");
@@ -83,13 +84,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //use this inside onCreate()
-    public void showSharedPreferences(){
+    public void showSharedPreferences() {
         SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        if(!sp.equals(null)) {
-            userName.setText(sp.getString("name", ""));
-            password.setText(sp.getString("password", ""));
-            if(sp.getString("checkBox","").equals("checked"))
-            rememberMe.setChecked(true);
+//        if(!sp.equals(null)) {
+//            userName.setText(sp.getString("name", ""));
+//            password.setText(sp.getString("password", ""));
+//            if(sp.getString("checkBox","").equals("checked"))
+//            rememberMe.setChecked(true);
+//        }
+
+        Boolean islog = sp.getBoolean("loggedin", false);
+        if (islog) {
+            if (sp.getString("checkBox", "").equals("checked")) {
+                //rememberMe.setChecked(true);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("userName", sp.getString("name", ""));
+                startActivity(intent);
+                finish();
+            }
         }
     }
 

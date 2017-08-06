@@ -1,6 +1,8 @@
 package edu.uwm.android.diabetes.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -157,7 +159,13 @@ public class MainActivity extends AppCompatActivity
              intent.putExtra("userName", userName );
         }else if (id == R.id.logout){
              intent = new Intent(this, LoginActivity.class);
+             SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+             SharedPreferences.Editor editor = sp.edit();
+             editor.putBoolean("loggedin",false);
+             editor.putString("name", "");
+             editor.commit();
              intent.putExtra("userName", "" );
+             finish();
         }
 
         startActivity(intent);
