@@ -4,6 +4,8 @@ package edu.uwm.android.diabetes.Activities;
         import android.app.Dialog;
         import android.app.DialogFragment;
         import android.app.TimePickerDialog;
+        import android.content.Context;
+        import android.content.SharedPreferences;
         import android.database.Cursor;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
@@ -16,15 +18,17 @@ package edu.uwm.android.diabetes.Activities;
         import android.widget.TimePicker;
         import android.widget.Toast;
 
+        import java.sql.SQLOutput;
         import java.util.Calendar;
 
         import edu.uwm.android.diabetes.Database.DatabaseHandler;
+        import edu.uwm.android.diabetes.Database.Medicine;
         import edu.uwm.android.diabetes.Database.Regimen;
         import edu.uwm.android.diabetes.R;
 
 public class RegimenActivity extends AppCompatActivity {
 
-    Button addRegimen, showRegimen;
+    Button addRegimen, updateRegimen;
     DatabaseHandler databaseHandler;
     EditText foodDescription, regimenDate, regimenTime;
     Calendar calendar;
@@ -39,7 +43,9 @@ public class RegimenActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         foodDescription = (EditText) findViewById(R.id.editText_foodDescription);
         addRegimen = (Button) findViewById(R.id.addRegimen);
-        showRegimen = (Button) findViewById(R.id.showData);
+        updateRegimen = (Button) findViewById(R.id.updateRegimen);
+        regimenDate = (EditText) findViewById(R.id.regimenDate);
+        regimenTime = (EditText) findViewById(R.id.regimenTime);
         addRegimen.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -54,25 +60,48 @@ public class RegimenActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-       showRegimen.setOnClickListener(new View.OnClickListener() {
+
+
+        if(getIntent().getIntExtra("regimenId",-1) == -1){
+            updateRegimen.setVisibility(View.INVISIBLE); //Not coming from the List
+        }else{
+            //Coming from the list
+            addRegimen.setVisibility(View.INVISIBLE);
+            foodDescription.setText(getIntent().getStringExtra("regimenDescription"));
+            String dateAndTime = getIntent().getStringExtra("regimenDate");
+            System.out.println("The date and time are " + dateAndTime);
+            System.out.println("Date - >   "+dateAndTime.substring(0,8));
+            System.out.println("Time - >   "+dateAndTime.substring(9,14));
+            regimenDate.setText(dateAndTime.substring(0,8));
+            regimenTime.setText(dateAndTime.substring(9,14));
+
+        }
+
+
+        updateRegimen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Regimen regimen = new Regimen();
-                Cursor cursor = databaseHandler.getDatabyUserName(regimen, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(RegimenActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                    }
-                    Toast.makeText(RegimenActivity.this, stringBuffer.toString(), Toast.LENGTH_SHORT).show();
+                regimen.setDescription(foodDescription.getText().toString());
+                regimen.setDate(regimenDate.getText().toString());
+                int id = getIntent().getIntExtra("regimenId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("regimenId", -1), regimen,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("regimenDate");
+                    getIntent().removeExtra("regimenDescription");
+                    getIntent().removeExtra("regimenId");
+                    Toast.makeText(RegimenActivity.this, "Regimen was updated", Toast.LENGTH_LONG).show();
+                    regimenDate.getText().clear();
+                    foodDescription.getText().clear();
+                }else{
+                    Toast.makeText(RegimenActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
+                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
             }
         });
-
         regimenDate = (EditText) findViewById(R.id.regimenDate);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -97,7 +126,16 @@ public class RegimenActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(RegimenActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        regimenTime.setText( selectedHour + ":" + selectedMinute);
+                        String selectedHourString, selectedMinuteString;
+                        selectedHourString = Integer.toString(selectedHour);
+                        selectedMinuteString = Integer.toString(selectedMinute);
+                        if(selectedHour<10){
+                            selectedHourString = "0"+Integer.toString(selectedHour);
+                        }
+                        if(selectedMinute<10){
+                            selectedMinuteString = "0"+Integer.toString(selectedMinute);
+                        }
+                        regimenTime.setText( selectedHourString + ":" + selectedMinuteString);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");

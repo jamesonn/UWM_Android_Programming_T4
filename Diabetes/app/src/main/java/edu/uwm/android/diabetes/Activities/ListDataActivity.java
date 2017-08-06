@@ -46,6 +46,8 @@ public class ListDataActivity extends AppCompatActivity {
         Cursor cursor3 = db.getData(diet);
         BloodGlucose bgl = new BloodGlucose();
         Cursor cursor4 = db.getData(bgl);
+        Regimen regimen = new Regimen();
+        Cursor regimenCursor = db.getData(regimen);
 
         if (cursor1.moveToFirst()) {
             do {
@@ -94,6 +96,18 @@ public class ListDataActivity extends AppCompatActivity {
                 }
             }while(cursor4.moveToNext());
         }else {Log.w("List Data Activity","Cursor4 Empty");}
+
+        if (regimenCursor.moveToFirst()) {
+            do {
+                if (regimenCursor.getString(1).equals(userName)) {
+                    Regimen regimenObject = new Regimen();
+                    regimenObject.setID(Integer.parseInt(regimenCursor.getString(0)));
+                    regimenObject.setDescription(regimenCursor.getString(2));
+                    regimenObject.setDate(regimenCursor.getString(3));
+                    objects.add(regimenObject);
+                }
+            }while(regimenCursor.moveToNext());
+        }else {Log.w("List Data Activity","regimenCursor Empty");}
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
@@ -157,6 +171,16 @@ public class ListDataActivity extends AppCompatActivity {
                         intent.putExtra("medicineId", medicine.getID());
                         intent.putExtra("medicineDescription",medicine.getDescription());
                         intent.putExtra("medicineDate",medicine.getDate());
+                        intent.putExtra("userName",userName);
+                        startActivity(intent);
+                        ListDataActivity.this.finish();
+                        break;
+                    case Constants.REGIMEN_CLASS:
+                        Regimen regimen = (Regimen) objects.get(position);
+                        intent = new Intent(ListDataActivity.this, RegimenActivity.class );
+                        intent.putExtra("regimenId", regimen.getID());
+                        intent.putExtra("regimenDescription",regimen.getDescription());
+                        intent.putExtra("regimenDate",regimen.getDate());
                         intent.putExtra("userName",userName);
                         startActivity(intent);
                         ListDataActivity.this.finish();

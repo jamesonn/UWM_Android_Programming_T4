@@ -83,6 +83,13 @@ public class DataAdapter extends
                 viewHolder.infoTextView.setText(String.valueOf(bgl.getValue()));
                 viewHolder.dateTextView.setText(bgl.getDate());
                 break;
+            case Constants.REGIMEN_CLASS:
+                Regimen regimen = (Regimen) object;
+                viewHolder.typeTextView.setText("Regimen");
+                viewHolder.infoTextView.setText(regimen.getDescription());
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.regimenThemeColor));
+                viewHolder.dateTextView.setText(regimen.getDate());
+                break;
             default:
                 break;
         }
