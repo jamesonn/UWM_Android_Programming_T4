@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         welcomeMenuMessage = (TextView) findViewById(R.id.welcomeMenuMessage);
         welcomeMenuMessage.setText("Welcome "+userName);
-
         return true;
     }
 
@@ -151,14 +150,14 @@ public class MainActivity extends AppCompatActivity
         }
 
          else if (id == R.id.nav_regimen) {
-            intent = new Intent(this, RegimenActivity.class );
-            intent.putExtra("userName", userName );
+             intent = new Intent(this, RegimenActivity.class );
+             intent.putExtra("userName", userName );
         } else if (id == R.id.nav_List){
-            intent = new Intent(this, ListDataActivity.class);
-            intent.putExtra("userName", userName );
+             intent = new Intent(this, ListDataActivity.class);
+             intent.putExtra("userName", userName );
         }else if (id == R.id.logout){
-            intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("userName", "" );
+             intent = new Intent(this, LoginActivity.class);
+             intent.putExtra("userName", "" );
         }
 
         startActivity(intent);

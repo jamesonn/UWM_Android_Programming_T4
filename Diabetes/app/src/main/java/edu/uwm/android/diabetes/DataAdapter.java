@@ -122,6 +122,13 @@ public class DataAdapter extends
 
     }
 
+
+
+    public void filterList(ArrayList<IDatabaseObject> filterdData) {
+        this.objects = filterdData;
+        notifyDataSetChanged();
+    }
+
     //-------------- View Holder below ---------------------------------
 
     //View holder class for all the objects

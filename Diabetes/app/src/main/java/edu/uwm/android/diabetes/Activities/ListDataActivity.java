@@ -8,9 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.uwm.android.diabetes.Constants;
 import edu.uwm.android.diabetes.DataAdapter;
@@ -23,12 +26,18 @@ import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 import edu.uwm.android.diabetes.R;
 
-public class ListDataActivity extends AppCompatActivity {
+public class ListDataActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
     DatabaseHandler db;
     private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
     String userName;
-    public DataAdapter adapter;
+    CheckBox exerciseCheckBox;
+    CheckBox dietCheckBox;
+    CheckBox medicineCheckBox;
+    CheckBox bglCheckBox;
+    RecyclerView recyclerView;
+    DataAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,19 @@ public class ListDataActivity extends AppCompatActivity {
 
         db= new DatabaseHandler(this);
         userName = getIntent().getStringExtra("userName");
+
+        exerciseCheckBox = (CheckBox) findViewById(R.id.exerciseCheckBox);
+        exerciseCheckBox.setChecked(true);
+        exerciseCheckBox.setOnCheckedChangeListener(this);
+        dietCheckBox = (CheckBox) findViewById(R.id.dietCheckBox);
+        dietCheckBox.setChecked(true);
+        dietCheckBox.setOnCheckedChangeListener(this);
+        medicineCheckBox = (CheckBox) findViewById(R.id.medicineCheckBox);
+        medicineCheckBox.setChecked(true);
+        medicineCheckBox.setOnCheckedChangeListener(this);
+        bglCheckBox = (CheckBox) findViewById(R.id.bglCheckBox) ;
+        bglCheckBox.setChecked(true);
+        bglCheckBox.setOnCheckedChangeListener(this);
 
         Exercise exercise = new Exercise();
         Cursor cursor1 = db.getData(exercise);
@@ -49,7 +71,7 @@ public class ListDataActivity extends AppCompatActivity {
         Regimen regimen = new Regimen();
         Cursor regimenCursor = db.getData(regimen);
 
-        if (cursor1.moveToFirst()) {
+        if (cursor1.moveToFirst() ) {
             do {
                 if (cursor1.getString(1).equals(userName)) {
                     Exercise e = new Exercise();
@@ -110,8 +132,8 @@ public class ListDataActivity extends AppCompatActivity {
         }else {Log.w("List Data Activity","regimenCursor Empty");}
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
-        final DataAdapter adapter = new DataAdapter(this, objects);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewListData);
+        adapter = new DataAdapter(this, objects);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -141,7 +163,6 @@ public class ListDataActivity extends AppCompatActivity {
                        intent.putExtra("exerciseDescription",exercise.getDescription());
                        intent.putExtra("exerciseDate",exercise.getDate());
                        intent.putExtra("userName",userName);
-                       intent.putExtra("comingFrom", "1");
                        startActivity(intent);
                        ListDataActivity.this.finish();
                        break;
@@ -189,5 +210,48 @@ public class ListDataActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+
+    private void filterByType(ArrayList<IDatabaseObject> objects) {
+        //new array list that will hold the filtered data
+        ArrayList<IDatabaseObject> filterdData = new ArrayList<>();
+
+        for (int i=0; i<this.objects.size();i++) {
+            if (exerciseCheckBox.isChecked()) {
+                if (objects.get(i).getClassID().equals(Constants.EXERCISE_CLASS)) {
+                    filterdData.add(objects.get(i));
+                }
+            }
+            if (dietCheckBox.isChecked()) {
+                if (objects.get(i).getClassID().equals(Constants.DIET_CLASS)) {
+                    filterdData.add(objects.get(i));
+                }
+            }
+            if (medicineCheckBox.isChecked()) {
+                if (objects.get(i).getClassID().equals(Constants.MEDICINE_CLASS)) {
+                    filterdData.add(objects.get(i));
+                }
+            }
+            if (bglCheckBox.isChecked()) {
+                if (objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)) {
+                    filterdData.add(objects.get(i));
+                }
+            }
+        }
+        //calling a method of the adapter class and passing the filtered list
+        adapter.filterList(filterdData);
+    }
+
+
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        filterByType(objects);
+
     }
 }
+
