@@ -59,19 +59,20 @@
         android:text="Add BGL"
         android:layout_alignBaseline="@+id/updateBglData"
         android:layout_alignBottom="@+id/updateBglData"
-        android:layout_alignRight="@+id/editTextBGLDate"
-        android:layout_alignEnd="@+id/editTextBGLDate"
-        android:layout_below="@+id/editTextBGLDate"/>/>
+        android:layout_alignLeft="@+id/bglTime"
+        android:layout_alignStart="@+id/bglTime" />/>
 
     <Button
         android:id="@+id/updateBglData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update BGL"
+        android:layout_marginBottom="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="62dp" />
+        android:layout_toRightOf="@+id/textViewBGLDate"
+        android:layout_toEndOf="@+id/textViewBGLDate"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
     <EditText
         android:id="@+id/bglTime"

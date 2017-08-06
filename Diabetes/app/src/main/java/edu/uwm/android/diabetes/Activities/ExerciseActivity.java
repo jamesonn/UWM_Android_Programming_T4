@@ -53,7 +53,11 @@ public class ExerciseActivity extends AppCompatActivity {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         exerciseDate.setText(month+1  + "/" + day+ "/" + year);
-        exerciseTime.setText(hour + ":" + minute);
+        if (minute<10){
+            exerciseTime.setText(hour + ":0" + minute);
+        }else{
+            exerciseTime.setText(hour + ":" + minute);
+        }
         showSharedPreferences();
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +78,11 @@ public class ExerciseActivity extends AppCompatActivity {
             }
         });
 
-
         if(getIntent().getIntExtra("exerciseId",-1) == -1){
-            updateExercise.setEnabled(false);
+            updateExercise.setVisibility(View.INVISIBLE);
         }else{
-            addExercise.setEnabled(false);
+            addExercise.setVisibility(View.INVISIBLE);
         }
-
 
         addExercise.setOnClickListener(new View.OnClickListener() {
 

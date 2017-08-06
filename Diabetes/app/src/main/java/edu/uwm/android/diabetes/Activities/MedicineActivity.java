@@ -47,8 +47,13 @@ public class MedicineActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+        if (minute<10){
+            medicineTime.setText(hour + ":0" + minute);
+        }else{
+            medicineTime.setText(hour + ":" + minute);
+        }
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
-        medicineTime.setText(hour + ":" + minute);
+
         showSharedPreferences();
 
         medicineTime.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +75,12 @@ public class MedicineActivity extends AppCompatActivity {
         });
 
         if(getIntent().getIntExtra("medicineId",-1) == -1){
-            updateMedicine.setEnabled(false);
+            updateMedicine.setVisibility(View.INVISIBLE);
+            System.out.println("Update is invisible");
         }else{
-            addMedicine.setEnabled(false);
+            addMedicine.setVisibility(View.INVISIBLE);
+            System.out.println("Add is invisible");
         }
-
-
         addMedicine.setOnClickListener(new View.OnClickListener() {
 
             @Override

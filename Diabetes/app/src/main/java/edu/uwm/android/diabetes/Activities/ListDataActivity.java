@@ -127,6 +127,7 @@ public class ListDataActivity extends AppCompatActivity {
                        intent.putExtra("exerciseDescription",exercise.getDescription());
                        intent.putExtra("exerciseDate",exercise.getDate());
                        intent.putExtra("userName",userName);
+                       intent.putExtra("comingFrom", "1");
                        startActivity(intent);
                        ListDataActivity.this.finish();
                        break;

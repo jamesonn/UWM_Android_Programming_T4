@@ -53,15 +53,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="85dp" />
 
-    <Button
-        android:id="@+id/showDietData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Data"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <EditText
         android:id="@+id/dietDate"
         android:layout_width="wrap_content"

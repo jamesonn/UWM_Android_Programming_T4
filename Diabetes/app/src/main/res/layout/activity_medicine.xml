@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date: "
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/editTextMedicineDescription"
         android:layout_alignRight="@+id/textViewMedicineDescription"
-        android:layout_alignEnd="@+id/textViewMedicineDescription"
-        android:layout_marginTop="56dp" />
+        android:layout_alignEnd="@+id/textViewMedicineDescription" />
 
     <EditText
         android:id="@+id/editTextMedicineDate"
@@ -50,25 +50,7 @@
 
 
 
-    <Button
-        android:id="@+id/addMedicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Medicine"
-        android:layout_alignBaseline="@+id/updateMedincineData"
-        android:layout_alignBottom="@+id/updateMedincineData"
-        android:layout_alignRight="@+id/editTextMedicineDate"
-        android:layout_alignEnd="@+id/editTextMedicineDate" />
 
-    <Button
-        android:id="@+id/updateMedincineData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Medicine"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="19dp" />
 
     <EditText
         android:id="@+id/medicineTime"
@@ -90,6 +72,24 @@
         android:layout_alignBottom="@+id/medicineTime"
         android:layout_alignRight="@+id/textViewMedicineDate"
         android:layout_alignEnd="@+id/textViewMedicineDate" />
+
+    <Button
+        android:id="@+id/addMedicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:text="Add Medicine" />
+
+    <Button
+        android:id="@+id/updateMedincineData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Medicine"
+        android:layout_alignBaseline="@+id/addMedicine"
+        android:layout_alignBottom="@+id/addMedicine"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

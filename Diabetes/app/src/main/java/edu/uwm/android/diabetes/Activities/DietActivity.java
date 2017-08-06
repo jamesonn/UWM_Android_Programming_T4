@@ -21,7 +21,7 @@ import edu.uwm.android.diabetes.R;
 
 public class DietActivity extends AppCompatActivity {
 
-    Button addDiet, showDiet;
+    Button addDiet;
     DatabaseHandler databaseHandler;
     EditText dietCalories, dietDate, dietTime;
     Calendar calendar;
@@ -36,7 +36,6 @@ public class DietActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         dietCalories = (EditText) findViewById(R.id.editTextdietCalories);
         addDiet = (Button) findViewById(R.id.addDiet);
-        showDiet = (Button) findViewById(R.id.showDietData);
         addDiet.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -52,27 +51,6 @@ public class DietActivity extends AppCompatActivity {
             }
         });
 
-        showDiet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Diet diet = new Diet();
-                Cursor cursor = databaseHandler.getDatabyUserName(diet, userName);
-                if (cursor.getCount() == 0) {
-                    Toast.makeText(DietActivity.this, "No data to show", Toast.LENGTH_SHORT).show();
-                } else {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    while (cursor.moveToNext()) {
-                        stringBuffer.append("ID " + cursor.getString(0) + "\n");
-                        stringBuffer.append("User  " + cursor.getString(1) + "\n");
-                        stringBuffer.append("Description  " + cursor.getString(2) + "\n");
-                        stringBuffer.append("Date and Time" + cursor.getString(3) + "\n");
-                        stringBuffer.append("---------------" + "\n");
-                    }
-                    Toast.makeText(DietActivity.this, stringBuffer.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         dietDate = (EditText) findViewById(R.id.dietDate);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -82,7 +60,11 @@ public class DietActivity extends AppCompatActivity {
         minute = calendar.get(Calendar.MINUTE);
         dietDate.setText(month+1  + "/" + day+ "/" + year);
         dietTime = (EditText) findViewById(R.id.dietTime);
-        dietTime.setText(hour + ":" + minute);
+        if (minute<10){
+            dietTime.setText(hour + ":0" + minute);
+        }else{
+            dietTime.setText(hour + ":" + minute);
+        }
 
 
         dietDate.setOnClickListener(new View.OnClickListener() {

@@ -49,7 +49,11 @@ public class BGLActivity extends AppCompatActivity {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         BGLDate.setText(month+1  + "/" + day+ "/" + year);
-        BGLTime.setText(hour + ":" + minute);
+        if (minute<10){
+            BGLTime.setText(hour + ":0" + minute);
+        }else{
+            BGLTime.setText(hour + ":" + minute);
+        }
         showSharedPreferences();
 
         if(getIntent().getIntExtra("bglId",-1) == -1){

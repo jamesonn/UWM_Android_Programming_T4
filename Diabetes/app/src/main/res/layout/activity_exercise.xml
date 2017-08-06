@@ -51,18 +51,16 @@
         android:text="Add Exercise"
         android:layout_alignBaseline="@+id/updateExerciseData"
         android:layout_alignBottom="@+id/updateExerciseData"
-        android:layout_alignRight="@+id/exerciseDate"
-        android:layout_alignEnd="@+id/exerciseDate" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/updateExerciseData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update Exercise"
+        android:layout_marginBottom="87dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="89dp" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/exerciseDate"
@@ -70,10 +68,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
         android:layout_below="@+id/editTextExerciseDescription"
         android:layout_alignLeft="@+id/editTextExerciseDescription"
-        android:layout_alignStart="@+id/editTextExerciseDescription"
-        android:layout_marginTop="30dp" />
+        android:layout_alignStart="@+id/editTextExerciseDescription" />
 
     <TextView
         android:id="@+id/exerciseDateTextView"
@@ -90,21 +88,21 @@
         android:id="@+id/exerciseTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/exerciseDate"
-        android:layout_alignRight="@+id/exerciseDate"
-        android:layout_centerVertical="true"
         android:ems="10"
         android:inputType="time"
-         />
+        android:layout_below="@+id/exerciseDate"
+        android:layout_alignLeft="@+id/exerciseDate"
+        android:layout_alignStart="@+id/exerciseDate" />
 
     <TextView
         android:id="@+id/exerciseTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/exerciseTime"
         style="@style/LabelStyle"
-        android:layout_toStartOf="@+id/exerciseTime"
-        android:text="Time:" />
+        android:text="Time:"
+        android:layout_alignBaseline="@+id/exerciseTime"
+        android:layout_alignBottom="@+id/exerciseTime"
+        android:layout_toLeftOf="@+id/exerciseTime"
+        android:layout_toStartOf="@+id/exerciseTime" />
 
 </RelativeLayout>
