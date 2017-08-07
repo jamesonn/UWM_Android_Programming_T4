@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context="edu.uwm.android.diabetes.Activities.MedicineActivity">
 
@@ -16,6 +17,17 @@
         android:layout_alignBottom="@+id/editTextMedicineDescription"
         android:layout_toLeftOf="@+id/editTextMedicineDate"
         android:layout_toStartOf="@+id/editTextMedicineDate" />
+
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@android:color/holo_red_light"
+        android:alpha=".60"
+        app:srcCompat="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/editTextMedicineDescription"
@@ -90,6 +102,19 @@
         android:layout_alignBaseline="@+id/addMedicine"
         android:layout_alignBottom="@+id/addMedicine"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/pillImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="32dp"
+        app:srcCompat="@mipmap/pillicon" />
 
 
 </RelativeLayout>

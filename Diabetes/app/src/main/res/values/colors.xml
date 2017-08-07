@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="BGLThemeColor">#EC7063</color>
+    <color name="lightRed">#ffcccc</color>
     <color name="regimenThemeColor">#2ca5f5</color>
     <color name="ExerciseThemeColoe">@android:color/holo_green_light</color>
     <color name="MedicationThemeColor">@android:color/holo_orange_dark</color>

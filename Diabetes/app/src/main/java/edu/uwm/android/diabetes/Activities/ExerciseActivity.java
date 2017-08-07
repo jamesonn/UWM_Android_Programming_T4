@@ -29,7 +29,7 @@ import edu.uwm.android.diabetes.R;
 public class ExerciseActivity extends AppCompatActivity {
     Button addExercise, updateExercise;
     DatabaseHandler databaseHandler;
-    EditText exerciseDescription, exerciseDate, exerciseCalories, exerciseTime;
+    EditText exerciseDescription, exerciseDate, exerciseTime;
     Calendar calendar;
     int day, month, year, minute, hour;
     String userName;
@@ -38,7 +38,6 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         databaseHandler = new DatabaseHandler(this);
-        exerciseCalories = (EditText) findViewById(R.id.editTextExerciseCalories);
         exerciseDescription = (EditText) findViewById(R.id.editTextExerciseDescription);
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         addExercise = (Button) findViewById(R.id.addExercise);

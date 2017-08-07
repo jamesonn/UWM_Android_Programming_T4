@@ -4,10 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context="edu.uwm.android.diabetes.Activities.BGLActivity">
 
 
+    <ImageView
+        android:id="@+id/backgroundImageDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart"
+        android:alpha=".60"/>
     <TextView
         android:id="@+id/textViewBGLDescription"
         style="@style/LabelStyle"
@@ -60,8 +71,20 @@
         android:layout_alignBaseline="@+id/updateBglData"
         android:layout_alignBottom="@+id/updateBglData"
         android:layout_alignLeft="@+id/bglTime"
-        android:layout_alignStart="@+id/bglTime" />/>
+        android:layout_alignStart="@+id/bglTime" />
 
+    <ImageView
+        android:id="@+id/bloodImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="32dp"
+        app:srcCompat="@mipmap/blooddropicon" />
     <Button
         android:id="@+id/updateBglData"
         android:layout_width="wrap_content"
@@ -96,6 +119,8 @@
         android:layout_alignBottom="@+id/bglTime"
         android:layout_alignLeft="@+id/textViewBGLDate"
         android:layout_alignStart="@+id/textViewBGLDate" />
+
+
 
 
 </RelativeLayout>
