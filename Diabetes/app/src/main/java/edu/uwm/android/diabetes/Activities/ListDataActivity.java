@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,9 +42,9 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     CheckBox exerciseCheckBox, dietCheckBox, medicineCheckBox, bglCheckBox;
     RecyclerView recyclerView;
     DataAdapter adapter;
-    EditText dateFrom, dateTo;
+    EditText dateFrom, dateTo, timeFrom, timeTo;
     Calendar calendar;
-    int fromDay, fromMonth, fromYear, toDay, toMonth,toYear;
+    int fromDay, fromMonth, fromYear, fromHour, fromMinutes, toDay, toMonth,toYear, toHour, toMinutes;
     Button searchBtn;
 
 
@@ -71,24 +73,30 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         fromDay = calendar.get(Calendar.DAY_OF_MONTH);
         fromMonth = calendar.get(Calendar.MONTH);
         fromYear = calendar.get(Calendar.YEAR);
+        fromHour = calendar.get(Calendar.HOUR_OF_DAY);
+        fromMinutes = calendar.get(Calendar.MINUTE);
 
         toDay = calendar.get(Calendar.DAY_OF_MONTH);
         toMonth = calendar.get(Calendar.MONTH);
         toYear = calendar.get(Calendar.YEAR);
+        toHour = calendar.get(Calendar.HOUR_OF_DAY);
+        toMinutes = calendar.get(Calendar.MINUTE);
 
         dateFrom = (EditText) findViewById(R.id.dateFrom);
         dateFrom.setText(fromMonth+1+"/"+fromDay+"/"+fromYear);
         dateTo = (EditText) findViewById(R.id.dateTo);
         dateTo.setText(toMonth+1+"/"+toDay+"/"+toYear);
-
-
+        timeFrom = (EditText) findViewById(R.id.timeFrom);
+        timeFrom.setText(fromHour+":"+fromMinutes);
+        timeTo = (EditText) findViewById(R.id.timeTo);
+        timeTo.setText(toHour+":"+toMinutes);
 
         searchBtn = (Button) findViewById(R.id.buttonSearch);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                adapter.filterList(filterByType(filterByDate(objects)));
+                adapter.filterList(filterByType(filterByDate(filterByTime(objects))));
             }
         });
 
@@ -98,13 +106,47 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                 DateDialogTO();
             }
         });
-
         dateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DateDialogFrom();
             }
         });
+        timeFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ListDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeFrom.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+        timeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ListDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeTo.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
 
         Exercise exercise = new Exercise();
         Cursor cursor1 = db.getData(exercise);
@@ -325,7 +367,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         return filterdDataByType;
     }
 
-    //returns a filtered list by the date (From and To EditTexts)
+    //returns a filtered list by the date (FromDate and ToDate EditTexts)
     private ArrayList<IDatabaseObject> filterByDate(ArrayList<IDatabaseObject> objects) {
         ArrayList<IDatabaseObject> filterdData = new ArrayList<>();
 
@@ -338,6 +380,18 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         return filterdData;
     }
 
+    //returns a filtered list by the Time (FromTime and ToTime EditTexts)
+    private ArrayList<IDatabaseObject> filterByTime(ArrayList<IDatabaseObject> objects) {
+        ArrayList<IDatabaseObject> filterdTime = new ArrayList<>();
+
+        for (int i = 0; i < objects.size(); i++) {
+            if(isAfterTime(timeFrom.getText().toString(),objects.get(i).getDate()) &&
+                    !isAfterTime(timeTo.getText().toString(),objects.get(i).getDate()))
+                filterdTime.add(objects.get(i));
+        }
+        return filterdTime;
+    }
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -346,24 +400,24 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
 
 
         //comparing between dates
-        public static boolean isAfterDate(String fromDate, String dataBaseDate) {
-            String[] dateOne = fromDate.split("/");
-            String[] dateTwo = dataBaseDate.split("/");
-            String[] year1 = dateTwo[2].split(" ");
-            if (Integer.parseInt(dateOne[2]) > Integer.parseInt(year1[0])) {
-                return false;
-            } else if (Integer.parseInt(dateOne[2]) < Integer.parseInt(year1[0])) {
-                return true;
-            } else if (Integer.parseInt(dateOne[0]) > Integer.parseInt(dateTwo[0])) {
-                return false;
-            } else if (Integer.parseInt(dateOne[0]) < Integer.parseInt(dateTwo[0])) {
-                return true;
-            } else if (Integer.parseInt(dateOne[1]) > Integer.parseInt(dateTwo[1])) {
-                return false;
-            } else return true;
+    private boolean isAfterDate(String fromDate, String dataBaseDate) {
+        String[] dateOne = fromDate.split("/");
+        String[] dateTwo = dataBaseDate.split("/");
+        String[] year1 = dateTwo[2].split(" ");
+        if (Integer.parseInt(dateOne[2]) > Integer.parseInt(year1[0])) {
+            return false;
+        } else if (Integer.parseInt(dateOne[2]) < Integer.parseInt(year1[0])) {
+            return true;
+        } else if (Integer.parseInt(dateOne[0]) > Integer.parseInt(dateTwo[0])) {
+            return false;
+        } else if (Integer.parseInt(dateOne[0]) < Integer.parseInt(dateTwo[0])) {
+            return true;
+        } else if (Integer.parseInt(dateOne[1]) > Integer.parseInt(dateTwo[1])) {
+            return false;
+        } else return true;
 
-        }
-    public static boolean isBeforeDate(String toDate, String dataBaseDate) {
+    }
+    private boolean isBeforeDate(String toDate, String dataBaseDate) {
         String[] dateOne = toDate.split("/");
         String[] dateTwo = dataBaseDate.split("/");
         String[] year1 = dateTwo[2].split(" ");
@@ -378,6 +432,24 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         } else if (Integer.parseInt(dateOne[1]) < Integer.parseInt(dateTwo[1])) {
             return false;
         } else return true;
-
     }
+
+    //comparing between times
+    private boolean isAfterTime(String fromTime, String databaseTime){
+        String [] timeOne = fromTime.split(":");
+        String[] date = databaseTime.split("/");
+        String[] YearAndTime = date[2].split(" ");
+        String[] time = YearAndTime[1].split(":");
+        Log.w("Values of YearAndTime",YearAndTime[0]+" "+YearAndTime[1]);
+        int hour = Integer.parseInt(time[0]);
+        int minutes = Integer.parseInt(time[1]);
+
+        if(Integer.parseInt(timeOne[0] )< hour){
+            return true;
+        }else if (Integer.parseInt(timeOne[0] )> hour){
+            return false;
+        }else return(Integer.parseInt(timeOne[1])<= minutes);
+    }
+
+
 }
