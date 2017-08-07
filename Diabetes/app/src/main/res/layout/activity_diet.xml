@@ -78,6 +78,16 @@
         android:layout_alignStart="@+id/bloodImage"
         android:layout_marginBottom="31dp" />
 
+    <Button
+        android:id="@+id/updateDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update diet"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/bloodImage"
+        android:layout_alignStart="@+id/bloodImage"
+        android:layout_marginBottom="31dp" />
+
     <EditText
         android:id="@+id/dietDate"
         android:layout_width="wrap_content"

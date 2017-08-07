@@ -119,7 +119,7 @@ public class BGLActivity extends AppCompatActivity {
             public void onClick(View v) {
                 BloodGlucose bgl = new BloodGlucose();
                 bgl.setValue(Double.parseDouble(BGLValue.getText().toString()));
-                bgl.setDate(BGLDate.getText().toString());
+                bgl.setDate(BGLDate.getText().toString() + " "+ BGLTime.getText().toString());
                 int id =getIntent().getIntExtra("bglId",-1);
                 if(id != -1) {
                     databaseHandler.update(getIntent().getIntExtra("bglId", -1), bgl,getIntent().getStringExtra("userName"));

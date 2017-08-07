@@ -120,7 +120,7 @@ public class MedicineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Medicine medicine = new Medicine();
                 medicine.setDescription(medicineDescription.getText().toString());
-                medicine.setDate(medicineDate.getText().toString());
+                medicine.setDate(medicineDate.getText().toString()+" "+ medicineTime.getText().toString());
                 int id =getIntent().getIntExtra("medicineId",-1);
                 if(id != -1) {
                     databaseHandler.update(getIntent().getIntExtra("medicineId", -1), medicine,getIntent().getStringExtra("userName"));

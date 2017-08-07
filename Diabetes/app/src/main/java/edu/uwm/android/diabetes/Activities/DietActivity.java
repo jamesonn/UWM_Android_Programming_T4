@@ -2,6 +2,8 @@ package edu.uwm.android.diabetes.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,14 +18,15 @@ import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.Diet;
+import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class DietActivity extends AppCompatActivity {
 
-    Button addDiet;
+    Button addDiet, updatediet;
     DatabaseHandler databaseHandler;
-    EditText dietCalories, dietDate, dietTime;
+    EditText dietDescription, dietDate, dietTime;
     Calendar calendar;
     int day, month, year, hour, minute;
     String userName;
@@ -34,23 +37,9 @@ public class DietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diet);
 
         databaseHandler = new DatabaseHandler(this);
-        dietCalories = (EditText) findViewById(R.id.editTextdietCalories);
+        dietDescription = (EditText) findViewById(R.id.editTextDietDescription);
         addDiet = (Button) findViewById(R.id.addDiet);
-        addDiet.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                System.out.println("The add Regimen button is called here.");
-                Diet diet = new Diet();
-                diet.setDescription(dietCalories.getText().toString());
-                diet.setDate(dietDate.getText().toString() + " " + dietTime.getText().toString() );
-                userName =  getIntent().getStringExtra("userName");
-                databaseHandler.add(diet, userName);
-                Toast.makeText(DietActivity.this, dietCalories.getText().toString() + " Added!",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
+        updatediet = (Button) findViewById(R.id.updateDiet);
         dietDate = (EditText) findViewById(R.id.dietDate);
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -65,6 +54,60 @@ public class DietActivity extends AppCompatActivity {
         }else{
             dietTime.setText(hour + ":" + minute);
         }
+
+
+        if(getIntent().getIntExtra("dietId",-1) == -1){
+            updatediet.setVisibility(View.INVISIBLE);
+        }else{
+            addDiet.setVisibility(View.INVISIBLE);
+            dietDescription.setText(getIntent().getStringExtra("exerciseDescription"));
+            String dateAndTime = getIntent().getStringExtra("dietDate");
+            dietDate.setText(dateAndTime.substring(0,8));
+            dietTime.setText(dateAndTime.substring(9,14));
+        }
+
+        addDiet.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("The add Regimen button is called here.");
+                Diet diet = new Diet();
+                diet.setDescription(dietDescription.getText().toString());
+                diet.setDate(dietDate.getText().toString() + " " + dietTime.getText().toString() );
+                userName =  getIntent().getStringExtra("userName");
+                databaseHandler.add(diet, userName);
+                Toast.makeText(DietActivity.this, dietDescription.getText().toString() + " Added!",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+        updatediet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Diet diet = new Diet();
+                diet.setDescription(dietDescription.getText().toString());
+                diet.setDate(dietDate.getText().toString() +" " + dietTime.getText().toString());
+                int id =getIntent().getIntExtra("dietId",-1);
+                if(id != -1) {
+                    databaseHandler.update(getIntent().getIntExtra("dietId", -1), diet,getIntent().getStringExtra("userName"));
+                    getIntent().removeExtra("dietDate");
+                    getIntent().removeExtra("dietDescription");
+                    getIntent().removeExtra("dietId");
+                    Toast.makeText(DietActivity.this, "Diet was updated", Toast.LENGTH_LONG).show();
+                    dietDate.getText().clear();
+                    dietDescription.getText().clear();
+                }else{
+                    Toast.makeText(DietActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
+                }
+
+                SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+            }
+        });
+
+
 
 
         dietDate.setOnClickListener(new View.OnClickListener() {

@@ -123,7 +123,7 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Exercise exercise = new Exercise();
                 exercise.setDescription(exerciseDescription.getText().toString());
-                exercise.setDate(exerciseDate.getText().toString());
+                exercise.setDate(exerciseDate.getText().toString() +" " + exerciseTime.getText().toString());
                 int id =getIntent().getIntExtra("exerciseId",-1);
                 if(id != -1) {
                     databaseHandler.update(getIntent().getIntExtra("exerciseId", -1), exercise,getIntent().getStringExtra("userName"));
