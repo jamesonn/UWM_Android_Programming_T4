@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/hearticon"
+        android:icon="@mipmap/heart"
         android:label="Diabetes Tracker"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
