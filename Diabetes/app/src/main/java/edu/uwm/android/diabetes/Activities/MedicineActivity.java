@@ -152,7 +152,7 @@ public class MedicineActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                medicineDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+                medicineDate.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
 
             }
         };

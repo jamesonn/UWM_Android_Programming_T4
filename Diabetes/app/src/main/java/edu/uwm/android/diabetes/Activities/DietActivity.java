@@ -98,7 +98,7 @@ public class DietActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dietDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+                dietDate.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
             }
         };
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, year, month, day);

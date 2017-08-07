@@ -157,7 +157,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                  exerciseDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+                  exerciseDate.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
              }
         };
 

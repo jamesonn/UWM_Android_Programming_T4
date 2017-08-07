@@ -154,7 +154,7 @@ public class BGLActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
 
-                BGLDate.setText(monthOfYear + "/" + dayOfMonth + "/" + year);
+                BGLDate.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
 
             }
         };
