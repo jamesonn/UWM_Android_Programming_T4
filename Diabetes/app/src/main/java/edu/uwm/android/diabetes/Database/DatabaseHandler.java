@@ -3,8 +3,8 @@ package edu.uwm.android.diabetes.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import net.sqlcipher.database.SQLiteOpenHelper;
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    private String password;
+
     public DatabaseHandler(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
@@ -23,6 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        password = "password";
 
         String createLoginTable = " create table " + Constants.TABLE_LOGIN + " ("
                 + Constants.LOGIN_USERNAME + " text primary key, "
@@ -79,7 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void addUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase(password);
         ContentValues values = new ContentValues();
         values.put(Constants.LOGIN_USERNAME, user.getUserName());
         values.put(Constants.LOGIN_PASSWORD, user.getPassword());
@@ -89,7 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public User getUserByUserName(String userName) {
         Cursor result;
         User userFound = new User();
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase(password);
         result = db.rawQuery("Select * from " + Constants.TABLE_LOGIN + " WHERE " + Constants.LOGIN_USERNAME + " = '" + userName + "'", null);
         if (result.getCount() == 0) {
             System.out.println("No Records");
@@ -106,7 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         boolean found = false;
         Cursor result;
         User userFound = new User();
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase(password);
         result = db.rawQuery("Select * from " + Constants.TABLE_LOGIN + " WHERE " + Constants.LOGIN_USERNAME + " = '" + userName + "'", null);
         if (result.getCount() == 0) {
             System.out.println("No Records");
@@ -126,7 +130,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (object != null) {
             String classType = object.getClassID();
 
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = this.getWritableDatabase(password);
             ContentValues values = new ContentValues();
             System.out.println("The type of the class is " + classType);
 
@@ -178,8 +182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void delete(IDatabaseObject object) {
         if (object != null) {
             String classType = object.getClassID();
-
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = getWritableDatabase(password);
 
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
@@ -221,7 +224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (object != null) {
             String classType = object.getClassID();
 
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = getWritableDatabase(password);
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
                     result = db.rawQuery("Select * from " + Constants.TABLE_BLOOD_GLUCOSE, null);
@@ -252,7 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (object != null) {
             String classType = object.getClassID();
 
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = getWritableDatabase(password);
             switch (classType) {
                 case Constants.BLOODGLUCOSE_CLASS:
                     result = db.rawQuery("Select * from " + Constants.TABLE_BLOOD_GLUCOSE + " WHERE USERNAME='" + userName + "'", null);
@@ -282,7 +285,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (object != null) {
             String classType = object.getClassID();
             ContentValues values = new ContentValues();
-            SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = getWritableDatabase(password);
 
             switch (classType) {
                 case Constants.EXERCISE_CLASS:

@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.User;
 import edu.uwm.android.diabetes.R;
@@ -39,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         rememberMe = (CheckBox) findViewById(R.id.checkboxRememberMe);
         showSharedPreferences();
         System.out.println("This is called man!");
+
+        //we need to call this on load for SQLCipher
+        SQLiteDatabase.loadLibs(this);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override

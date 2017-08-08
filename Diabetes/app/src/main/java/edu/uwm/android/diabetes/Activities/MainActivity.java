@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.R;
 
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity
         welcomeMessage = (TextView) findViewById(R.id.welcomeMessage);
         userName =  getIntent().getStringExtra("userName");
         welcomeMessage.setText("Welcome "+userName);
-
 
         RelativeLayout BGL = (RelativeLayout)findViewById(R.id.BGLL);
         RelativeLayout exercise = (RelativeLayout)findViewById(R.id.EXERCISEL);
