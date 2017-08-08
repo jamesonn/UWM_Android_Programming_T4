@@ -20,8 +20,7 @@
             android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.SplashActivity">
+        <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +50,8 @@
             android:name=".Activities.ListDataActivity"
             android:label="Data List" />
         <activity android:name=".Activities.BGLActivity" />
-        <activity android:name=".Activities.DietActivity"></activity>
+        <activity android:name=".Activities.DietActivity" />
+        <activity android:name=".Activities.AboutActivity"></activity>
     </application>
 
 </manifest>

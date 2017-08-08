@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity
         RelativeLayout diet = (RelativeLayout)findViewById(R.id.DIETL);
         RelativeLayout med = (RelativeLayout)findViewById(R.id.MEDL);
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -140,7 +137,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = null;
         int id = item.getItemId();
 
-
          if (id == R.id.nav_graph) {
             intent = new Intent(this, GraphActivity.class );
             intent.putExtra("userName", userName );
@@ -150,15 +146,16 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_reminders) {
             intent = new Intent(this, RemindersActivity.class );
             intent.putExtra("userName", userName );
-        }
-
-         else if (id == R.id.nav_regimen) {
+        } else if (id == R.id.nav_regimen) {
              intent = new Intent(this, RegimenActivity.class );
              intent.putExtra("userName", userName );
         } else if (id == R.id.nav_List){
              intent = new Intent(this, ListDataActivity.class);
              intent.putExtra("userName", userName );
-        }else if (id == R.id.logout){
+        } else if (id == R.id.nav_about) {
+             intent = new Intent(this, AboutActivity.class);
+             intent.putExtra("userName", userName );
+         } else if (id == R.id.logout){
              intent = new Intent(this, LoginActivity.class);
              SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
              SharedPreferences.Editor editor = sp.edit();
