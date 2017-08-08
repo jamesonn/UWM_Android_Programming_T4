@@ -84,18 +84,47 @@
             android:layout_weight="1"
             android:hint="To"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBglValue"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/linearLayoutTime"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="BGL Value:"
+            android:gravity="center"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/bglValuFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="From"/>
+        <EditText
+            android:id="@+id/bglValuTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="To"/>
+    </LinearLayout>
     <Button
         android:id="@+id/buttonSearch"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@+id/linearLayoutTime"
+        android:layout_below="@+id/linearLayoutBglValue"
         android:text="Serach" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewListData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="165dp"
+        android:layout_marginTop="205dp"
         />
 
 </RelativeLayout>

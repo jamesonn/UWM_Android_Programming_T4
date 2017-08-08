@@ -42,7 +42,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     CheckBox exerciseCheckBox, dietCheckBox, medicineCheckBox, bglCheckBox;
     RecyclerView recyclerView;
     DataAdapter adapter;
-    EditText dateFrom, dateTo, timeFrom, timeTo;
+    EditText dateFrom, dateTo, timeFrom, timeTo, bglValueFrom, bglValueTo;
     Calendar calendar;
     int fromDay, fromMonth, fromYear, fromHour, fromMinutes, toDay, toMonth,toYear, toHour, toMinutes;
     Button searchBtn;
@@ -58,16 +58,20 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
 
         exerciseCheckBox = (CheckBox) findViewById(R.id.exerciseCheckBox);
         exerciseCheckBox.setChecked(true);
-        exerciseCheckBox.setOnCheckedChangeListener(this);
         dietCheckBox = (CheckBox) findViewById(R.id.dietCheckBox);
         dietCheckBox.setChecked(true);
-        dietCheckBox.setOnCheckedChangeListener(this);
         medicineCheckBox = (CheckBox) findViewById(R.id.medicineCheckBox);
         medicineCheckBox.setChecked(true);
-        medicineCheckBox.setOnCheckedChangeListener(this);
         bglCheckBox = (CheckBox) findViewById(R.id.bglCheckBox);
         bglCheckBox.setChecked(true);
         bglCheckBox.setOnCheckedChangeListener(this);
+
+        bglValueFrom = (EditText) findViewById(R.id.bglValuFrom);
+        bglValueFrom.setText("0.0");
+        bglValueTo = (EditText) findViewById(R.id.bglValuTo);
+        bglValueTo.setText("0.0");
+
+
 
         calendar = Calendar.getInstance();
         fromDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -95,8 +99,11 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                adapter.filterList(filterByType(filterByDate(filterByTime(objects))));
+                if(bglValueFrom.isEnabled() && bglValueTo.isEnabled()) {
+                    adapter.filterList(filterByType(filterByDate(filterByTime(filterByBglValue(objects)))));
+                }else {
+                    adapter.filterList(filterByType(filterByDate(filterByTime(objects))));
+                }
             }
         });
 
@@ -392,9 +399,37 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         return filterdTime;
     }
 
+    //returns a filtered list by the Bgl Values(From and To EditTexts)
+    private ArrayList<IDatabaseObject> filterByBglValue(ArrayList<IDatabaseObject> objects) {
+        ArrayList<IDatabaseObject> filterdBglValue = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            if(objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)){
+                BloodGlucose bgl = (BloodGlucose) objects.get(i);
+                if(isBetweenBglValue(bglValueFrom.getText().toString(),bgl.getValue(),bglValueTo.getText().toString())) {
+                    filterdBglValue.add(objects.get(i));
+                }
+            }else {
+                filterdBglValue.add(objects.get(i));
+            }
+        }
+        return filterdBglValue;
+    }
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(bglCheckBox.isChecked()){
+            bglValueFrom.setEnabled(true);
+            bglValueTo.setEnabled(true);
+            bglValueFrom.setText("0.0");
+            bglValueTo.setText("0.0");
+        }else {
+            bglValueTo.setEnabled(false);
+            bglValueFrom.setEnabled(false);
+            bglValueFrom.getText().clear();
+            bglValueTo.getText().clear();
+
+        }
 
     }
 
@@ -449,6 +484,16 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         }else if (Integer.parseInt(timeOne[0] )> hour){
             return false;
         }else return(Integer.parseInt(timeOne[1])<= minutes);
+    }
+
+    //comparing between bgl values
+    private boolean isBetweenBglValue(String bglValueFrom, Double bglValueData, String bglValueTo){
+        Double valueFrom= Double.parseDouble(bglValueFrom);
+        Double valueTo = Double.parseDouble(bglValueTo);
+
+        if(bglValueData < valueFrom || bglValueData > valueTo)
+            return false;
+        return true;
     }
 
 
