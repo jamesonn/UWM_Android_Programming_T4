@@ -8,12 +8,15 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
@@ -26,10 +29,12 @@ public class DietActivity extends AppCompatActivity {
 
     Button addDiet, updatediet;
     DatabaseHandler databaseHandler;
-    EditText dietDescription, dietDate, dietTime;
+    AutoCompleteTextView dietDescription;
+    EditText dietDate, dietTime;
     Calendar calendar;
     int day, month, year, hour, minute;
     String userName;
+    ArrayList<String> allDiet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,7 @@ public class DietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diet);
 
         databaseHandler = new DatabaseHandler(this);
-        dietDescription = (EditText) findViewById(R.id.editTextDietDescription);
+        dietDescription = (AutoCompleteTextView) findViewById(R.id.editTextDietDescription);
         addDiet = (Button) findViewById(R.id.addDiet);
         updatediet = (Button) findViewById(R.id.updateDiet);
         dietDate = (EditText) findViewById(R.id.dietDate);
@@ -54,6 +59,21 @@ public class DietActivity extends AppCompatActivity {
         }else{
             dietTime.setText(hour + ":" + minute);
         }
+
+        allDiet =new ArrayList<>();
+        Cursor cursor = databaseHandler.getData(new Diet());
+        if(cursor.moveToFirst()){
+            do{
+                if(!allDiet.contains(cursor.getString(2)))
+               allDiet.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,allDiet);
+        dietDescription.setAdapter(adapter);
+
+
 
 
         if(getIntent().getIntExtra("dietId",-1) == -1){
@@ -78,6 +98,8 @@ public class DietActivity extends AppCompatActivity {
                 databaseHandler.add(diet, userName);
                 Toast.makeText(DietActivity.this, dietDescription.getText().toString() + " Added!",
                         Toast.LENGTH_LONG).show();
+                dietDate.getText().clear();
+                dietDescription.getText().clear();
             }
         });
 

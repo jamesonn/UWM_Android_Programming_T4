@@ -30,7 +30,7 @@
         android:layout_toLeftOf="@+id/editTextBGLDate"
         android:layout_toStartOf="@+id/editTextBGLDate" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/editTextBGLValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

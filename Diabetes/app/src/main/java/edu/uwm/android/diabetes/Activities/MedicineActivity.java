@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -15,9 +17,11 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.R;
@@ -26,17 +30,20 @@ public class MedicineActivity extends AppCompatActivity {
 
     Button addMedicine, updateMedicine;
     DatabaseHandler databaseHandler;
-    EditText medicineDescription, medicineDate, medicineTime;
+    EditText medicineDate, medicineTime;
+    AutoCompleteTextView medicineDescription;
     Calendar calendar;
     int day, month, year, hour, minute;
     String userName;
+    ArrayList<String> allMedicine;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
 
         databaseHandler = new DatabaseHandler(this);
-        medicineDescription = (EditText) findViewById(R.id.editTextMedicineDescription);
+        medicineDescription = (AutoCompleteTextView) findViewById(R.id.editTextMedicineDescription);
         medicineDate = (EditText) findViewById(R.id.editTextMedicineDate);
         medicineTime = (EditText) findViewById(R.id.medicineTime);
         addMedicine = (Button) findViewById(R.id.addMedicine);
@@ -55,6 +62,20 @@ public class MedicineActivity extends AppCompatActivity {
         medicineDate.setText(month+1  + "/" + day+ "/" + year);
 
         showSharedPreferences();
+
+
+        allMedicine =new ArrayList<>();
+        Cursor cursor = databaseHandler.getData(new Medicine());
+        if(cursor.moveToFirst()){
+            do{
+                if(!allMedicine.contains(cursor.getString(2)))
+                    allMedicine.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,allMedicine);
+        medicineDescription.setAdapter(adapter);
 
         medicineTime.setOnClickListener(new View.OnClickListener() {
             @Override

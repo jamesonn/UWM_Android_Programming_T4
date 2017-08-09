@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,9 +21,11 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
@@ -29,16 +33,19 @@ import edu.uwm.android.diabetes.R;
 public class ExerciseActivity extends AppCompatActivity {
     Button addExercise, updateExercise;
     DatabaseHandler databaseHandler;
-    EditText exerciseDescription, exerciseDate, exerciseTime;
+    EditText exerciseDate, exerciseTime;
+    AutoCompleteTextView exerciseDescription;
     Calendar calendar;
     int day, month, year, minute, hour;
     String userName;
+    ArrayList<String> allExercise;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         databaseHandler = new DatabaseHandler(this);
-        exerciseDescription = (EditText) findViewById(R.id.editTextExerciseDescription);
+        exerciseDescription = (AutoCompleteTextView) findViewById(R.id.editTextExerciseDescription);
         exerciseDate = (EditText) findViewById(R.id.exerciseDate);
         addExercise = (Button) findViewById(R.id.addExercise);
         updateExercise = (Button) findViewById(R.id.updateExerciseData);
@@ -58,6 +65,21 @@ public class ExerciseActivity extends AppCompatActivity {
             exerciseTime.setText(hour + ":" + minute);
         }
         showSharedPreferences();
+
+
+        allExercise =new ArrayList<>();
+        Cursor cursor = databaseHandler.getData(new Exercise());
+        if(cursor.moveToFirst()){
+            do{
+                if(!allExercise.contains(cursor.getString(2)))
+                    allExercise.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,allExercise);
+        exerciseDescription.setAdapter(adapter);
+
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
             @Override

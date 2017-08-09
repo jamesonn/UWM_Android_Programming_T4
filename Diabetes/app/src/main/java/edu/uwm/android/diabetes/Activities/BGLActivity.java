@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,27 +19,32 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.BloodGlucose;
+import edu.uwm.android.diabetes.Database.Diet;
 import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class BGLActivity extends AppCompatActivity {
     Button addBGL, updateBGL;
     DatabaseHandler databaseHandler;
-    EditText BGLValue, BGLDate, BGLTime;
+    EditText BGLDate, BGLTime;
+    AutoCompleteTextView BGLValue;
     Calendar calendar;
     int day, month, year, minute, hour;
     String userName;
+    ArrayList<String> allBgl;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bgl);
         databaseHandler = new DatabaseHandler(this);
-        BGLValue = (EditText) findViewById(R.id.editTextBGLValue);
+        BGLValue = (AutoCompleteTextView) findViewById(R.id.editTextBGLValue);
         BGLDate = (EditText) findViewById(R.id.editTextBGLDate);
         BGLTime = (EditText) findViewById(R.id.bglTime);
         addBGL = (Button) findViewById(R.id.addBGL);
@@ -55,6 +62,19 @@ public class BGLActivity extends AppCompatActivity {
             BGLTime.setText(hour + ":" + minute);
         }
         showSharedPreferences();
+
+
+        allBgl =new ArrayList<>();
+        Cursor cursor = databaseHandler.getData(new BloodGlucose());
+        if(cursor.moveToFirst()){
+            do{
+                if(!allBgl.contains(String.valueOf(cursor.getDouble(2))))
+                    allBgl.add(String.valueOf(cursor.getString(2)));
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,allBgl);
+        BGLValue.setAdapter(adapter);
 
         if(getIntent().getIntExtra("bglId",-1) == -1){
             updateBGL.setEnabled(false);

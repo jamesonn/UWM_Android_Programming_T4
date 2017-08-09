@@ -40,7 +40,7 @@
         android:layout_alignLeft="@+id/editTextDietDescription"
         android:layout_alignStart="@+id/editTextDietDescription" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/editTextDietDescription"
         style="@style/EditTextStyle"
         android:layout_marginTop="15dp"
