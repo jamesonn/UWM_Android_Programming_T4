@@ -166,6 +166,34 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         Regimen regimen = new Regimen();
         Cursor regimenCursor = db.getData(regimen);
 
+        if (cursor4.moveToFirst()) {
+            do {
+                if (cursor4.getString(1).equals(userName)) {
+                    BloodGlucose b = new BloodGlucose();
+                    b.setID(Integer.parseInt(cursor4.getString(0)));
+                    b.setValue(Double.parseDouble(cursor4.getString(2)));
+                    b.setDate(cursor4.getString(3));
+                    objects.add(b);
+                }
+            } while (cursor4.moveToNext());
+        } else {
+            Log.w("List Data Activity", "Cursor4 Empty");
+        }
+
+        if (cursor3.moveToFirst()) {
+            do {
+                if (cursor3.getString(1).equals(userName)) {
+                    Diet d = new Diet();
+                    d.setID(Integer.parseInt(cursor3.getString(0)));
+                    d.setDescription(cursor3.getString(2));
+                    d.setDate(cursor3.getString(3));
+                    objects.add(d);
+                }
+            } while (cursor3.moveToNext());
+        } else {
+            Log.w("List Data Activity", "Cursor3 Empty");
+        }
+
         if (cursor1.moveToFirst()) {
             do {
                 if (cursor1.getString(1).equals(userName)) {
@@ -194,33 +222,6 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             Log.w("List Data Activity", "Cursor2 Empty");
         }
 
-        if (cursor3.moveToFirst()) {
-            do {
-                if (cursor3.getString(1).equals(userName)) {
-                    Diet d = new Diet();
-                    d.setID(Integer.parseInt(cursor3.getString(0)));
-                    d.setDescription(cursor3.getString(2));
-                    d.setDate(cursor3.getString(3));
-                    objects.add(d);
-                }
-            } while (cursor3.moveToNext());
-        } else {
-            Log.w("List Data Activity", "Cursor3 Empty");
-        }
-
-        if (cursor4.moveToFirst()) {
-            do {
-                if (cursor4.getString(1).equals(userName)) {
-                    BloodGlucose b = new BloodGlucose();
-                    b.setID(Integer.parseInt(cursor4.getString(0)));
-                    b.setValue(Double.parseDouble(cursor4.getString(2)));
-                    b.setDate(cursor4.getString(3));
-                    objects.add(b);
-                }
-            } while (cursor4.moveToNext());
-        } else {
-            Log.w("List Data Activity", "Cursor4 Empty");
-        }
 
         if (regimenCursor.moveToFirst()) {
             do {

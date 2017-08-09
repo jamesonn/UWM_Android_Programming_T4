@@ -3,9 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="BGLThemeColor">#EC7063</color>
+    <color name="BGLThemeColor">#054868</color>
     <color name="lightRed">#ffcccc</color>
+    <color name="WelcomeTag">#65A4C2</color>
+    <color name="DietThemeColor">#0D5D84</color>
     <color name="regimenThemeColor">#2ca5f5</color>
-    <color name="ExerciseThemeColoe">@android:color/holo_green_light</color>
-    <color name="MedicationThemeColor">@android:color/holo_orange_dark</color>
+    <color name="ExerciseThemeColoe">#23739A</color>
+    <color name="MedicationThemeColor">#3E85A7</color>
 </resources>

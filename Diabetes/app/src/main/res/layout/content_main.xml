@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@android:color/holo_purple"
+        android:background="@color/WelcomeTag"
         android:contextClickable="true"
         android:orientation="horizontal"
         android:textAlignment="center">
@@ -41,8 +41,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/BGLThemeColor">
+        android:background="@color/BGLThemeColor">
 
         <ImageView
             android:id="@+id/imageView"
@@ -91,7 +90,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary">
+        android:background="@color/DietThemeColor">
 
         <ImageView
             android:id="@+id/imageView"
@@ -152,7 +151,6 @@
 
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:background="@android:color/holo_green_light"
             app:srcCompat="@drawable/noun_987611_cc" />
 
         <TextView
@@ -201,7 +199,6 @@
 
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:background="?android:attr/colorActivatedHighlight"
             app:srcCompat="@drawable/noun_942710_cc" />
 
         <TextView

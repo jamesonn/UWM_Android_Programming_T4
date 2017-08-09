@@ -1,6 +1,7 @@
 package edu.uwm.android.diabetes;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -61,6 +62,7 @@ public class DataAdapter extends
                 viewHolder.infoTextView.setText(exercise.getDescription());
                 viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.ExerciseThemeColoe));
                 viewHolder.dateTextView.setText(exercise.getDate());
+
                 break;
             case Constants.MEDICINE_CLASS:
                 Medicine medicine= (Medicine) object;
@@ -73,7 +75,7 @@ public class DataAdapter extends
                 Diet diet= (Diet) object;
                 viewHolder.typeTextView.setText("Diet");
                 viewHolder.infoTextView.setText(diet.getDescription());
-                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.DietThemeColor));
                 viewHolder.dateTextView.setText(diet.getDate());
                 break;
             case Constants.BLOODGLUCOSE_CLASS:
@@ -142,8 +144,12 @@ public class DataAdapter extends
             super(itemView);
             layout = (LinearLayout) itemView.findViewById(R.id.linearLayoutHorizontal);
             typeTextView = (TextView) itemView.findViewById(R.id.TextView_type);
+            typeTextView.setTextColor(Color.WHITE);
             infoTextView = (TextView) itemView.findViewById(R.id.TextView_info);
+            infoTextView.setTextColor(Color.WHITE);
             dateTextView = (TextView) itemView.findViewById(R.id.TextView_date);
+            dateTextView.setTextColor(Color.WHITE);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
