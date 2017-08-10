@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
 
     <LinearLayout
         android:id="@+id/linearLayoutCheckboxes"
@@ -31,6 +40,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Medicine"/>
+        <EditText
+            android:id="@+id/contaiensKeyWords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines = "1"
+            android:hint="Key Words"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayoutDate"
@@ -124,7 +139,7 @@
         android:id="@+id/recyclerViewListData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="205dp"
+        android:layout_marginTop="220dp"
         />
 
 </RelativeLayout>

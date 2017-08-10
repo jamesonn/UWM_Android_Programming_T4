@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -42,9 +43,9 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     CheckBox exerciseCheckBox, dietCheckBox, medicineCheckBox, bglCheckBox;
     RecyclerView recyclerView;
     DataAdapter adapter;
-    EditText dateFrom, dateTo, timeFrom, timeTo, bglValueFrom, bglValueTo;
+    EditText dateFrom, dateTo, timeFrom, timeTo, bglValueFrom, bglValueTo, contaiensKeyWords;
     Calendar calendar;
-    int fromDay, fromMonth, fromYear, fromHour, fromMinutes, toDay, toMonth,toYear, toHour, toMinutes;
+    int fromDay, fromMonth, fromYear, fromHour, fromMinutes, toDay, toMonth, toYear, toHour, toMinutes;
     Button searchBtn;
 
 
@@ -56,6 +57,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         db = new DatabaseHandler(this);
         userName = getIntent().getStringExtra("userName");
 
+        contaiensKeyWords = (EditText) findViewById(R.id.contaiensKeyWords);
         exerciseCheckBox = (CheckBox) findViewById(R.id.exerciseCheckBox);
         exerciseCheckBox.setChecked(true);
         dietCheckBox = (CheckBox) findViewById(R.id.dietCheckBox);
@@ -67,10 +69,9 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         bglCheckBox.setOnCheckedChangeListener(this);
 
         bglValueFrom = (EditText) findViewById(R.id.bglValuFrom);
-        bglValueFrom.setText("0.0");
+        bglValueFrom.setText("60.0");
         bglValueTo = (EditText) findViewById(R.id.bglValuTo);
-        bglValueTo.setText("0.0");
-
+        bglValueTo.setText("400.0");
 
 
         calendar = Calendar.getInstance();
@@ -87,22 +88,22 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         toMinutes = calendar.get(Calendar.MINUTE);
 
         dateFrom = (EditText) findViewById(R.id.dateFrom);
-        dateFrom.setText(fromMonth+1+"/"+fromDay+"/"+fromYear);
+        dateFrom.setText(fromMonth -3 + "/" + fromDay + "/" + fromYear);
         dateTo = (EditText) findViewById(R.id.dateTo);
-        dateTo.setText(toMonth+1+"/"+toDay+"/"+toYear);
+        dateTo.setText(toMonth + 1 + "/" + toDay + "/" + toYear);
         timeFrom = (EditText) findViewById(R.id.timeFrom);
-        timeFrom.setText(fromHour+":"+fromMinutes);
+        timeFrom.setText("00:00");
         timeTo = (EditText) findViewById(R.id.timeTo);
-        timeTo.setText(toHour+":"+toMinutes);
+        timeTo.setText("23:59");
 
         searchBtn = (Button) findViewById(R.id.buttonSearch);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bglValueFrom.isEnabled() && bglValueTo.isEnabled()) {
-                    adapter.filterList(filterByType(filterByDate(filterByTime(filterByBglValue(objects)))));
-                }else {
-                    adapter.filterList(filterByType(filterByDate(filterByTime(objects))));
+                if (bglValueFrom.isEnabled() && bglValueTo.isEnabled()) {
+                    adapter.filterList(filterByType(filterByDate(filterByTime(filterByBglValue(filterByKeyWords(objects))))));
+                } else {
+                    adapter.filterList(filterByType(filterByDate(filterByTime(filterByKeyWords(objects)))));
                 }
             }
         });
@@ -129,7 +130,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                 mTimePicker = new TimePickerDialog(ListDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeFrom.setText( selectedHour + ":" + selectedMinute);
+                        timeFrom.setText(selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -146,7 +147,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                 mTimePicker = new TimePickerDialog(ListDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeTo.setText( selectedHour + ":" + selectedMinute);
+                        timeTo.setText(selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -327,17 +328,18 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dateFrom.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
+                dateFrom.setText(monthOfYear + 1 + "/" + dayOfMonth + "/" + year);
             }
         };
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, fromYear, fromMonth, fromDay);
         dpDialog.show();
     }
+
     private void DateDialogTO() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dateTo.setText(monthOfYear+1 + "/" + dayOfMonth + "/" + year);
+                dateTo.setText(monthOfYear + 1 + "/" + dayOfMonth + "/" + year);
             }
         };
         DatePickerDialog dpDialog = new DatePickerDialog(this, listener, fromYear, fromMonth, fromDay);
@@ -380,9 +382,9 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         ArrayList<IDatabaseObject> filterdData = new ArrayList<>();
 
         for (int i = 0; i < objects.size(); i++) {
-                if(isAfterDate(dateFrom.getText().toString(),objects.get(i).getDate())&&
-                        isBeforeDate(dateTo.getText().toString(),objects.get(i).getDate()))
-                    filterdData.add(objects.get(i));
+            if (isAfterDate(dateFrom.getText().toString(), objects.get(i).getDate()) &&
+                    isBeforeDate(dateTo.getText().toString(), objects.get(i).getDate()))
+                filterdData.add(objects.get(i));
 
         }
         return filterdData;
@@ -393,8 +395,8 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         ArrayList<IDatabaseObject> filterdTime = new ArrayList<>();
 
         for (int i = 0; i < objects.size(); i++) {
-            if(isAfterTime(timeFrom.getText().toString(),objects.get(i).getDate()) &&
-                    !isAfterTime(timeTo.getText().toString(),objects.get(i).getDate()))
+            if (isAfterTime(timeFrom.getText().toString(), objects.get(i).getDate()) &&
+                    !isAfterTime(timeTo.getText().toString(), objects.get(i).getDate()))
                 filterdTime.add(objects.get(i));
         }
         return filterdTime;
@@ -404,27 +406,62 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     private ArrayList<IDatabaseObject> filterByBglValue(ArrayList<IDatabaseObject> objects) {
         ArrayList<IDatabaseObject> filterdBglValue = new ArrayList<>();
         for (int i = 0; i < objects.size(); i++) {
-            if(objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)){
+            if (objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)) {
                 BloodGlucose bgl = (BloodGlucose) objects.get(i);
-                if(isBetweenBglValue(bglValueFrom.getText().toString(),bgl.getValue(),bglValueTo.getText().toString())) {
+                if (isBetweenBglValue(bglValueFrom.getText().toString(), bgl.getValue(), bglValueTo.getText().toString())) {
                     filterdBglValue.add(objects.get(i));
                 }
-            }else {
+            } else {
                 filterdBglValue.add(objects.get(i));
             }
         }
         return filterdBglValue;
     }
 
+    private ArrayList<IDatabaseObject> filterByKeyWords(ArrayList<IDatabaseObject> objects) {
+        ArrayList<IDatabaseObject> filterdKeyWords = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            if (!objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)) {
+                String type = objects.get(i).getClassID();
+                switch (type) {
+                    case Constants.EXERCISE_CLASS:
+                        Exercise exercise = (Exercise) objects.get(i);
+                        if (containsWords(contaiensKeyWords.getText().toString(), exercise.getDescription())) {
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
+                    case Constants.DIET_CLASS:
+                        Diet diet = (Diet) objects.get(i);
+                        if (containsWords(contaiensKeyWords.getText().toString(), diet.getDescription())) {
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
+                    case Constants.MEDICINE_CLASS:
+                        Medicine medicine = (Medicine) objects.get(i);
+                        if (containsWords(contaiensKeyWords.getText().toString(), medicine.getDescription())) {
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
+                    case Constants.REGIMEN_CLASS:
+                        Regimen regimen = (Regimen) objects.get(i);
+                        if (containsWords(contaiensKeyWords.getText().toString(), regimen.getDescription())) {
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
+                }
+            } else filterdKeyWords.add(objects.get(i));
+        }
+            return filterdKeyWords;
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(bglCheckBox.isChecked()){
+        if (bglCheckBox.isChecked()) {
             bglValueFrom.setEnabled(true);
             bglValueTo.setEnabled(true);
-            bglValueFrom.setText("0.0");
-            bglValueTo.setText("0.0");
-        }else {
+            bglValueFrom.setText("60.0");
+            bglValueTo.setText("400.0");
+        } else {
             bglValueTo.setEnabled(false);
             bglValueFrom.setEnabled(false);
             bglValueFrom.getText().clear();
@@ -435,7 +472,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     }
 
 
-        //comparing between dates
+    //comparing between dates
     private boolean isAfterDate(String fromDate, String dataBaseDate) {
         String[] dateOne = fromDate.split("/");
         String[] dateTwo = dataBaseDate.split("/");
@@ -453,6 +490,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         } else return true;
 
     }
+
     private boolean isBeforeDate(String toDate, String dataBaseDate) {
         String[] dateOne = toDate.split("/");
         String[] dateTwo = dataBaseDate.split("/");
@@ -470,32 +508,52 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         } else return true;
     }
 
+
+
     //comparing between times
-    private boolean isAfterTime(String fromTime, String databaseTime){
-        String [] timeOne = fromTime.split(":");
+    private boolean isAfterTime(String fromTime, String databaseTime) {
+        String[] timeOne = fromTime.split(":");
         String[] date = databaseTime.split("/");
         String[] YearAndTime = date[2].split(" ");
         String[] time = YearAndTime[1].split(":");
-        Log.w("Values of YearAndTime",YearAndTime[0]+" "+YearAndTime[1]);
+        Log.w("Values of YearAndTime", YearAndTime[0] + " " + YearAndTime[1]);
         int hour = Integer.parseInt(time[0]);
         int minutes = Integer.parseInt(time[1]);
 
-        if(Integer.parseInt(timeOne[0] )< hour){
+        if (Integer.parseInt(timeOne[0]) < hour) {
             return true;
-        }else if (Integer.parseInt(timeOne[0] )> hour){
+        } else if (Integer.parseInt(timeOne[0]) > hour) {
             return false;
-        }else return(Integer.parseInt(timeOne[1])<= minutes);
+        } else return (Integer.parseInt(timeOne[1]) <= minutes);
     }
 
     //comparing between bgl values
-    private boolean isBetweenBglValue(String bglValueFrom, Double bglValueData, String bglValueTo){
-        Double valueFrom= Double.parseDouble(bglValueFrom);
+    private boolean isBetweenBglValue(String bglValueFrom, Double bglValueData, String bglValueTo) {
+        Double valueFrom = Double.parseDouble(bglValueFrom);
         Double valueTo = Double.parseDouble(bglValueTo);
 
-        if(bglValueData < valueFrom || bglValueData > valueTo)
+        if (bglValueData < valueFrom || bglValueData > valueTo)
             return false;
         return true;
     }
 
+    //comparing using key words
+    private boolean containsWords(String fromEditText, String fromData) {
+        ArrayList<String> stringOne = new ArrayList<String>(Arrays.asList(fromEditText.split(" ")));
+        ArrayList<String> stringTwo = new ArrayList<String>(Arrays.asList(fromData.split(" ")));
+        if(fromEditText.equals("") || fromEditText.equals(null))
+            return true;
 
+        if (stringOne.contains("AND")) {
+            if (fromData.contains(stringOne.get(0)) && fromData.contains(stringOne.get(2))) {
+                return true;
+            } else return false;
+        } else if (stringOne.contains("OR")) {
+            if (fromData.contains(stringOne.get(0)) || fromData.contains(stringOne.get(2))) {
+                return true;
+            } else return false;
+        } else if (fromData.contains(fromEditText)) {
+            return true;
+        } else return false;
+    }
 }
