@@ -66,7 +66,7 @@ public class ExerciseActivity extends AppCompatActivity {
         }
         showSharedPreferences();
 
-
+        //for auto complete
         allExercise =new ArrayList<>();
         Cursor cursor = databaseHandler.getData(new Exercise());
         if(cursor.moveToFirst()){

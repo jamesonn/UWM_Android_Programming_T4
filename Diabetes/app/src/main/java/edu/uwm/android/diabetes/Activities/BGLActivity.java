@@ -63,7 +63,7 @@ public class BGLActivity extends AppCompatActivity {
         }
         showSharedPreferences();
 
-
+        //for auto complete
         allBgl =new ArrayList<>();
         Cursor cursor = databaseHandler.getData(new BloodGlucose());
         if(cursor.moveToFirst()){
@@ -75,6 +75,7 @@ public class BGLActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.simple_list_item_1,allBgl);
         BGLValue.setAdapter(adapter);
+
 
         if(getIntent().getIntExtra("bglId",-1) == -1){
             updateBGL.setEnabled(false);
@@ -98,20 +99,24 @@ public class BGLActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("The add BGL button is called here.");
-                BloodGlucose BGL = new BloodGlucose();
-                BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
-                BGL.setDate(BGLDate.getText().toString() + " "+ BGLTime.getText().toString() );
-                userName =  getIntent().getStringExtra("userName");
-                databaseHandler.add(BGL,userName);
-                Toast.makeText(BGLActivity.this, "Value "+ BGLValue.getText().toString() + " Date "+
-                                BGLDate.getText().toString()+" Added",
-                        Toast.LENGTH_LONG).show();
-                BGLDate.getText().clear();
-                BGLValue.getText().clear();
-                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.clear();
-                editor.commit();
+                if(!(Double.parseDouble(BGLValue.getText().toString())<40.0 ||
+                        Double.parseDouble(BGLValue.getText().toString())>600.0)) {
+                    BloodGlucose BGL = new BloodGlucose();
+                    BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
+                    BGL.setDate(BGLDate.getText().toString() + " " + BGLTime.getText().toString());
+                    userName = getIntent().getStringExtra("userName");
+                    databaseHandler.add(BGL, userName);
+                    Toast.makeText(BGLActivity.this, "Value " + BGLValue.getText().toString() + " Date " +
+                                    BGLDate.getText().toString() + " Added",
+                            Toast.LENGTH_LONG).show();
+                    BGLDate.getText().clear();
+                    BGLValue.getText().clear();
+                    SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                }else {Toast.makeText(BGLActivity.this, "The BGL value is outside the range (40-600)",
+                        Toast.LENGTH_LONG).show();}
 
             }
         });
@@ -137,25 +142,29 @@ public class BGLActivity extends AppCompatActivity {
         updateBGL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BloodGlucose bgl = new BloodGlucose();
-                bgl.setValue(Double.parseDouble(BGLValue.getText().toString()));
-                bgl.setDate(BGLDate.getText().toString() + " "+ BGLTime.getText().toString());
-                int id =getIntent().getIntExtra("bglId",-1);
-                if(id != -1) {
-                    databaseHandler.update(getIntent().getIntExtra("bglId", -1), bgl,getIntent().getStringExtra("userName"));
-                    getIntent().removeExtra("bglDate");
-                    getIntent().removeExtra("bglValue");
-                    getIntent().removeExtra("bglId");
-                    Toast.makeText(BGLActivity.this, "BGL was updated", Toast.LENGTH_LONG).show();
-                    BGLDate.getText().clear();
-                    BGLValue.getText().clear();
-                }else{
-                    Toast.makeText(BGLActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
-                }
-                SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.clear();
-                editor.commit();
+                if(!(Double.parseDouble(BGLValue.getText().toString())<40.0 ||
+                        Double.parseDouble(BGLValue.getText().toString())>600.0)) {
+                    BloodGlucose bgl = new BloodGlucose();
+                    bgl.setValue(Double.parseDouble(BGLValue.getText().toString()));
+                    bgl.setDate(BGLDate.getText().toString() + " " + BGLTime.getText().toString());
+                    int id = getIntent().getIntExtra("bglId", -1);
+                    if (id != -1) {
+                        databaseHandler.update(getIntent().getIntExtra("bglId", -1), bgl, getIntent().getStringExtra("userName"));
+                        getIntent().removeExtra("bglDate");
+                        getIntent().removeExtra("bglValue");
+                        getIntent().removeExtra("bglId");
+                        Toast.makeText(BGLActivity.this, "BGL was updated", Toast.LENGTH_LONG).show();
+                        BGLDate.getText().clear();
+                        BGLValue.getText().clear();
+                    } else {
+                        Toast.makeText(BGLActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
+                    }
+                    SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                } else{Toast.makeText(BGLActivity.this, "The BGL value is outside the range (40-600)",
+                        Toast.LENGTH_LONG).show();}
             }
         });
 

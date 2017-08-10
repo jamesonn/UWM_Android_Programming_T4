@@ -63,7 +63,7 @@ public class MedicineActivity extends AppCompatActivity {
 
         showSharedPreferences();
 
-
+        //for auto complete
         allMedicine =new ArrayList<>();
         Cursor cursor = databaseHandler.getData(new Medicine());
         if(cursor.moveToFirst()){
@@ -76,6 +76,8 @@ public class MedicineActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.simple_list_item_1,allMedicine);
         medicineDescription.setAdapter(adapter);
+
+
 
         medicineTime.setOnClickListener(new View.OnClickListener() {
             @Override

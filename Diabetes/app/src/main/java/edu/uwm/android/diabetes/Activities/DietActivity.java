@@ -60,6 +60,8 @@ public class DietActivity extends AppCompatActivity {
             dietTime.setText(hour + ":" + minute);
         }
 
+
+        //for auto complete
         allDiet =new ArrayList<>();
         Cursor cursor = databaseHandler.getData(new Diet());
         if(cursor.moveToFirst()){
@@ -72,7 +74,6 @@ public class DietActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this,android.R.layout.simple_list_item_1,allDiet);
         dietDescription.setAdapter(adapter);
-
 
 
 

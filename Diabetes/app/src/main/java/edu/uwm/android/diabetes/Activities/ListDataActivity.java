@@ -69,9 +69,9 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         bglCheckBox.setOnCheckedChangeListener(this);
 
         bglValueFrom = (EditText) findViewById(R.id.bglValuFrom);
-        bglValueFrom.setText("60.0");
+        bglValueFrom.setText("40.0");
         bglValueTo = (EditText) findViewById(R.id.bglValuTo);
-        bglValueTo.setText("400.0");
+        bglValueTo.setText("600.0");
 
 
         calendar = Calendar.getInstance();
@@ -459,8 +459,8 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         if (bglCheckBox.isChecked()) {
             bglValueFrom.setEnabled(true);
             bglValueTo.setEnabled(true);
-            bglValueFrom.setText("60.0");
-            bglValueTo.setText("400.0");
+            bglValueFrom.setText("40.0");
+            bglValueTo.setText("600.0");
         } else {
             bglValueTo.setEnabled(false);
             bglValueFrom.setEnabled(false);
