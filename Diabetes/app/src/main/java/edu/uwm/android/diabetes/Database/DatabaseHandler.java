@@ -59,7 +59,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String createRegimenTable = " create table " + Constants.TABLE_REGIMEN + " ("
                 + Constants.REGIMEN_ID + " integer primary key autoincrement, "
                 + Constants.USERNAME + " text, "
-                + Constants.REGIMEN_DESCRIPTION + " text not null, "
+                + Constants.REGIMEN_EXERCISE_DESCRIPTION + " text not null, "
+                + Constants.REGIMEN_DIET_DESCRIPTION + " text not null, "
                 + Constants.REGIMEN_DATE + " Text);";
 
 
@@ -166,7 +167,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     break;
                 case Constants.REGIMEN_CLASS:
                     Regimen regimen = (Regimen) object;
-                    values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
+                    values.put(Constants.REGIMEN_EXERCISE_DESCRIPTION, regimen.getExerciseDescription());
+                    values.put(Constants.REGIMEN_DIET_DESCRIPTION, regimen.getDietDescription());
                     values.put(Constants.REGIMEN_DATE, regimen.getDate());
                     values.put(Constants.USERNAME, userName);
                     db.insert(Constants.TABLE_REGIMEN, null, values);
@@ -322,7 +324,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     break;
                 case Constants.REGIMEN_CLASS:
                     Regimen regimen = (Regimen) object;
-                    values.put(Constants.REGIMEN_DESCRIPTION, regimen.getDescription());
+                    values.put(Constants.REGIMEN_EXERCISE_DESCRIPTION, regimen.getExerciseDescription());
+                    values.put(Constants.REGIMEN_DIET_DESCRIPTION, regimen.getDietDescription());
                     values.put(Constants.USERNAME, userName);
                     db.update(Constants.TABLE_REGIMEN, values, Constants.REGIMEN_ID+" = ? ", new String[]{Integer.toString(id)});
                     db.close();

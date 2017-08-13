@@ -5,24 +5,25 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText_foodDescription"
+        android:id="@+id/regimenDiet"
         style="@style/EditTextStyle"
-        android:layout_below="@+id/editText_calories"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="11dp"
         android:layout_marginTop="20dp"
-        android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Description"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp" />
 
     <TextView
-        android:id="@+id/textView_Description"
+        android:id="@+id/textViewDiet"
         style="@style/LabelStyle"
-        android:text="Description: "
-        android:layout_alignBaseline="@+id/editText_foodDescription"
-        android:layout_alignBottom="@+id/editText_foodDescription"
-        android:layout_toLeftOf="@+id/editText_foodDescription"
-        android:layout_toStartOf="@+id/editText_foodDescription" />
+        android:layout_alignBaseline="@+id/regimenDiet"
+        android:layout_alignBottom="@+id/regimenDiet"
+        android:layout_toLeftOf="@+id/regimenDiet"
+        android:layout_toStartOf="@+id/regimenDiet"
+        android:text="Diet: " />
 
     <Button
         android:id="@+id/addRegimen"
@@ -40,10 +41,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_below="@+id/editText_foodDescription"
-        android:layout_alignLeft="@+id/editText_foodDescription"
-        android:layout_alignStart="@+id/editText_foodDescription"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="104dp"
+        android:layout_below="@+id/regimenDiet"
+        android:layout_alignLeft="@+id/regimenDiet"
+        android:layout_alignStart="@+id/regimenDiet" />
 
     <TextView
         android:id="@+id/dateTextView"
@@ -78,7 +79,7 @@
         android:layout_marginRight="11dp"
         android:layout_toLeftOf="@+id/regimenTime"
         android:layout_toStartOf="@+id/regimenTime"
-        android:text="Time" />
+        android:text="Time: " />
 
     <Button
         android:id="@+id/updateRegimen"
@@ -91,5 +92,28 @@
         android:layout_alignStart="@+id/dateTextView"
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp" />
+
+    <EditText
+        android:id="@+id/exerciseEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dateTextView"
+        android:layout_alignLeft="@+id/regimenDate"
+        android:layout_alignStart="@+id/regimenDate"
+        android:layout_marginBottom="27dp"
+        android:ems="10"
+        android:inputType="text"
+         />
+
+    <TextView
+        android:id="@+id/regimenExerciseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exercise: "
+        style="@style/LabelStyle"
+        android:layout_alignBaseline="@+id/exerciseEditText"
+        android:layout_alignBottom="@+id/exerciseEditText"
+        android:layout_toLeftOf="@+id/exerciseEditText"
+        android:layout_toStartOf="@+id/exerciseEditText" />
 
 </RelativeLayout>

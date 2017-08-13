@@ -30,7 +30,7 @@ public class RegimenActivity extends AppCompatActivity {
 
     Button addRegimen, updateRegimen;
     DatabaseHandler databaseHandler;
-    EditText foodDescription, regimenDate, regimenTime;
+    EditText regimenDiet, regimenDate, regimenTime, regimenExercise;
     Calendar calendar;
     int day, month, year;
     String userName;
@@ -41,22 +41,23 @@ public class RegimenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regimen);
         databaseHandler = new DatabaseHandler(this);
-        foodDescription = (EditText) findViewById(R.id.editText_foodDescription);
+        regimenDiet = (EditText) findViewById(R.id.regimenDiet);
         addRegimen = (Button) findViewById(R.id.addRegimen);
         updateRegimen = (Button) findViewById(R.id.updateRegimen);
         regimenDate = (EditText) findViewById(R.id.regimenDate);
         regimenTime = (EditText) findViewById(R.id.regimenTime);
+        regimenExercise = (EditText) findViewById(R.id.exerciseEditText);
         addRegimen.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                System.out.println("The add Regimen button is called here.");
                 Regimen regimen = new Regimen();
-                regimen.setDescription(foodDescription.getText().toString());
+                regimen.setDietDescription(regimenDiet.getText().toString());
+                regimen.setExerciseDescription(regimenExercise.getText().toString());
                 regimen.setDate(regimenDate.getText().toString() + " " + regimenTime.getText().toString() );
                 userName =  getIntent().getStringExtra("userName");
                 databaseHandler.add(regimen, userName);
-                Toast.makeText(RegimenActivity.this, foodDescription.getText().toString() + " Added!",
+                Toast.makeText(RegimenActivity.this, regimenDiet.getText().toString() + " Added!",
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -67,7 +68,7 @@ public class RegimenActivity extends AppCompatActivity {
         }else{
             //Coming from the list
             addRegimen.setVisibility(View.INVISIBLE);
-            foodDescription.setText(getIntent().getStringExtra("regimenDescription"));
+            regimenDiet.setText(getIntent().getStringExtra("regimenDescription"));
             String dateAndTime = getIntent().getStringExtra("regimenDate");
             regimenDate.setText(dateAndTime.substring(0,8));
             regimenTime.setText(dateAndTime.substring(9,14));
@@ -79,7 +80,7 @@ public class RegimenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Regimen regimen = new Regimen();
-                regimen.setDescription(foodDescription.getText().toString());
+                regimen.setDietDescription(regimenDiet.getText().toString());
                 regimen.setDate(regimenDate.getText().toString());
                 int id = getIntent().getIntExtra("regimenId",-1);
                 if(id != -1) {
@@ -89,7 +90,7 @@ public class RegimenActivity extends AppCompatActivity {
                     getIntent().removeExtra("regimenId");
                     Toast.makeText(RegimenActivity.this, "Regimen was updated", Toast.LENGTH_LONG).show();
                     regimenDate.getText().clear();
-                    foodDescription.getText().clear();
+                    regimenDiet.getText().clear();
                 }else{
                     Toast.makeText(RegimenActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }

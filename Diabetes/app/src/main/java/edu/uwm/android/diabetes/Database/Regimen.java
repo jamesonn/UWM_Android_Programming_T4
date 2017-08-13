@@ -9,7 +9,17 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 public class Regimen implements IDatabaseObject{
     private static final String CLASS_ID = "REGIMEN";
     private int id;
-    private String description;
+    private String exerciseDescription;
+
+    public String getDietDescription() {
+        return dietDescription;
+    }
+
+    public void setDietDescription(String dietDescription) {
+        this.dietDescription = dietDescription;
+    }
+
+    private String dietDescription;
     private String date ;
 
     public Regimen(){ }
@@ -18,16 +28,16 @@ public class Regimen implements IDatabaseObject{
         return id;
     }
 
-    public String getDescription(){
-        return description;
+    public String getExerciseDescription(){
+        return exerciseDescription;
     }
 
     public void setID(int id){
         this.id = id;
     }
 
-    public void setDescription(String description){
-        this.description = description;
+    public void setExerciseDescription(String exerciseDescription){
+        this.exerciseDescription = exerciseDescription;
     }
 
     public void setDate(String date){this.date = date;}
