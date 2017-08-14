@@ -7,10 +7,7 @@
             android:id="@+id/nav_graph"
             android:icon="@mipmap/graphicon"
             android:title="Graph" />
-        <item
-            android:id="@+id/nav_stats"
-            android:icon="@mipmap/statsicon"
-            android:title="Statistics" />
+
         <item
             android:id="@+id/nav_reminders"
             android:icon="@drawable/ic_alarm_black_24dp"
