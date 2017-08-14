@@ -51,7 +51,7 @@
             android:layout_alignWithParentIfMissing="false"
             android:layout_centerInParent="true"
             android:paddingBottom="15dp"
-            app:srcCompat="@mipmap/dropicon" />
+            app:srcCompat="@mipmap/blooddropicon" />
 
         <TextView
             android:id="@+id/textView2"
@@ -100,7 +100,7 @@
             android:layout_alignWithParentIfMissing="false"
             android:layout_centerInParent="true"
             android:paddingBottom="15dp"
-            app:srcCompat="@drawable/food" />
+            app:srcCompat="@mipmap/appleicon" />
 
         <TextView
             android:id="@+id/textView2"
@@ -151,7 +151,7 @@
 
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/noun_987611_cc" />
+            app:srcCompat="@mipmap/bicycleicon" />
 
         <TextView
             android:id="@+id/textView5"
@@ -199,7 +199,7 @@
 
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/noun_942710_cc" />
+            app:srcCompat="@mipmap/pillicon" />
 
         <TextView
             android:id="@+id/textView8"

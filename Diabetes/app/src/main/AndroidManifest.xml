@@ -50,15 +50,14 @@
         <activity
             android:name=".Activities.RegimenActivity"
             android:label="Regimen" />
-        <activity
-            android:name=".Activities.FragmentActivity"
-            android:label="Regimen" />
+
         <activity
             android:name=".Activities.ListDataActivity"
             android:label="Data List" />
         <activity android:name=".Activities.BGLActivity" />
         <activity android:name=".Activities.DietActivity" />
         <activity android:name=".Activities.AboutActivity"></activity>
+        <activity android:name=".Activities.FragmentActivity"></activity>
     </application>
 
 </manifest>
