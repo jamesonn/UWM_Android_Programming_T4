@@ -1,39 +1,38 @@
 package edu.uwm.android.diabetes.Activities;
 
+        import android.app.AlarmManager;
         import android.app.DatePickerDialog;
-        import android.app.Dialog;
-        import android.app.DialogFragment;
+        import android.app.NotificationManager;
+        import android.app.PendingIntent;
         import android.app.TimePickerDialog;
         import android.content.Context;
+        import android.content.Intent;
         import android.content.SharedPreferences;
-        import android.database.Cursor;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
-        import android.text.format.DateFormat;
+        import android.support.v7.app.NotificationCompat;
         import android.view.View;
         import android.widget.Button;
         import android.widget.DatePicker;
         import android.widget.EditText;
-        import android.widget.ImageButton;
         import android.widget.TimePicker;
         import android.widget.Toast;
 
-        import java.sql.SQLOutput;
         import java.util.Calendar;
 
         import edu.uwm.android.diabetes.Database.DatabaseHandler;
-        import edu.uwm.android.diabetes.Database.Medicine;
         import edu.uwm.android.diabetes.Database.Regimen;
         import edu.uwm.android.diabetes.R;
 
 public class RegimenActivity extends AppCompatActivity {
 
-    Button addRegimen, updateRegimen;
+    Button addRegimen, updateRegimen, notify;
     DatabaseHandler databaseHandler;
     EditText regimenDiet, regimenDate, regimenTime, regimenExercise;
     Calendar calendar;
     int day, month, year;
     String userName;
+    NotificationManager notifManager;
 
 
     @Override
@@ -43,25 +42,26 @@ public class RegimenActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         regimenDiet = (EditText) findViewById(R.id.regimenDiet);
         addRegimen = (Button) findViewById(R.id.addRegimen);
+        notify = (Button) findViewById(R.id.Notify);
         updateRegimen = (Button) findViewById(R.id.updateRegimen);
         regimenDate = (EditText) findViewById(R.id.regimenDate);
         regimenTime = (EditText) findViewById(R.id.regimenTime);
         regimenExercise = (EditText) findViewById(R.id.exerciseEditText);
+
         addRegimen.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Regimen regimen = new Regimen();
-                regimen.setDietDescription(regimenDiet.getText().toString());
-                regimen.setExerciseDescription(regimenExercise.getText().toString());
+                regimen.setDietDescription("Diet : "+ regimenDiet.getText().toString());
+                regimen.setExerciseDescription("Exercise : "+regimenExercise.getText().toString());
                 regimen.setDate(regimenDate.getText().toString() + " " + regimenTime.getText().toString() );
                 userName =  getIntent().getStringExtra("userName");
                 databaseHandler.add(regimen, userName);
-                Toast.makeText(RegimenActivity.this, regimenDiet.getText().toString() + " Added!",
+                Toast.makeText(RegimenActivity.this, " Diet "+regimen.getDietDescription()+" exercise "+ regimen.getExerciseDescription() + " Date "+ regimen.getDate() + " Added!",
                         Toast.LENGTH_LONG).show();
             }
         });
-
 
         if(getIntent().getIntExtra("regimenId",-1) == -1){
             updateRegimen.setVisibility(View.INVISIBLE); //Not coming from the List
@@ -144,6 +144,17 @@ public class RegimenActivity extends AppCompatActivity {
 
     }
 
+
+    public void notify(View v){
+        NotificationCompat.Builder notifBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setContentTitle("Message")
+                .setContentText("Content").setTicker("Alarm Ticker").setSmallIcon(R.drawable.heart);
+
+        notifManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notifManager.notify(1, notifBuilder.build());
+
+
+    }
     public void DateDialog() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 

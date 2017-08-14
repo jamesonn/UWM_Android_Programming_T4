@@ -88,7 +88,7 @@ public class DataAdapter extends
             case Constants.REGIMEN_CLASS:
                 Regimen regimen = (Regimen) object;
                 viewHolder.typeTextView.setText("Regimen");
-                viewHolder.infoTextView.setText(regimen.getDescription());
+                viewHolder.infoTextView.setText(regimen.getExerciseDescription()+" "+regimen.getDietDescription());
                 viewHolder.layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.regimenThemeColor));
                 viewHolder.dateTextView.setText(regimen.getDate());
                 break;

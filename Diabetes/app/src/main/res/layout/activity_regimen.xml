@@ -116,4 +116,14 @@
         android:layout_toLeftOf="@+id/exerciseEditText"
         android:layout_toStartOf="@+id/exerciseEditText" />
 
+    <Button
+        android:id="@+id/Notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/addRegimen"
+        android:layout_toRightOf="@+id/addRegimen"
+        android:text="Notify"
+        android:onClick="notify"/>
+
 </RelativeLayout>
