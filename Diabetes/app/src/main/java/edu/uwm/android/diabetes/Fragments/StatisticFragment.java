@@ -119,7 +119,7 @@ public class StatisticFragment extends Fragment {
             temp = Double.parseDouble(cursor.getString(2));
             cursor.moveToNext();
             do{
-                if (temp < Double.parseDouble(cursor.getString(2))){
+                if (temp > Double.parseDouble(cursor.getString(2))){
                     temp = Double.parseDouble(cursor.getString(2));
                 }
 
@@ -138,7 +138,7 @@ public class StatisticFragment extends Fragment {
             temp = Double.parseDouble(cursor.getString(2));
             cursor.moveToNext();
             do{
-                if (temp > Double.parseDouble(cursor.getString(2))){
+                if (temp < Double.parseDouble(cursor.getString(2))){
                     temp = Double.parseDouble(cursor.getString(2));
                 }
 

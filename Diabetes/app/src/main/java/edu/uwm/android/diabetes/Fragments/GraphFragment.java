@@ -106,7 +106,6 @@ public class GraphFragment extends Fragment {
             cursor.close();
         }
 
-
         BarDataSet dataSet = new BarDataSet(entries,"BGL Value");
         dataSet.setBarBorderColor(R.color.MedicationThemeColor);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
