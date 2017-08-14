@@ -168,6 +168,7 @@ public class MedicineActivity extends AppCompatActivity {
                 DateDialog();
             }
         });
+        cursor.close();
     }
 
     public void DateDialog() {

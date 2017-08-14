@@ -320,7 +320,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             }
         });
 
-
+        cursor1.close();
     }
 
     //Two date dialogs, one for From EditText and one for To EditText

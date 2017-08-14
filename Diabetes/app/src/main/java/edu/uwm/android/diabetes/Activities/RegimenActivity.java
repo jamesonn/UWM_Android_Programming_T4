@@ -1,28 +1,19 @@
 package edu.uwm.android.diabetes.Activities;
 
         import android.app.DatePickerDialog;
-        import android.app.Dialog;
-        import android.app.DialogFragment;
         import android.app.TimePickerDialog;
         import android.content.Context;
         import android.content.SharedPreferences;
-        import android.database.Cursor;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
-        import android.text.format.DateFormat;
         import android.view.View;
         import android.widget.Button;
         import android.widget.DatePicker;
         import android.widget.EditText;
-        import android.widget.ImageButton;
         import android.widget.TimePicker;
         import android.widget.Toast;
-
-        import java.sql.SQLOutput;
         import java.util.Calendar;
-
         import edu.uwm.android.diabetes.Database.DatabaseHandler;
-        import edu.uwm.android.diabetes.Database.Medicine;
         import edu.uwm.android.diabetes.Database.Regimen;
         import edu.uwm.android.diabetes.R;
 

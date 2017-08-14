@@ -91,7 +91,7 @@ public class StatisticFragment extends Fragment {
                 counter++;
             }while (cursor.moveToNext());
         }else{return -1.0;}
-
+        cursor.close();
         return sum / counter;
     }
 

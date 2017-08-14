@@ -37,6 +37,8 @@ public class GraphFragment extends Fragment {
     private static final int maxDate = 31;
     private static final int minDate = 1;
 
+    private Cursor cursor;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -91,7 +93,7 @@ public class GraphFragment extends Fragment {
 
         List<Entry> entries = new ArrayList<Entry>();
 
-        Cursor cursor = databaseHandler.getData(new BloodGlucose());
+        cursor = databaseHandler.getData(new BloodGlucose());
         float data;
         String date;
 
@@ -116,8 +118,9 @@ public class GraphFragment extends Fragment {
 
                 //entries.add(new Entry(data,date));
             }while (cursor.moveToNext());
-        }
             cursor.close();
+        }
+
 
 
 
@@ -146,14 +149,19 @@ public class GraphFragment extends Fragment {
 
     @Override
     public void onPause() {
-        databaseHandler.close();
+
         super.onPause();
+        cursor.close();
+        databaseHandler.close();
+
     }
 
     @Override
     public void onDestroy() {
-        databaseHandler.close();
+
         super.onDestroy();
+        cursor.close();
+        databaseHandler.close();
     }
 
     private int getDate (String data){
