@@ -165,6 +165,7 @@ public class GraphFragment extends Fragment {
     }
 
     private int getDate (String data){
+
         String[] ret = data.split("/") ;
         return Integer.parseInt(ret[1]);
     }

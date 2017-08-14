@@ -101,22 +101,29 @@ public class BGLActivity extends AppCompatActivity {
                 System.out.println("The add BGL button is called here.");
                 if(!(Double.parseDouble(BGLValue.getText().toString())<40.0 ||
                         Double.parseDouble(BGLValue.getText().toString())>600.0)) {
-                    BloodGlucose BGL = new BloodGlucose();
-                    BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
-                    BGL.setDate(BGLDate.getText().toString() + " " + BGLTime.getText().toString());
-                    userName = getIntent().getStringExtra("userName");
-                    databaseHandler.add(BGL, userName);
-                    Toast.makeText(BGLActivity.this, "Value " + BGLValue.getText().toString() + " Date " +
-                                    BGLDate.getText().toString() + " Added",
-                            Toast.LENGTH_LONG).show();
-                    BGLDate.getText().clear();
-                    BGLValue.getText().clear();
-                    SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.clear();
-                    editor.commit();
-                }else {Toast.makeText(BGLActivity.this, "The BGL value is outside the range (40-600)",
-                        Toast.LENGTH_LONG).show();}
+                    if(!BGLDate.getText().toString().equals("")) {
+                        BloodGlucose BGL = new BloodGlucose();
+                        BGL.setValue(Double.parseDouble(BGLValue.getText().toString()));
+                        BGL.setDate(BGLDate.getText().toString() + " " + BGLTime.getText().toString());
+                        userName = getIntent().getStringExtra("userName");
+                        databaseHandler.add(BGL, userName);
+                        Toast.makeText(BGLActivity.this, "Value " + BGLValue.getText().toString() + " Date " +
+                                        BGLDate.getText().toString() + " Added",
+                                Toast.LENGTH_LONG).show();
+                        BGLDate.getText().clear();
+                        BGLValue.getText().clear();
+                        SharedPreferences sp = getSharedPreferences("bglInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.clear();
+                        editor.commit();
+                    } else{
+                        Toast.makeText(BGLActivity.this, "Please add a date",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }else {
+                    Toast.makeText(BGLActivity.this, "The BGL value is outside the range (40-600)",
+                        Toast.LENGTH_LONG).show();
+                }
 
             }
         });
