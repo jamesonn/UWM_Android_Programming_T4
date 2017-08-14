@@ -32,14 +32,9 @@ public class GraphFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final int maxBgl = 600;
-    private static final int minBgl = 40;
     private static final int maxDate = 31;
     private static final int minDate = 1;
-
     private Cursor cursor;
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     DatabaseHandler databaseHandler;
@@ -78,18 +73,15 @@ public class GraphFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_graph, container, false);
         LineChart chart = (LineChart) rootView.findViewById(R.id.chart);
-//        chart.setVisibleXRangeMaximum(maxDate);
-//        chart.setVisibleXRangeMinimum(minDate);
+        chart.setVisibleXRangeMaximum(maxDate);
+        chart.setVisibleXRangeMinimum(minDate);
 
         Description description = new Description();
         description.setText("BGL values from the last 30 days");
         chart.setDescription(description);
-
-
 
         List<Entry> entries = new ArrayList<Entry>();
 
@@ -102,41 +94,12 @@ public class GraphFragment extends Fragment {
         if (cursor.moveToNext()){
             do{
                 data = Float.parseFloat(cursor.getString(2));
-
-                int currentMonth = calendar.get(Calendar.MONTH)+1;
-                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
                 date = cursor.getString(3);
 
-//                if(currentMonth == getMonth(date)){
-                    entries.add(new Entry(getDate(date),data));
-//                }else{
-//                    if((currentMonth-1 == getMonth(date)) && (currentDay>=getDate(date))){
-//                        entries.add(new Entry(getDate(date),data));
-//                    }
-//                }
-
-
-                //entries.add(new Entry(data,date));
+                entries.add(new Entry(getDate(date),data));
             }while (cursor.moveToNext());
             cursor.close();
         }
-
-
-
-
-
-
-//        entries.add(new Entry(1,40));
-//        entries.add(new Entry(12,30));
-//        entries.add(new Entry(13,50));
-//        entries.add(new Entry(14,70));
-//        entries.add(new Entry(15,10));
-//        entries.add(new Entry(16,60));
-//        entries.add(new Entry(31,60));
-
-
-
-
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         dataSet.setCircleColor(R.color.MedicationThemeColor);
 
@@ -149,23 +112,19 @@ public class GraphFragment extends Fragment {
 
     @Override
     public void onPause() {
-
         super.onPause();
         cursor.close();
         databaseHandler.close();
-
     }
 
     @Override
     public void onDestroy() {
-
         super.onDestroy();
         cursor.close();
         databaseHandler.close();
     }
 
     private int getDate (String data){
-
         String[] ret = data.split("/") ;
         return Integer.parseInt(ret[1]);
     }
@@ -173,7 +132,6 @@ public class GraphFragment extends Fragment {
     private int getMonth(String data){
         String[] ret = data.split("/") ;
         return Integer.parseInt(ret[0]);
-
     }
 }
 
