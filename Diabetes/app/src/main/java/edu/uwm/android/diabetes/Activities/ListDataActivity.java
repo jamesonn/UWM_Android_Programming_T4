@@ -228,9 +228,11 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             do {
                 if (regimenCursor.getString(1).equals(userName)) {
                     Regimen regimenObject = new Regimen();
-                    //regimenObject.setID(Integer.parseInt(regimenCursor.getString(0)));
-                    //regimenObject.setDescription(regimenCursor.getString(2));
-                    //regimenObject.setDate(regimenCursor.getString(3));
+                    regimenObject.setID(Integer.parseInt(regimenCursor.getString(0)));
+                    regimenObject.setExerciseDescription(regimenCursor.getString(2));
+                    regimenObject.setDietDescription(regimenCursor.getString(3));
+                    regimenObject.setDate(regimenCursor.getString(4));
+
                     objects.add(regimenObject);
                 }
             } while (regimenCursor.moveToNext());
@@ -309,7 +311,8 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                         Regimen regimen = (Regimen) objects.get(position);
                         intent = new Intent(ListDataActivity.this, RegimenActivity.class);
                         intent.putExtra("regimenId", regimen.getID());
-                       // intent.putExtra("regimenDescription", regimen.getDescription());
+                        intent.putExtra("regimenDescription", regimen.getExerciseDescription());
+
                         intent.putExtra("regimenDate", regimen.getDate());
                         intent.putExtra("userName", userName);
                         startActivity(intent);
@@ -444,10 +447,11 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                         break;
                     case Constants.REGIMEN_CLASS:
                         Regimen regimen = (Regimen) objects.get(i);
-//                        if (containsWords(contaiensKeyWords.getText().toString(), regimen.getDescription())) {
-//                            filterdKeyWords.add(objects.get(i));
-//                        }
-//                        break;
+                        if (containsWords(contaiensKeyWords.getText().toString(), regimen.getExerciseDescription())) {
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
+
                 }
             } else filterdKeyWords.add(objects.get(i));
         }
