@@ -104,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 userFound.setPassword(result.getString(1));
             }
         }
+        result.close();
         return userFound;
     }
 
@@ -123,7 +124,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 userFound.setPassword(result.getString(1));
             }
         }
-
+        result.close();
         return found;
     }
 

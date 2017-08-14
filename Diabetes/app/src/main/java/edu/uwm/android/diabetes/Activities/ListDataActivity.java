@@ -232,6 +232,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                     regimenObject.setExerciseDescription(regimenCursor.getString(2));
                     regimenObject.setDietDescription(regimenCursor.getString(3));
                     regimenObject.setDate(regimenCursor.getString(4));
+
                     objects.add(regimenObject);
                 }
             } while (regimenCursor.moveToNext());
@@ -311,6 +312,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                         intent = new Intent(ListDataActivity.this, RegimenActivity.class);
                         intent.putExtra("regimenId", regimen.getID());
                         intent.putExtra("regimenDescription", regimen.getExerciseDescription());
+
                         intent.putExtra("regimenDate", regimen.getDate());
                         intent.putExtra("userName", userName);
                         startActivity(intent);
@@ -321,7 +323,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             }
         });
 
-
+        cursor1.close();
     }
 
     //Two date dialogs, one for From EditText and one for To EditText
@@ -449,6 +451,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                             filterdKeyWords.add(objects.get(i));
                         }
                         break;
+
                 }
             } else filterdKeyWords.add(objects.get(i));
         }

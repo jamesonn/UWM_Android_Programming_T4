@@ -156,7 +156,7 @@ public class DietActivity extends AppCompatActivity {
                             mTimePicker.show();
                  }
         });
-
+        cursor.close();
     }
 
     public void DateDialog() {

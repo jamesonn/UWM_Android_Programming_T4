@@ -1,9 +1,7 @@
 package edu.uwm.android.diabetes.Activities;
 
-        import android.app.AlarmManager;
         import android.app.DatePickerDialog;
         import android.app.NotificationManager;
-        import android.app.PendingIntent;
         import android.app.TimePickerDialog;
         import android.content.Context;
         import android.content.Intent;
@@ -17,9 +15,7 @@ package edu.uwm.android.diabetes.Activities;
         import android.widget.EditText;
         import android.widget.TimePicker;
         import android.widget.Toast;
-
         import java.util.Calendar;
-
         import edu.uwm.android.diabetes.Database.DatabaseHandler;
         import edu.uwm.android.diabetes.Database.Regimen;
         import edu.uwm.android.diabetes.R;
@@ -38,6 +34,7 @@ public class RegimenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sendNotification();
         setContentView(R.layout.activity_regimen);
         databaseHandler = new DatabaseHandler(this);
         regimenDiet = (EditText) findViewById(R.id.regimenDiet);
@@ -145,15 +142,14 @@ public class RegimenActivity extends AppCompatActivity {
     }
 
 
-    public void notify(View v){
+    public void sendNotification(){
         NotificationCompat.Builder notifBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setContentTitle("Message")
                 .setContentText("Content").setTicker("Alarm Ticker").setSmallIcon(R.drawable.heart);
 
         notifManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notifManager.notify(1, notifBuilder.build());
-
-
+        System.out.println("Hellooooooooooooooooooooooo");
     }
     public void DateDialog() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {

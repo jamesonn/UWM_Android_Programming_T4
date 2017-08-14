@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
          if (id == R.id.nav_graph) {
-            intent = new Intent(this, GraphActivity.class );
+            intent = new Intent(this, FragmentActivity.class );
             intent.putExtra("userName", userName );
         } else if (id == R.id.nav_stats) {
             intent = new Intent(this, StatisticsActivity.class );

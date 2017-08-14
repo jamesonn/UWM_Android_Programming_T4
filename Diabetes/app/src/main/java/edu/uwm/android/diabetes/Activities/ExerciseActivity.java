@@ -172,6 +172,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 DateDialog();
             }
         });
+        cursor.close();
     }
 
     public void DateDialog() {

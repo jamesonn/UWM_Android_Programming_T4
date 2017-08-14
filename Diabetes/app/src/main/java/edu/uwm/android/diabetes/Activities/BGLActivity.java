@@ -174,6 +174,7 @@ public class BGLActivity extends AppCompatActivity {
                 DateDialog();
             }
         });
+        cursor.close();
     }
 
     public void DateDialog() {
