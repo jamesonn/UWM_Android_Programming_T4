@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradient"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@android:color/holo_red_light"
+        android:alpha=".60"
+        app:srcCompat="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editTextExerciseDescription"
+        style="@style/EditTextStyle"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textViewExerciseDescription"
+        style="@style/LabelStyle"
+        android:text="Description: "
+        android:layout_alignBaseline="@+id/editTextExerciseDescription"
+        android:layout_alignBottom="@+id/editTextExerciseDescription"
+        android:layout_toLeftOf="@+id/editTextExerciseDescription"
+        android:layout_toStartOf="@+id/editTextExerciseDescription" />
+
+
+    <Button
+        android:id="@+id/addExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Exercise"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_above="@+id/updateExerciseData"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/updateExerciseData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Exercise"
+        android:layout_below="@+id/exerciseDateTextView"
+        android:layout_alignRight="@+id/addExercise"
+        android:layout_alignEnd="@+id/addExercise" />
+
+    <EditText
+        android:id="@+id/exerciseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/editTextExerciseDescription"
+        android:layout_alignLeft="@+id/editTextExerciseDescription"
+        android:layout_alignStart="@+id/editTextExerciseDescription" />
+
+    <TextView
+        android:id="@+id/exerciseDateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_alignBaseline="@+id/exerciseDate"
+        android:layout_alignBottom="@+id/exerciseDate"
+        android:layout_toLeftOf="@+id/exerciseDate"
+        android:layout_toStartOf="@+id/exerciseDate" />
+
+    <EditText
+        android:id="@+id/exerciseTime"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:layout_below="@+id/exerciseDate"
+        android:layout_alignLeft="@+id/exerciseDate"
+        android:layout_alignStart="@+id/exerciseDate" />
+
+    <TextView
+        android:id="@+id/exerciseTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/LabelStyle"
+        android:text="Time:"
+        android:layout_alignBaseline="@+id/exerciseTime"
+        android:layout_alignBottom="@+id/exerciseTime"
+        android:layout_toLeftOf="@+id/exerciseTime"
+        android:layout_toStartOf="@+id/exerciseTime" />
+
+    <ImageView
+        android:id="@+id/bikeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="32dp"
+        app:srcCompat="@mipmap/bicycleicon" />
+
+</RelativeLayout>

@@ -6,13 +6,12 @@
     android:background="@drawable/gradient">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/regimenExerciseTextView"
         android:tint="@android:color/holo_red_light"
         app:srcCompat="@drawable/heart" />
 
@@ -22,9 +21,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="177dp"
+        android:layout_marginRight="177dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -131,9 +130,11 @@
         android:id="@+id/Notify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/addRegimen"
-        android:layout_toRightOf="@+id/addRegimen"
+        android:layout_alignBottom="@+id/timeTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
         android:onClick="notify"
         android:text="Notify" />
 
