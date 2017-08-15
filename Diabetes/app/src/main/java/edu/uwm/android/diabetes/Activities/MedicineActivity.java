@@ -107,10 +107,10 @@ public class MedicineActivity extends AppCompatActivity {
         });
 
         if(getIntent().getIntExtra("medicineId",-1) == -1){
-            updateMedicine.setVisibility(View.INVISIBLE);
+            updateMedicine.setEnabled(false);
             System.out.println("Update is invisible");
         }else{
-            addMedicine.setVisibility(View.INVISIBLE);
+            addMedicine.setEnabled(false);
             medicineDescription.setText(getIntent().getStringExtra("medicineDescription"));
             String dateAndTime = getIntent().getStringExtra("medicineDate");
             medicineDate.setText(dateAndTime.substring(0,8));
@@ -121,21 +121,31 @@ public class MedicineActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Medicine medicine = new Medicine();
-                medicine.setDescription(medicineDescription.getText().toString());
-                medicine.setDate(medicineDate.getText().toString()+" "+ medicineTime.getText().toString());
-                userName =  getIntent().getStringExtra("userName");
-                databaseHandler.add(medicine, userName);
-                Toast.makeText(MedicineActivity.this, "Description "+ medicineDescription.getText().toString() + " Date "+
-                                medicineDate.getText().toString()+" Added",
-                        Toast.LENGTH_LONG).show();
-                medicineDate.getText().clear();
-                medicineDescription.getText().clear();
-                SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.clear();
-                editor.commit();
-
+                if(medicineDate.getText().toString().equals("")){
+                    Toast.makeText(MedicineActivity.this, "Please add a date",
+                            Toast.LENGTH_LONG).show();
+                }else if(medicineDescription.getText().toString().equals("")){
+                    Toast.makeText(MedicineActivity.this, "Please add a description",
+                            Toast.LENGTH_LONG).show();
+                }else if(medicineTime.getText().toString().equals("")){
+                    Toast.makeText(MedicineActivity.this, "Please add a time",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    Medicine medicine = new Medicine();
+                    medicine.setDescription(medicineDescription.getText().toString());
+                    medicine.setDate(medicineDate.getText().toString() + " " + medicineTime.getText().toString());
+                    userName = getIntent().getStringExtra("userName");
+                    databaseHandler.add(medicine, userName);
+                    Toast.makeText(MedicineActivity.this, "Description " + medicineDescription.getText().toString() + " Date " +
+                                    medicineDate.getText().toString() + " Added",
+                            Toast.LENGTH_LONG).show();
+                    medicineDate.getText().clear();
+                    medicineDescription.getText().clear();
+                    SharedPreferences sp = getSharedPreferences("medicineInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }
         });
         updateMedicine.setOnClickListener(new View.OnClickListener() {

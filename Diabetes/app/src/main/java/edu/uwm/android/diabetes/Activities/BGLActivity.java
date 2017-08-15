@@ -116,7 +116,10 @@ public class BGLActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sp.edit();
                         editor.clear();
                         editor.commit();
-                    } else{
+                    } else if(BGLValue.getText().toString().equals("")){
+                        Toast.makeText(BGLActivity.this, "Please add a BGL value",
+                                Toast.LENGTH_LONG).show();
+                    }else{
                         Toast.makeText(BGLActivity.this, "Please add a date",
                                 Toast.LENGTH_LONG).show();
                     }
