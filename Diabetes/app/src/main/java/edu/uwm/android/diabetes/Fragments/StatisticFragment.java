@@ -4,12 +4,14 @@ package edu.uwm.android.diabetes.Fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.uwm.android.diabetes.Database.BloodGlucose;
@@ -107,6 +109,7 @@ public class StatisticFragment extends Fragment {
             }while (cursor.moveToNext());
         }else{return -1.0;}
         cursor.close();
+        databaseHandler.close();
         return sum / counter;
     }
 
@@ -126,6 +129,7 @@ public class StatisticFragment extends Fragment {
             }while (cursor.moveToNext());
         }else{return -1.0;}
         cursor.close();
+        databaseHandler.close();
         return temp;
     }
 
@@ -145,39 +149,30 @@ public class StatisticFragment extends Fragment {
             }while (cursor.moveToNext());
         }else{return -1.0;}
         cursor.close();
+        databaseHandler.close();
         return temp;
     }
 
     public double medBGL() {
         List<Double> temp = new ArrayList<>();
         int counter = 0;
-
         Cursor cursor = databaseHandler.getData(new BloodGlucose());
 
-        if(cursor.moveToFirst()){
-
-            do{
+        if(cursor.moveToFirst()) {
+            do {
                 temp.add(Double.parseDouble(cursor.getString(2)));
                 counter++;
-            }while (cursor.moveToNext());
-
-
-            double t = 0;
-            for(int i=0; i < counter; i++){
-                for(int j=1; j < (counter-i); j++){
-                    if(temp.get(i) > temp.get(j)){
-                        //swap elements
-                        t = temp.get(j-1);
-                        temp.set(j-1,temp.get(j))  ;
-                        temp.set(j,t);
-                    }
-
-                }
-            }
+            } while (cursor.moveToNext());
         }
 
+        Collections.sort(temp);
+        Log.w("temp",temp.toString());
 
-
-        return temp.get((counter/2)+1);
+        cursor.close();
+        databaseHandler.close();
+        if(temp.size()>1) {
+            return temp.get((temp.size() / 2));
+        }else if(temp.size() == 1){ return temp.get(0);}
+        else return 0.0;
     }
 }

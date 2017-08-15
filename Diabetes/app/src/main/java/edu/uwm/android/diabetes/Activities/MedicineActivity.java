@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
+import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.R;
 
@@ -59,18 +60,7 @@ public class MedicineActivity extends AppCompatActivity {
         showSharedPreferences();
 
         //for auto complete
-        allMedicine =new ArrayList<>();
-        Cursor cursor = databaseHandler.getData(new Medicine());
-        if(cursor.moveToFirst()){
-            do{
-                if(!allMedicine.contains(cursor.getString(2)))
-                    allMedicine.add(cursor.getString(2));
-
-            }while(cursor.moveToNext());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.simple_list_item_1,allMedicine);
-        medicineDescription.setAdapter(adapter);
+        allMedicine =autoCom();
 
 
 
@@ -131,6 +121,7 @@ public class MedicineActivity extends AppCompatActivity {
                     medicine.setDate(medicineDate.getText().toString() + " " + medicineTime.getText().toString());
                     userName = getIntent().getStringExtra("userName");
                     databaseHandler.add(medicine, userName);
+                    allMedicine =autoCom();
                     Toast.makeText(MedicineActivity.this, "Description " + medicineDescription.getText().toString() + " Date " +
                                     medicineDate.getText().toString() + " Added",
                             Toast.LENGTH_LONG).show();
@@ -152,6 +143,7 @@ public class MedicineActivity extends AppCompatActivity {
                 int id =getIntent().getIntExtra("medicineId",-1);
                 if(id != -1) {
                     databaseHandler.update(getIntent().getIntExtra("medicineId", -1), medicine,getIntent().getStringExtra("userName"));
+                    allMedicine =autoCom();
                     getIntent().removeExtra("medicineDate");
                     getIntent().removeExtra("medicineDescription");
                     getIntent().removeExtra("medicineId");
@@ -173,7 +165,6 @@ public class MedicineActivity extends AppCompatActivity {
                 DateDialog();
             }
         });
-        cursor.close();
     }
 
     public void DateDialog() {
@@ -230,5 +221,23 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    private ArrayList<String> autoCom(){
+        ArrayList<String> ret =new ArrayList<>();
+
+        Cursor cursor = databaseHandler.getData(new Medicine());
+        if(cursor.moveToFirst()){
+            do{
+                if(!ret.contains(cursor.getString(2)))
+                    ret.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,ret);
+        medicineDescription.setAdapter(adapter);
+        cursor.close();
+        return ret;
     }
 }

@@ -21,6 +21,13 @@
         android:orientation="horizontal"
         android:gravity="center">
         <CheckBox
+            android:id="@+id/regimenCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Regimen"
+            android:maxLines="1"/>
+        <CheckBox
             android:id="@+id/exerciseCheckBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,21 +55,22 @@
             android:layout_weight="1"
             android:text="Medicine"
             android:maxLines="1"/>
-        <EditText
-            android:id="@+id/contaiensKeyWords"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:textSize="15dp"
-            android:maxLines = "1"
-            android:hint="Key Words"/>
     </LinearLayout>
+    <EditText
+        android:id="@+id/contaiensKeyWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayoutCheckboxes"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:maxLines = "1"
+
+        android:hint="Key Words"/>
     <LinearLayout
         android:id="@+id/linearLayoutDate"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@+id/linearLayoutCheckboxes"
+        android:layout_below="@+id/contaiensKeyWords"
         android:orientation="horizontal">
         <TextView
             android:layout_height="wrap_content"
@@ -148,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_below="@+id/linearLayoutBglValue"
-        android:text="Serach" />
+        android:text="Search" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewListData"

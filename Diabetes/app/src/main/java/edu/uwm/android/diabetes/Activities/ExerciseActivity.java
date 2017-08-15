@@ -67,18 +67,7 @@ public class ExerciseActivity extends AppCompatActivity {
         showSharedPreferences();
 
         //for auto complete
-        allExercise =new ArrayList<>();
-        Cursor cursor = databaseHandler.getData(new Exercise());
-        if(cursor.moveToFirst()){
-            do{
-                if(!allExercise.contains(cursor.getString(2)))
-                    allExercise.add(cursor.getString(2));
-
-            }while(cursor.moveToNext());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.simple_list_item_1,allExercise);
-        exerciseDescription.setAdapter(adapter);
+        allExercise =autoCom();
 
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +126,7 @@ public class ExerciseActivity extends AppCompatActivity {
                     exercise.setDate(exerciseDate.getText().toString() + " " + exerciseTime.getText().toString());
                     userName = getIntent().getStringExtra("userName");
                     databaseHandler.add(exercise, userName);
+                    allExercise =autoCom();
                     Toast.makeText(ExerciseActivity.this, "Description " + exerciseDescription.getText().toString() + " Date " +
                                     exerciseDate.getText().toString() + " Added",
                             Toast.LENGTH_LONG).show();
@@ -159,6 +149,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 int id =getIntent().getIntExtra("exerciseId",-1);
                 if(id != -1) {
                     databaseHandler.update(getIntent().getIntExtra("exerciseId", -1), exercise,getIntent().getStringExtra("userName"));
+                    allExercise =autoCom();
                     getIntent().removeExtra("exerciseDate");
                     getIntent().removeExtra("exerciseDescription");
                     getIntent().removeExtra("exerciseId");
@@ -182,7 +173,6 @@ public class ExerciseActivity extends AppCompatActivity {
                 DateDialog();
             }
         });
-        cursor.close();
     }
 
     public void DateDialog() {
@@ -238,4 +228,22 @@ public class ExerciseActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {super.onRestart();}
+
+    private ArrayList<String> autoCom(){
+        ArrayList<String> ret =new ArrayList<>();
+
+        Cursor cursor = databaseHandler.getData(new Exercise());
+        if(cursor.moveToFirst()){
+            do{
+                if(!ret.contains(cursor.getString(2)))
+                    ret.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,ret);
+        exerciseDescription.setAdapter(adapter);
+        cursor.close();
+        return ret;
+    }
 }

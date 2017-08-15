@@ -58,18 +58,8 @@ public class DietActivity extends AppCompatActivity {
 
 
         //for auto complete
-        allDiet =new ArrayList<>();
-        Cursor cursor = databaseHandler.getData(new Diet());
-        if(cursor.moveToFirst()){
-            do{
-                if(!allDiet.contains(cursor.getString(2)))
-               allDiet.add(cursor.getString(2));
+        allDiet =autoCom();
 
-            }while(cursor.moveToNext());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.simple_list_item_1,allDiet);
-        dietDescription.setAdapter(adapter);
 
         if(getIntent().getIntExtra("dietId",-1) == -1){
             updatediet.setEnabled(false);
@@ -106,6 +96,8 @@ public class DietActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     dietDate.getText().clear();
                     dietDescription.getText().clear();
+                    allDiet =autoCom();
+
                 }
             }
         });
@@ -125,6 +117,7 @@ public class DietActivity extends AppCompatActivity {
                     Toast.makeText(DietActivity.this, "Diet was updated", Toast.LENGTH_LONG).show();
                     dietDate.getText().clear();
                     dietDescription.getText().clear();
+                    allDiet =autoCom();
                 }else{
                     Toast.makeText(DietActivity.this, "Can't Update now", Toast.LENGTH_LONG).show();
                 }
@@ -133,6 +126,7 @@ public class DietActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.clear();
                 editor.commit();
+
             }
         });
 
@@ -159,7 +153,6 @@ public class DietActivity extends AppCompatActivity {
                             mTimePicker.show();
                  }
         });
-        cursor.close();
     }
 
     public void DateDialog() {
@@ -196,6 +189,24 @@ public class DietActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    private ArrayList<String> autoCom(){
+        ArrayList<String> ret =new ArrayList<>();
+
+        Cursor cursor = databaseHandler.getData(new Diet());
+        if(cursor.moveToFirst()){
+            do{
+                if(!ret.contains(cursor.getString(2)))
+                    ret.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,ret);
+        dietDescription.setAdapter(adapter);
+        cursor.close();
+        return ret;
     }
 
 }
