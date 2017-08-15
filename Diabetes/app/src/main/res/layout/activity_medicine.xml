@@ -1,99 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center">
-
-    <TableLayout
-        android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:stretchColumns="*"
+    android:background="@drawable/gradient"
+    tools:context="edu.uwm.android.diabetes.Activities.MedicineActivity">
+    <ImageView
+        android:id="@+id/pillImage"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:stretchColumns="*"
-        android:background="@drawable/gradient"
-        tools:context="edu.uwm.android.diabetes.Activities.MedicineActivity">
-        <ImageView
-            android:id="@+id/pillImage"
+        android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@mipmap/pillicon" />
+    <TableRow>
+        <TextView
+            android:id="@+id/textViewMedicineDescription"
+            style="@style/LabelStyle"
+            android:text="Description: "
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:textAlignment="center"/>
+        <AutoCompleteTextView
+            android:id="@+id/editTextMedicineDescription"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_span="2"
-            android:adjustViewBounds="true"
-            android:maxHeight="100dp"
-            android:maxWidth="100dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/pillicon" />
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewMedicineDescription"
-                style="@style/LabelStyle"
-                android:text="Description: "
-                android:layout_width="0dip"
-                android:layout_weight="1"
-                android:textAlignment="center"/>
-            <AutoCompleteTextView
-                android:id="@+id/editTextMedicineDescription"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_weight="1"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/textViewMedicineDate"
-                style="@style/LabelStyle"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Date: "
-                android:layout_weight="1"/>
+            android:ems="10"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/textViewMedicineDate"
+            style="@style/LabelStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Date: "
+            android:layout_weight="1"/>
 
-            <EditText
-                android:id="@+id/editTextMedicineDate"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:focusable="false"
-                android:layout_weight="1"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/medicineTimeTextView"
-                style="@style/LabelStyle"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Time:"
-                android:layout_weight="1"/>
-            <EditText
-                android:id="@+id/medicineTime"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="time"
-                android:layout_weight="1"/>
-        </TableRow>
-        <TableRow>
-            <Button
-                android:id="@+id/addMedicine"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:text="Add Medicine"
-                android:layout_weight="1"/>
-            <Button
-                android:id="@+id/updateMedincineData"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:text="Update Medicine" />
-        </TableRow>
-        <ImageView
-            android:id="@+id/backgroundImageMedicine"
+        <EditText
+            android:id="@+id/editTextMedicineDate"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:alpha=".60"
-            android:tint="@android:color/holo_red_light"
-            app:srcCompat="@drawable/heart" />
-    </TableLayout>
-</RelativeLayout>
+            android:ems="10"
+            android:focusable="false"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/medicineTimeTextView"
+            style="@style/LabelStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Time:"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/medicineTime"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="time"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <Button
+            android:id="@+id/addMedicine"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="Add Medicine"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/updateMedincineData"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="Update Medicine" />
+    </TableRow>
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:alpha=".60"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart" />
+</TableLayout>
