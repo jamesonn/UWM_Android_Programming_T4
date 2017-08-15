@@ -58,6 +58,13 @@
         <activity android:name=".Activities.DietActivity" />
         <activity android:name=".Activities.AboutActivity"></activity>
         <activity android:name=".Activities.FragmentActivity"></activity>
+        <receiver android:name=".Receivers.AlarmReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <action android:name="my.action.string" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

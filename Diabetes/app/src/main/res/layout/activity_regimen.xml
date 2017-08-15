@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent">
 
     <EditText
@@ -115,15 +116,15 @@
         android:layout_alignBottom="@+id/exerciseEditText"
         android:layout_toLeftOf="@+id/exerciseEditText"
         android:layout_toStartOf="@+id/exerciseEditText" />
-
-    <Button
-        android:id="@+id/Notify"
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/addRegimen"
-        android:layout_toRightOf="@+id/addRegimen"
-        android:text="Notify"
-        android:onClick="notify"/>
+        android:tint="@android:color/holo_red_light"
+        android:alpha=".60"
+        app:srcCompat="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

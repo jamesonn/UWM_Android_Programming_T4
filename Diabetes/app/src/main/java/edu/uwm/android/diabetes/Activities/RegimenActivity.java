@@ -1,50 +1,57 @@
 package edu.uwm.android.diabetes.Activities;
-
-        import android.app.DatePickerDialog;
-        import android.app.NotificationManager;
-        import android.app.TimePickerDialog;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.app.NotificationCompat;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.DatePicker;
-        import android.widget.EditText;
-        import android.widget.TimePicker;
-        import android.widget.Toast;
-        import java.util.Calendar;
-        import edu.uwm.android.diabetes.Database.DatabaseHandler;
-        import edu.uwm.android.diabetes.Database.Regimen;
-        import edu.uwm.android.diabetes.R;
+import android.app.AlarmManager;
+import android.app.DatePickerDialog;import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
+import android.widget.Toast;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+import edu.uwm.android.diabetes.Database.DatabaseHandler;
+import edu.uwm.android.diabetes.Database.Regimen;
+import edu.uwm.android.diabetes.R;
 
 public class RegimenActivity extends AppCompatActivity {
 
-    Button addRegimen, updateRegimen, notify;
+    Button addRegimen, updateRegimen;
     DatabaseHandler databaseHandler;
     EditText regimenDiet, regimenDate, regimenTime, regimenExercise;
     Calendar calendar;
     int day, month, year;
     String userName;
-    NotificationManager notifManager;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sendNotification();
         setContentView(R.layout.activity_regimen);
         databaseHandler = new DatabaseHandler(this);
         regimenDiet = (EditText) findViewById(R.id.regimenDiet);
         addRegimen = (Button) findViewById(R.id.addRegimen);
-        notify = (Button) findViewById(R.id.Notify);
         updateRegimen = (Button) findViewById(R.id.updateRegimen);
         regimenDate = (EditText) findViewById(R.id.regimenDate);
         regimenTime = (EditText) findViewById(R.id.regimenTime);
         regimenExercise = (EditText) findViewById(R.id.exerciseEditText);
-
+        userName =  getIntent().getStringExtra("userName");
+        try {
+            sendNotification();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         addRegimen.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -52,27 +59,32 @@ public class RegimenActivity extends AppCompatActivity {
                 Regimen regimen = new Regimen();
                 regimen.setDietDescription("Diet : "+ regimenDiet.getText().toString());
                 regimen.setExerciseDescription("Exercise : "+regimenExercise.getText().toString());
-                regimen.setDate(regimenDate.getText().toString() + " " + regimenTime.getText().toString() );
-                userName =  getIntent().getStringExtra("userName");
+                regimen.setDate(regimenDate.getText().toString() + " " + regimenTime.getText().toString());
                 databaseHandler.add(regimen, userName);
                 Toast.makeText(RegimenActivity.this, " Diet "+regimen.getDietDescription()+" exercise "+ regimen.getExerciseDescription() + " Date "+ regimen.getDate() + " Added!",
                         Toast.LENGTH_LONG).show();
             }
         });
 
+        userName =  getIntent().getStringExtra("userName");
+        Intent intentToPassVarToAlarmReceiver = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        intentToPassVarToAlarmReceiver.putExtra("userName", userName);
+        sendBroadcast(intentToPassVarToAlarmReceiver);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("user", userName);
+        edit.commit();
+
         if(getIntent().getIntExtra("regimenId",-1) == -1){
-            updateRegimen.setVisibility(View.INVISIBLE); //Not coming from the List
+            updateRegimen.setVisibility(View.INVISIBLE);
         }else{
-            //Coming from the list
             addRegimen.setVisibility(View.INVISIBLE);
             regimenDiet.setText(getIntent().getStringExtra("regimenDescription"));
             String dateAndTime = getIntent().getStringExtra("regimenDate");
             regimenDate.setText(dateAndTime.substring(0,8));
             regimenTime.setText(dateAndTime.substring(9,14));
-
-        }
-
-
+         }
         updateRegimen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,16 +153,6 @@ public class RegimenActivity extends AppCompatActivity {
 
     }
 
-
-    public void sendNotification(){
-        NotificationCompat.Builder notifBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setContentTitle("Message")
-                .setContentText("Content").setTicker("Alarm Ticker").setSmallIcon(R.drawable.heart);
-
-        notifManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notifManager.notify(1, notifBuilder.build());
-        System.out.println("Hellooooooooooooooooooooooo");
-    }
     public void DateDialog() {
         DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
 
@@ -163,6 +165,26 @@ public class RegimenActivity extends AppCompatActivity {
         dpDialog.show();
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void sendNotification() throws InterruptedException {
+        final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        final PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final Calendar cal = Calendar.getInstance();
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void run() {
+                cal.add(Calendar.SECOND, 0);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+            }}, 0,1000*60*60*24);
+
+    }
 
     @Override
     protected void onStart() {

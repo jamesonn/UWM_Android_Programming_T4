@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         databaseHandler = new DatabaseHandler(this);
         rememberMe = (CheckBox) findViewById(R.id.checkboxRememberMe);
         showSharedPreferences();
-        System.out.println("This is called man!");
 
         //we need to call this on load for SQLCipher
         SQLiteDatabase.loadLibs(this);
@@ -62,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     User user;
                     user = databaseHandler.getUserByUserName(userName.getText().toString());
-                    System.out.println("-----> Entered "+password+ " userDB "+user.getPassword());
                     if(user.getPassword().equals(password.getText().toString())){
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         intent.putExtra("userName", user.getUserName());

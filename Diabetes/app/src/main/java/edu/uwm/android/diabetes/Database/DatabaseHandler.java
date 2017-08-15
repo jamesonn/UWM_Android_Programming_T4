@@ -25,9 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         password = "password";
-
         String createLoginTable = " create table " + Constants.TABLE_LOGIN + " ("
                 + Constants.LOGIN_USERNAME + " text primary key, "
                 + Constants.LOGIN_PASSWORD + " text);";
@@ -180,6 +178,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             db.close(); // Closing database connection
         }
+    }
+
+    public Cursor getRegimenByDate(String date, String userName) {
+        Cursor result = null;
+            SQLiteDatabase db = getWritableDatabase(password);
+            result = db.rawQuery("Select * from " + Constants.TABLE_REGIMEN + " WHERE USERNAME='" + userName + "' AND DATE like '"+date+"%'", null);
+        System.out.println("Select * from " + Constants.TABLE_REGIMEN + " WHERE USERNAME='" + userName + "' AND DATE like '"+date+"%'");
+        return result;
     }
 
     public void delete(IDatabaseObject object) {

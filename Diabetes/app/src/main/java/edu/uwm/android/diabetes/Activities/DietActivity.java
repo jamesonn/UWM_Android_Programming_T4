@@ -75,8 +75,6 @@ public class DietActivity extends AppCompatActivity {
                 (this,android.R.layout.simple_list_item_1,allDiet);
         dietDescription.setAdapter(adapter);
 
-
-
         if(getIntent().getIntExtra("dietId",-1) == -1){
             updatediet.setVisibility(View.INVISIBLE);
         }else{
@@ -129,9 +127,6 @@ public class DietActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-
-
-
 
         dietDate.setOnClickListener(new View.OnClickListener() {
             @Override
