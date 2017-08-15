@@ -109,9 +109,9 @@ public class ExerciseActivity extends AppCompatActivity {
         });
 
         if(getIntent().getIntExtra("exerciseId",-1) == -1){
-            updateExercise.setVisibility(View.INVISIBLE);
+            updateExercise.setEnabled(false);
         }else{
-            addExercise.setVisibility(View.INVISIBLE);
+            addExercise.setEnabled(false);
             exerciseDescription.setText(getIntent().getStringExtra("exerciseDescription"));
             String dateAndTime = getIntent().getStringExtra("exerciseDate");
             exerciseDate.setText(dateAndTime.substring(0,8));
@@ -122,21 +122,31 @@ public class ExerciseActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Exercise exercise = new Exercise();
-                exercise.setDescription(exerciseDescription.getText().toString());
-                exercise.setDate(exerciseDate.getText().toString() +" " + exerciseTime.getText().toString());
-                userName =  getIntent().getStringExtra("userName");
-                 databaseHandler.add(exercise,userName);
-                Toast.makeText(ExerciseActivity.this, "Description "+ exerciseDescription.getText().toString() + " Date "+
-                                exerciseDate.getText().toString()+" Added",
-                        Toast.LENGTH_LONG).show();
-                exerciseDate.getText().clear();
-                exerciseDescription.getText().clear();
-                SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.clear();
-                editor.commit();
-
+                if(exerciseDescription.getText().toString().equals("")){
+                    Toast.makeText(ExerciseActivity.this, "Please add a description",
+                            Toast.LENGTH_LONG).show();
+                }else if(exerciseDate.getText().toString().equals("")){
+                    Toast.makeText(ExerciseActivity.this, "Please add a date",
+                            Toast.LENGTH_LONG).show();
+                }else if(exerciseTime.getText().toString().equals("")){
+                    Toast.makeText(ExerciseActivity.this, "Please add a time",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    Exercise exercise = new Exercise();
+                    exercise.setDescription(exerciseDescription.getText().toString());
+                    exercise.setDate(exerciseDate.getText().toString() + " " + exerciseTime.getText().toString());
+                    userName = getIntent().getStringExtra("userName");
+                    databaseHandler.add(exercise, userName);
+                    Toast.makeText(ExerciseActivity.this, "Description " + exerciseDescription.getText().toString() + " Date " +
+                                    exerciseDate.getText().toString() + " Added",
+                            Toast.LENGTH_LONG).show();
+                    exerciseDate.getText().clear();
+                    exerciseDescription.getText().clear();
+                    SharedPreferences sp = getSharedPreferences("exerciseInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                }
             }
         });
 
