@@ -15,14 +15,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.Diet;
-import edu.uwm.android.diabetes.Database.Exercise;
-import edu.uwm.android.diabetes.Database.Regimen;
 import edu.uwm.android.diabetes.R;
 
 public class DietActivity extends AppCompatActivity {
@@ -75,32 +71,42 @@ public class DietActivity extends AppCompatActivity {
                 (this,android.R.layout.simple_list_item_1,allDiet);
         dietDescription.setAdapter(adapter);
 
-
-
         if(getIntent().getIntExtra("dietId",-1) == -1){
-            updatediet.setVisibility(View.INVISIBLE);
+            updatediet.setEnabled(false);
         }else{
-            addDiet.setVisibility(View.INVISIBLE);
+            addDiet.setEnabled(false);
             dietDescription.setText(getIntent().getStringExtra("exerciseDescription"));
             String dateAndTime = getIntent().getStringExtra("dietDate");
             dietDate.setText(dateAndTime.substring(0,8));
             dietTime.setText(dateAndTime.substring(9,14));
         }
 
+        //TODO is this missing calories?
         addDiet.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                System.out.println("The add Regimen button is called here.");
-                Diet diet = new Diet();
-                diet.setDescription(dietDescription.getText().toString());
-                diet.setDate(dietDate.getText().toString() + " " + dietTime.getText().toString() );
-                userName =  getIntent().getStringExtra("userName");
-                databaseHandler.add(diet, userName);
-                Toast.makeText(DietActivity.this, dietDescription.getText().toString() + " Added!",
-                        Toast.LENGTH_LONG).show();
-                dietDate.getText().clear();
-                dietDescription.getText().clear();
+                if(dietDate.getText().toString().equals("")){
+                    Toast.makeText(DietActivity.this, "Please add a date",
+                            Toast.LENGTH_LONG).show();
+                }else if(dietTime.getText().toString().equals("")){
+                    Toast.makeText(DietActivity.this, "Please add a time",
+                            Toast.LENGTH_LONG).show();
+                }else if(dietDescription.getText().toString().equals("")){
+                    Toast.makeText(DietActivity.this, "Please add a description",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    System.out.println("The add Regimen button is called here.");
+                    Diet diet = new Diet();
+                    diet.setDescription(dietDescription.getText().toString());
+                    diet.setDate(dietDate.getText().toString() + " " + dietTime.getText().toString());
+                    userName = getIntent().getStringExtra("userName");
+                    databaseHandler.add(diet, userName);
+                    Toast.makeText(DietActivity.this, dietDescription.getText().toString() + " Added!",
+                            Toast.LENGTH_LONG).show();
+                    dietDate.getText().clear();
+                    dietDescription.getText().clear();
+                }
             }
         });
 
@@ -129,9 +135,6 @@ public class DietActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-
-
-
 
         dietDate.setOnClickListener(new View.OnClickListener() {
             @Override
