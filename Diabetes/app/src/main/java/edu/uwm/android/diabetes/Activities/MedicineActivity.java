@@ -13,16 +13,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
-import edu.uwm.android.diabetes.Database.Diet;
-import edu.uwm.android.diabetes.Database.Exercise;
 import edu.uwm.android.diabetes.Database.Medicine;
 import edu.uwm.android.diabetes.R;
 
