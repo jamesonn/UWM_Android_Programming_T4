@@ -62,18 +62,8 @@ public class DietActivity extends AppCompatActivity {
 
 
         //for auto complete
-        allDiet =new ArrayList<>();
-        Cursor cursor = databaseHandler.getData(new Diet());
-        if(cursor.moveToFirst()){
-            do{
-                if(!allDiet.contains(cursor.getString(2)))
-               allDiet.add(cursor.getString(2));
+        allDiet =autoCom();
 
-            }while(cursor.moveToNext());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.simple_list_item_1,allDiet);
-        dietDescription.setAdapter(adapter);
 
         if(getIntent().getIntExtra("dietId",-1) == -1){
             updatediet.setVisibility(View.INVISIBLE);
@@ -127,6 +117,9 @@ public class DietActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
+
+
+
 
         dietDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +181,24 @@ public class DietActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    private ArrayList<String> autoCom(){
+        ArrayList<String> ret =new ArrayList<>();
+
+        Cursor cursor = databaseHandler.getData(new Diet());
+        if(cursor.moveToFirst()){
+            do{
+                if(!ret.contains(cursor.getString(2)))
+                    ret.add(cursor.getString(2));
+
+            }while(cursor.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,ret);
+        dietDescription.setAdapter(adapter);
+        cursor.close();
+        return ret;
     }
 
 }

@@ -40,7 +40,7 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
     DatabaseHandler db;
     private ArrayList<IDatabaseObject> objects = new ArrayList<IDatabaseObject>();
     String userName;
-    CheckBox exerciseCheckBox, dietCheckBox, medicineCheckBox, bglCheckBox;
+    CheckBox exerciseCheckBox, dietCheckBox, medicineCheckBox, bglCheckBox, regimenCheckBox;
     RecyclerView recyclerView;
     DataAdapter adapter;
     EditText dateFrom, dateTo, timeFrom, timeTo, bglValueFrom, bglValueTo, contaiensKeyWords;
@@ -58,6 +58,8 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         userName = getIntent().getStringExtra("userName");
 
         contaiensKeyWords = (EditText) findViewById(R.id.contaiensKeyWords);
+        regimenCheckBox =(CheckBox) findViewById(R.id.regimenCheckBox);
+        regimenCheckBox.setChecked(true);
         exerciseCheckBox = (CheckBox) findViewById(R.id.exerciseCheckBox);
         exerciseCheckBox.setChecked(true);
         dietCheckBox = (CheckBox) findViewById(R.id.dietCheckBox);
@@ -356,6 +358,11 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
         ArrayList<IDatabaseObject> filterdDataByType = new ArrayList<>();
 
         for (int i = 0; i < objects.size(); i++) {
+            if(regimenCheckBox.isChecked()){
+                if (objects.get(i).getClassID().equals(Constants.REGIMEN_CLASS)){
+                    filterdDataByType.add(objects.get(i));
+                }
+            }
             if (exerciseCheckBox.isChecked()) {
                 if (objects.get(i).getClassID().equals(Constants.EXERCISE_CLASS)) {
                     filterdDataByType.add(objects.get(i));
@@ -427,6 +434,13 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             if (!objects.get(i).getClassID().equals(Constants.BLOODGLUCOSE_CLASS)) {
                 String type = objects.get(i).getClassID();
                 switch (type) {
+                    case Constants.REGIMEN_CLASS:
+                        Regimen regimen = (Regimen) objects.get(i);
+                        if(containsWords(contaiensKeyWords.getText().toString(),regimen.getDietDescription()) ||
+                                containsWords( contaiensKeyWords.getText().toString().toString(),regimen.getExerciseDescription())){
+                            filterdKeyWords.add(objects.get(i));
+                        }
+                        break;
                     case Constants.EXERCISE_CLASS:
                         Exercise exercise = (Exercise) objects.get(i);
                         if (containsWords(contaiensKeyWords.getText().toString(), exercise.getDescription())) {
@@ -445,13 +459,6 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
                             filterdKeyWords.add(objects.get(i));
                         }
                         break;
-                    case Constants.REGIMEN_CLASS:
-                        Regimen regimen = (Regimen) objects.get(i);
-                        if (containsWords(contaiensKeyWords.getText().toString(), regimen.getExerciseDescription())) {
-                            filterdKeyWords.add(objects.get(i));
-                        }
-                        break;
-
                 }
             } else filterdKeyWords.add(objects.get(i));
         }

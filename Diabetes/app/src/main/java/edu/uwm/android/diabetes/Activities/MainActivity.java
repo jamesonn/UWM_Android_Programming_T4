@@ -140,9 +140,6 @@ public class MainActivity extends AppCompatActivity
          if (id == R.id.nav_graph) {
             intent = new Intent(this, FragmentActivity.class );
             intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_stats) {
-            intent = new Intent(this, StatisticsActivity.class );
-            intent.putExtra("userName", userName );
         } else if (id == R.id.nav_reminders) {
             intent = new Intent(this, RemindersActivity.class );
             intent.putExtra("userName", userName );

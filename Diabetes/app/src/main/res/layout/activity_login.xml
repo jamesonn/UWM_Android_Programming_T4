@@ -1,70 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="*"
     android:background="@drawable/gradient">
 
-
+    <TableRow android:layout_marginTop="100dp">
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName" />
+    </TableRow>
+    <TableRow>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </TableRow>
+    <TableRow>
+        <CheckBox
+            android:id="@+id/checkboxRememberMe"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Remember me" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:id="@+id/login"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Log in" />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/signUp"
+            android:layout_width="20dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Sign up" />
+    </TableRow>
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:tint="@android:color/holo_red_light"
         app:srcCompat="@drawable/heart" />
-
-    <EditText
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="123dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/userName"
-        android:layout_alignRight="@+id/userName"
-        android:layout_below="@+id/userName"
-        android:layout_marginTop="34dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
-    <CheckBox
-        android:id="@+id/checkboxRememberMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_below="@id/password"
-        android:text="Remember me" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:text="Log in" />
-
-    <TextView
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp"
-        android:text="Sign up" />
-
-
-</RelativeLayout>
+</TableLayout>

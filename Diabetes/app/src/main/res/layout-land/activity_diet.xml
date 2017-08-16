@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/backgroundImageDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart"
+        android:alpha=".60"/>
+
+    <ImageView
+        android:id="@+id/bloodImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@mipmap/appleicon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editTextdietCalories"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/bloodImage"
+        android:layout_centerHorizontal="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editTextDietDescription"
+        style="@style/EditTextStyle"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/editTextdietCalories"
+        android:layout_alignLeft="@+id/editTextdietCalories"
+        android:layout_alignStart="@+id/editTextdietCalories" />
+
+    <TextView
+        android:id="@+id/textViewCaloriesBurnt"
+        style="@style/LabelStyle"
+        android:text="Calories: "
+        android:layout_alignBaseline="@+id/editTextdietCalories"
+        android:layout_alignBottom="@+id/editTextdietCalories"
+        android:layout_toLeftOf="@+id/editTextdietCalories"
+        android:layout_toStartOf="@+id/editTextdietCalories" />
+    <TextView
+        android:id="@+id/textViewdietDescription"
+        style="@style/LabelStyle"
+        android:text="Description: "
+        android:layout_alignBaseline="@+id/editTextDietDescription"
+        android:layout_alignBottom="@+id/editTextDietDescription"
+        android:layout_toLeftOf="@+id/editTextDietDescription"
+        android:layout_toStartOf="@+id/editTextDietDescription" />
+
+
+    <Button
+        android:id="@+id/addDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add diet"
+        android:layout_below="@+id/editTextdietCalories"
+        android:layout_alignRight="@+id/updateDiet"
+        android:layout_alignEnd="@+id/updateDiet" />
+
+    <Button
+        android:id="@+id/updateDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update diet"
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_above="@+id/dietTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/dietDate"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/editTextDietDescription"
+        android:layout_alignLeft="@+id/editTextDietDescription"
+        android:layout_alignStart="@+id/editTextDietDescription" />
+
+    <TextView
+        android:id="@+id/dietDateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_alignBaseline="@+id/dietDate"
+        android:layout_alignBottom="@+id/dietDate"
+        android:layout_toLeftOf="@+id/dietDate"
+        android:layout_toStartOf="@+id/dietDate" />
+
+    <EditText
+        android:id="@+id/dietTime"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:layout_below="@+id/dietDate"
+        android:layout_alignLeft="@+id/dietDate"
+        android:layout_alignStart="@+id/dietDate" />
+
+    <TextView
+        android:id="@+id/dietTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/LabelStyle"
+        android:text="Time:"
+        android:layout_alignBaseline="@+id/dietTime"
+        android:layout_alignBottom="@+id/dietTime"
+        android:layout_toLeftOf="@+id/dietTime"
+        android:layout_toStartOf="@+id/dietTime" />
+
+
+</RelativeLayout>

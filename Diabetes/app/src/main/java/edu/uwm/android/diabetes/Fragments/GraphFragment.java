@@ -4,15 +4,24 @@ package edu.uwm.android.diabetes.Fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -75,36 +84,38 @@ public class GraphFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_graph, container, false);
-        LineChart chart = (LineChart) rootView.findViewById(R.id.chart);
-        chart.setVisibleXRangeMaximum(maxDate);
-        chart.setVisibleXRangeMinimum(minDate);
+        BarChart chart = (BarChart) rootView.findViewById(R.id.chart);
 
-        Description description = new Description();
-        description.setText("BGL values from the last 30 days");
-        chart.setDescription(description);
-
-        List<Entry> entries = new ArrayList<Entry>();
-
+        chart.getDescription().setText("");
+        List<BarEntry> entries = new ArrayList<BarEntry>();
         cursor = databaseHandler.getData(new BloodGlucose());
         float data;
         String date;
+        String[] xAxisLabels = new String[30];
 
-        Calendar calendar = Calendar.getInstance();
+        for(int i=0 ; i<30;i++) {
+            xAxisLabels[i] = (Integer.toString(i + 1));
+        }
 
         if (cursor.moveToNext()){
             do{
                 data = Float.parseFloat(cursor.getString(2));
                 date = cursor.getString(3);
-
-                entries.add(new Entry(getDate(date),data));
+                entries.add(new BarEntry(getDate(date),data));
             }while (cursor.moveToNext());
             cursor.close();
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
-        dataSet.setCircleColor(R.color.MedicationThemeColor);
 
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
+        BarDataSet dataSet = new BarDataSet(entries,"BGL Value");
+        dataSet.setBarBorderColor(R.color.MedicationThemeColor);
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart.getXAxis().setDrawGridLines(false);
+
+
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.6f);
+        chart.setData(barData);
         chart.invalidate();
         // Inflate the layout for this fragment
         return rootView;

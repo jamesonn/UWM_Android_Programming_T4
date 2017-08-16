@@ -1,120 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:stretchColumns="*"
     android:background="@drawable/gradient"
-    android:layout_height="match_parent"
     tools:context="edu.uwm.android.diabetes.Activities.MedicineActivity">
-
-    <TextView
-        android:id="@+id/textViewMedicineDescription"
-        style="@style/LabelStyle"
-        android:text="Description: "
-        android:layout_marginRight="27dp"
-        android:layout_marginEnd="27dp"
-        android:layout_alignBaseline="@+id/editTextMedicineDescription"
-        android:layout_alignBottom="@+id/editTextMedicineDescription"
-        android:layout_toLeftOf="@+id/editTextMedicineDate"
-        android:layout_toStartOf="@+id/editTextMedicineDate" />
-
-    <ImageView
-        android:id="@+id/backgroundImageMedicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@android:color/holo_red_light"
-        android:alpha=".60"
-        app:srcCompat="@drawable/heart"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <AutoCompleteTextView
-        android:id="@+id/editTextMedicineDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="134dp"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textViewMedicineDescription"
-        android:layout_toEndOf="@+id/textViewMedicineDescription" />
-
-    <TextView
-        android:id="@+id/textViewMedicineDate"
-        style="@style/LabelStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date: "
-        android:layout_marginTop="29dp"
-        android:layout_below="@+id/editTextMedicineDescription"
-        android:layout_alignRight="@+id/textViewMedicineDescription"
-        android:layout_alignEnd="@+id/textViewMedicineDescription" />
-
-    <EditText
-        android:id="@+id/editTextMedicineDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_alignBaseline="@+id/textViewMedicineDate"
-        android:layout_alignBottom="@+id/textViewMedicineDate"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-
-
-
-
-    <EditText
-        android:id="@+id/medicineTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editTextMedicineDate"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:inputType="time"/>
-
-    <TextView
-        android:id="@+id/medicineTimeTextView"
-        style="@style/LabelStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time:"
-        android:layout_alignBottom="@+id/medicineTime"
-        android:layout_alignRight="@+id/textViewMedicineDate"
-        android:layout_alignEnd="@+id/textViewMedicineDate" />
-
-    <Button
-        android:id="@+id/addMedicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:text="Add Medicine" />
-
-    <Button
-        android:id="@+id/updateMedincineData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Medicine"
-        android:layout_alignBaseline="@+id/addMedicine"
-        android:layout_alignBottom="@+id/addMedicine"
-        android:layout_centerHorizontal="true" />
-
     <ImageView
         android:id="@+id/pillImage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:maxWidth="100dp"
-        android:maxHeight="100dp"
-        android:scaleType="fitCenter"
         android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitCenter"
         app:srcCompat="@mipmap/pillicon" />
+    <TableRow>
+        <TextView
+            android:id="@+id/textViewMedicineDescription"
+            style="@style/LabelStyle"
+            android:text="Description: "
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:textAlignment="center"/>
+        <AutoCompleteTextView
+            android:id="@+id/editTextMedicineDescription"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/textViewMedicineDate"
+            style="@style/LabelStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Date: "
+            android:layout_weight="1"/>
 
-
-</RelativeLayout>
+        <EditText
+            android:id="@+id/editTextMedicineDate"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/medicineTimeTextView"
+            style="@style/LabelStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Time:"
+            android:layout_weight="1"/>
+        <EditText
+            android:id="@+id/medicineTime"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="time"
+            android:layout_weight="1"/>
+    </TableRow>
+    <TableRow>
+        <Button
+            android:id="@+id/addMedicine"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="Add Medicine"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/updateMedincineData"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="Update Medicine" />
+    </TableRow>
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:alpha=".60"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart" />
+</TableLayout>

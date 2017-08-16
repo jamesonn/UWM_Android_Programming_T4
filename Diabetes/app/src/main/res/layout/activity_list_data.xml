@@ -21,37 +21,56 @@
         android:orientation="horizontal"
         android:gravity="center">
         <CheckBox
-            android:id="@+id/exerciseCheckBox"
-            android:layout_width="wrap_content"
+            android:id="@+id/regimenCheckBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Exercise"/>
+            android:layout_weight="1"
+            android:text="Regimen"
+            android:maxLines="1"/>
+        <CheckBox
+            android:id="@+id/exerciseCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Exercise"
+            android:maxLines="1"/>
         <CheckBox
             android:id="@+id/dietCheckBox"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Diet"/>
+            android:layout_weight="1"
+            android:text="Diet"
+            android:maxLines="1"/>
         <CheckBox
             android:id="@+id/bglCheckBox"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="BGL"/>
+            android:layout_weight="1"
+            android:text="BGL"
+            android:maxLines="1"/>
         <CheckBox
             android:id="@+id/medicineCheckBox"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Medicine"/>
-        <EditText
-            android:id="@+id/contaiensKeyWords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines = "1"
-            android:hint="Key Words"/>
+            android:layout_weight="1"
+            android:text="Medicine"
+            android:maxLines="1"/>
     </LinearLayout>
+    <EditText
+        android:id="@+id/contaiensKeyWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayoutCheckboxes"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:maxLines = "1"
+
+        android:hint="Key Words"/>
     <LinearLayout
         android:id="@+id/linearLayoutDate"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@+id/linearLayoutCheckboxes"
+        android:layout_below="@+id/contaiensKeyWords"
         android:orientation="horizontal">
         <TextView
             android:layout_height="wrap_content"
@@ -62,6 +81,7 @@
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/dateFrom"
+            android:focusable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,6 +89,7 @@
         <EditText
             android:id="@+id/dateTo"
             android:layout_width="0dp"
+            android:focusable="false"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="To"/>
@@ -88,12 +109,14 @@
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/timeFrom"
+            android:focusable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="From"/>
         <EditText
             android:id="@+id/timeTo"
+            android:focusable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,13 +156,13 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_below="@+id/linearLayoutBglValue"
-        android:text="Serach" />
+        android:text="Search" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewListData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
+        android:layout_below="@id/buttonSearch"
         />
 
 </RelativeLayout>

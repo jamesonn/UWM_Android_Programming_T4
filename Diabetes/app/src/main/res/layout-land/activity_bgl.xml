@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradient"
+    android:layout_height="match_parent"
+    tools:context="edu.uwm.android.diabetes.Activities.BGLActivity">
+
+
+    <ImageView
+        android:id="@+id/backgroundImageDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart"
+        android:alpha=".60"/>
+    <TextView
+        android:id="@+id/textViewBGLDescription"
+        style="@style/LabelStyle"
+        android:text="Enter BGL: "
+        android:layout_marginLeft="57dp"
+        android:layout_marginStart="57dp"
+        android:layout_below="@+id/bloodImage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editTextBGLValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:layout_alignTop="@+id/textViewBGLDescription"
+        android:layout_toRightOf="@+id/textViewBGLDescription"
+        android:layout_toEndOf="@+id/textViewBGLDescription"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp" />
+
+    <TextView
+        android:id="@+id/textViewBGLDate"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/editTextBGLValue"
+        android:layout_alignLeft="@+id/textViewBGLDescription"
+        android:layout_alignStart="@+id/textViewBGLDescription" />
+
+    <EditText
+        android:id="@+id/editTextBGLDate"
+        android:inputType="date"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_alignBaseline="@+id/textViewBGLDate"
+        android:layout_alignBottom="@+id/textViewBGLDate"
+        android:layout_alignLeft="@+id/editTextBGLValue"
+        android:layout_alignStart="@+id/editTextBGLValue" />
+
+
+    <Button
+        android:id="@+id/addBGL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add BGL"
+        android:layout_alignBottom="@+id/bglTimeTextView"
+        android:layout_alignLeft="@+id/updateBglData"
+        android:layout_alignStart="@+id/updateBglData" />
+
+    <ImageView
+        android:id="@+id/bloodImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="14dp"
+        app:srcCompat="@mipmap/blooddropicon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/updateBglData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update BGL"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignTop="@+id/editTextBGLValue"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/bglTime"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextBGLDate"
+        android:layout_alignStart="@+id/editTextBGLDate"
+        android:layout_below="@+id/editTextBGLDate"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:inputType="time"
+         />
+
+    <TextView
+        android:id="@+id/bglTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/LabelStyle"
+        android:text="Time:"
+        android:layout_alignBaseline="@+id/bglTime"
+        android:layout_alignBottom="@+id/bglTime"
+        android:layout_alignLeft="@+id/textViewBGLDate"
+        android:layout_alignStart="@+id/textViewBGLDate" />
+
+
+
+
+</RelativeLayout>
+

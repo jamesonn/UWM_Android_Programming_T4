@@ -4,10 +4,15 @@ package edu.uwm.android.diabetes.Fragments;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import edu.uwm.android.diabetes.Database.BloodGlucose;
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
@@ -33,7 +38,10 @@ public class StatisticFragment extends Fragment {
     double[] valBGL = new double[1000000];
 
     //
-    TextView v;
+    TextView Ave;
+    TextView Min;
+    TextView Max;
+    TextView Med;
 
 
     public StatisticFragment() {
@@ -75,8 +83,17 @@ public class StatisticFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        v = (TextView) rootView.findViewById(R.id.textViewTest);
-        v.setText(String.valueOf("BGL Average: "+averageBGL()));
+        Ave = (TextView) rootView.findViewById(R.id.textViewAve);
+        Min = (TextView) rootView.findViewById(R.id.textViewMin);
+        Max = (TextView) rootView.findViewById(R.id.textViewMax);
+        Med = (TextView) rootView.findViewById(R.id.textViewMedian);
+
+
+
+        Ave.setText(String.valueOf(""+averageBGL()));
+        Min.setText(String.valueOf(""+minBGL()));
+        Max.setText(String.valueOf(""+maxBGL()));
+        Med.setText(String.valueOf(""+medBGL()));
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -92,7 +109,70 @@ public class StatisticFragment extends Fragment {
             }while (cursor.moveToNext());
         }else{return -1.0;}
         cursor.close();
+        databaseHandler.close();
         return sum / counter;
     }
 
+    public double minBGL() {
+        double temp;
+        int counter = 0;
+        Cursor cursor = databaseHandler.getData(new BloodGlucose());
+
+        if(cursor.moveToFirst()){
+            temp = Double.parseDouble(cursor.getString(2));
+            cursor.moveToNext();
+            do{
+                if (temp > Double.parseDouble(cursor.getString(2))){
+                    temp = Double.parseDouble(cursor.getString(2));
+                }
+
+            }while (cursor.moveToNext());
+        }else{return -1.0;}
+        cursor.close();
+        databaseHandler.close();
+        return temp;
+    }
+
+    public double maxBGL() {
+        double temp;
+        int counter = 0;
+        Cursor cursor = databaseHandler.getData(new BloodGlucose());
+
+        if(cursor.moveToFirst()){
+            temp = Double.parseDouble(cursor.getString(2));
+            cursor.moveToNext();
+            do{
+                if (temp < Double.parseDouble(cursor.getString(2))){
+                    temp = Double.parseDouble(cursor.getString(2));
+                }
+
+            }while (cursor.moveToNext());
+        }else{return -1.0;}
+        cursor.close();
+        databaseHandler.close();
+        return temp;
+    }
+
+    public double medBGL() {
+        List<Double> temp = new ArrayList<>();
+        int counter = 0;
+        Cursor cursor = databaseHandler.getData(new BloodGlucose());
+
+        if(cursor.moveToFirst()) {
+            do {
+                temp.add(Double.parseDouble(cursor.getString(2)));
+                counter++;
+            } while (cursor.moveToNext());
+        }
+
+        Collections.sort(temp);
+        Log.w("temp",temp.toString());
+
+        cursor.close();
+        databaseHandler.close();
+        if(temp.size()>1) {
+            return temp.get((temp.size() / 2));
+        }else if(temp.size() == 1){ return temp.get(0);}
+        else return 0.0;
+    }
 }

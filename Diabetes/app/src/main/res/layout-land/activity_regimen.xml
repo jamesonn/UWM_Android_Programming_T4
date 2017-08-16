@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:tint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/heart" />
+
+    <EditText
+        android:id="@+id/regimenDiet"
+        style="@style/EditTextStyle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="177dp"
+        android:layout_marginRight="177dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textViewDiet"
+        style="@style/LabelStyle"
+        android:layout_alignBaseline="@+id/regimenDiet"
+        android:layout_alignBottom="@+id/regimenDiet"
+        android:layout_toLeftOf="@+id/regimenDiet"
+        android:layout_toStartOf="@+id/regimenDiet"
+        android:text="Diet: " />
+
+    <Button
+        android:id="@+id/addRegimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/regimenTime"
+        android:layout_alignStart="@+id/regimenTime"
+        android:layout_below="@+id/regimenTime"
+        android:layout_marginTop="68dp"
+        android:text="Add Regimen" />
+
+    <EditText
+        android:id="@+id/regimenDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/regimenDiet"
+        android:layout_alignStart="@+id/regimenDiet"
+        android:layout_below="@+id/regimenDiet"
+        android:layout_marginTop="104dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/regimenDate"
+        android:layout_alignBottom="@+id/regimenDate"
+        android:layout_toLeftOf="@+id/regimenDate"
+        android:layout_toStartOf="@+id/regimenDate"
+        android:text="Date: " />
+
+    <EditText
+        android:id="@+id/regimenTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/regimenDate"
+        android:layout_alignStart="@+id/regimenDate"
+        android:layout_below="@+id/regimenDate"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="time" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/regimenTime"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/regimenTime"
+        android:layout_toStartOf="@+id/regimenTime"
+        android:text="Time: " />
+
+    <Button
+        android:id="@+id/updateRegimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/addRegimen"
+        android:layout_alignBottom="@+id/addRegimen"
+        android:layout_alignLeft="@+id/dateTextView"
+        android:layout_alignStart="@+id/dateTextView"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+        android:text="Update Regimen" />
+
+    <EditText
+        android:id="@+id/exerciseEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dateTextView"
+        android:layout_alignLeft="@+id/regimenDate"
+        android:layout_alignStart="@+id/regimenDate"
+        android:layout_marginBottom="27dp"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/regimenExerciseTextView"
+        style="@style/LabelStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/exerciseEditText"
+        android:layout_alignBottom="@+id/exerciseEditText"
+        android:layout_toLeftOf="@+id/exerciseEditText"
+        android:layout_toStartOf="@+id/exerciseEditText"
+        android:text="Exercise: " />
+
+    <Button
+        android:id="@+id/Notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/timeTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:onClick="notify"
+        android:text="Notify" />
+
+</RelativeLayout>

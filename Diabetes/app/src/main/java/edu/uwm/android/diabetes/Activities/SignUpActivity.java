@@ -1,5 +1,6 @@
 package edu.uwm.android.diabetes.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setPassword(password.getText().toString());
                     databaseHandler.addUser(user);
                     Toast.makeText(getApplicationContext(), "User "+user.getUserName()+ " added successfully.", Toast.LENGTH_LONG).show();
+                    Intent backToLogin = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(backToLogin);
                 }else{
                     Toast.makeText(getApplicationContext(), "The two passwords are not compatible", Toast.LENGTH_LONG).show();
                 }
