@@ -77,9 +77,9 @@ public class RegimenActivity extends AppCompatActivity {
         edit.commit();
 
         if(getIntent().getIntExtra("regimenId",-1) == -1){
-            updateRegimen.setVisibility(View.INVISIBLE);
+            updateRegimen.setEnabled(false);
         }else{
-            addRegimen.setVisibility(View.INVISIBLE);
+            addRegimen.setEnabled(false);
             regimenDiet.setText(getIntent().getStringExtra("regimenDescription"));
             String dateAndTime = getIntent().getStringExtra("regimenDate");
             regimenDate.setText(dateAndTime.substring(0,8));
