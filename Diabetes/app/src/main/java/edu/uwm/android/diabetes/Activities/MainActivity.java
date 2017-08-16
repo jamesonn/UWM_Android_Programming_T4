@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Calling the database
-        SQLCipherInit();
-        databaseHandler = new DatabaseHandler(this);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,14 +93,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-    }
-
-    private void SQLCipherInit(){
-        SQLiteDatabase.loadLibs(this);
-        File dbFile = getDatabasePath("diabetes1.db");
-        dbFile.mkdirs();
-        dbFile.delete();
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, "password", null);
     }
 
     @Override
@@ -201,6 +190,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        databaseHandler.close();
     }
 }

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import java.io.File;
+
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.Database.User;
 import edu.uwm.android.diabetes.R;
@@ -32,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Calling the database
+        SQLCipherInit();
+        databaseHandler = new DatabaseHandler(this);
+
         setContentView(R.layout.activity_login);
         signUp = (TextView) findViewById(R.id.signUp);
         login = (Button) findViewById(R.id.login);
@@ -71,6 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void SQLCipherInit(){
+        SQLiteDatabase.loadLibs(this);
+        File dbFile = getDatabasePath("diabetes1.db");
+        dbFile.mkdirs();
+        dbFile.delete();
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, "password", null);
+        db.close();
     }
 
     //use this inside onPause()
