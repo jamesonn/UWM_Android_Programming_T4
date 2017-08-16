@@ -58,7 +58,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent notificationIntent = new Intent(context, MainActivity.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
             stackBuilder.addParentStack(MainActivity.class);
-            notificationIntent.putExtra("userName", userName );
             stackBuilder.addNextIntent(notificationIntent);
             PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);

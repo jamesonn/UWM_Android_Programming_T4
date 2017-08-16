@@ -5,6 +5,17 @@
     android:background="@drawable/gradient"
     android:layout_height="match_parent">
 
+
+    <ImageView
+        android:id="@+id/backgroundImageMedicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@android:color/holo_red_light"
+        android:alpha=".60"
+        app:srcCompat="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <EditText
         android:id="@+id/regimenDiet"
         style="@style/EditTextStyle"
@@ -116,15 +127,6 @@
         android:layout_alignBottom="@+id/exerciseEditText"
         android:layout_toLeftOf="@+id/exerciseEditText"
         android:layout_toStartOf="@+id/exerciseEditText" />
-    <ImageView
-        android:id="@+id/backgroundImageMedicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@android:color/holo_red_light"
-        android:alpha=".60"
-        app:srcCompat="@drawable/heart"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
