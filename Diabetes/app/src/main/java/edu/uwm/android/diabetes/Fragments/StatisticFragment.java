@@ -114,43 +114,37 @@ public class StatisticFragment extends Fragment {
     }
 
     public double minBGL() {
-        double temp;
-        int counter = 0;
+        List<Double> temp = new ArrayList<>();
         Cursor cursor = databaseHandler.getData(new BloodGlucose());
 
-        if(cursor.moveToFirst()){
-            temp = Double.parseDouble(cursor.getString(2));
-            cursor.moveToNext();
-            do{
-                if (temp > Double.parseDouble(cursor.getString(2))){
-                    temp = Double.parseDouble(cursor.getString(2));
-                }
+        if(cursor.moveToFirst()) {
+            do {
+                temp.add(Double.parseDouble(cursor.getString(2)));
+            } while (cursor.moveToNext());
 
-            }while (cursor.moveToNext());
         }else{return -1.0;}
+        Collections.sort(temp);
+
         cursor.close();
         databaseHandler.close();
-        return temp;
+        return temp.get(0);
     }
 
     public double maxBGL() {
-        double temp;
+        List<Double> temp = new ArrayList<>();
         int counter = 0;
         Cursor cursor = databaseHandler.getData(new BloodGlucose());
 
-        if(cursor.moveToFirst()){
-            temp = Double.parseDouble(cursor.getString(2));
-            cursor.moveToNext();
-            do{
-                if (temp < Double.parseDouble(cursor.getString(2))){
-                    temp = Double.parseDouble(cursor.getString(2));
-                }
+        if(cursor.moveToFirst()) {
+            do {
+                temp.add(Double.parseDouble(cursor.getString(2)));
+            } while (cursor.moveToNext());
 
-            }while (cursor.moveToNext());
         }else{return -1.0;}
+        Collections.sort(temp);
         cursor.close();
         databaseHandler.close();
-        return temp;
+        return temp.get(temp.size()-1);
     }
 
     public double medBGL() {
