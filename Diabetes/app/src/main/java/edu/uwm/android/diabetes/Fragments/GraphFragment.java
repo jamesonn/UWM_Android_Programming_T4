@@ -144,5 +144,7 @@ public class GraphFragment extends Fragment {
         String[] ret = data.split("/") ;
         return Integer.parseInt(ret[0]);
     }
+
+
 }
 

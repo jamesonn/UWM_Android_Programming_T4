@@ -144,7 +144,6 @@ public class DietActivity extends AppCompatActivity {
                             mTimePicker.show();
                  }
         });
-        cursor.close();
     }
 
     public void DateDialog() {
@@ -181,6 +180,12 @@ public class DietActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHandler.close();
     }
 
     private ArrayList<String> autoCom(){

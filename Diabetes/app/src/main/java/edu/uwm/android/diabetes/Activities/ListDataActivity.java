@@ -567,4 +567,10 @@ public class ListDataActivity extends AppCompatActivity implements CompoundButto
             return true;
         } else return false;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 }

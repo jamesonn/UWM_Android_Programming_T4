@@ -223,6 +223,12 @@ public class MedicineActivity extends AppCompatActivity {
         super.onRestart();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHandler.close();
+    }
+
     private ArrayList<String> autoCom(){
         ArrayList<String> ret =new ArrayList<>();
 

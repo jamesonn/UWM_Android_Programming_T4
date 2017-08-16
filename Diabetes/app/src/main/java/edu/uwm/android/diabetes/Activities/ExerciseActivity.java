@@ -229,6 +229,12 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {super.onRestart();}
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHandler.close();
+    }
+
     private ArrayList<String> autoCom(){
         ArrayList<String> ret =new ArrayList<>();
 

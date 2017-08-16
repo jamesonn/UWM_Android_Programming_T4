@@ -175,4 +175,10 @@ public class StatisticFragment extends Fragment {
         }else if(temp.size() == 1){ return temp.get(0);}
         else return 0.0;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        databaseHandler.close();
+    }
 }

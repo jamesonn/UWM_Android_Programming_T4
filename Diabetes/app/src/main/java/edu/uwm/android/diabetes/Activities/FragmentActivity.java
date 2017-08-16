@@ -34,7 +34,6 @@ public class FragmentActivity extends AppCompatActivity {
 
         Button b1 = (Button)findViewById(R.id.button);
         Button b2 = (Button)findViewById(R.id.button2);
-        //Button b3 = (Button)findViewById(R.id.button3);
         FrameLayout fm = (FrameLayout)findViewById(R.id.containerMain);
 
         b1.setOnClickListener(new View.OnClickListener(){
@@ -44,12 +43,6 @@ public class FragmentActivity extends AppCompatActivity {
                 GraphFragment graphFragment = new GraphFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.containerMain, graphFragment).commit();
 
-//                    mFragment = new ;
-//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                    ft.add(frame.getId(), mFragment).commit();
-//
-//
-//                setContentView(frame);
             }
         });
 
@@ -63,15 +56,6 @@ public class FragmentActivity extends AppCompatActivity {
             }
         });
 
-//        b3.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//
-//                GraphFragment mainFragement = new GraphFragment();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.containerMain,mainFragement).addToBackStack(null).commit();
-//
-//            }
-//        });
-
     }
+
 }
