@@ -38,12 +38,6 @@
             android:name=".Activities.MedicineActivity"
             android:label="Medicine" />
         <activity
-            android:name=".Activities.RemindersActivity"
-            android:label="Reminders" />
-        <activity
-            android:name=".Activities.GraphActivity"
-            android:label="Graph" />
-        <activity
             android:name=".Activities.StatisticsActivity"
             android:label="Statistics" />
         <activity

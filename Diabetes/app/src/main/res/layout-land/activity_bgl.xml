@@ -23,12 +23,12 @@
         android:id="@+id/textViewBGLDescription"
         style="@style/LabelStyle"
         android:text="Enter BGL: "
-        android:layout_marginLeft="57dp"
-        android:layout_marginStart="57dp"
+        android:layout_marginTop="19dp"
         android:layout_below="@+id/bloodImage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="19dp" />
+        android:layout_toLeftOf="@+id/bloodImage"
+        android:layout_toStartOf="@+id/bloodImage"
+        android:layout_marginRight="66dp"
+        android:layout_marginEnd="66dp" />
 
     <AutoCompleteTextView
         android:id="@+id/editTextBGLValue"
@@ -36,11 +36,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone"
-        android:layout_alignTop="@+id/textViewBGLDescription"
-        android:layout_toRightOf="@+id/textViewBGLDescription"
-        android:layout_toEndOf="@+id/textViewBGLDescription"
-        android:layout_marginLeft="31dp"
-        android:layout_marginStart="31dp" />
+        android:layout_alignBaseline="@+id/textViewBGLDescription"
+        android:layout_alignBottom="@+id/textViewBGLDescription"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textViewBGLDate"
@@ -71,9 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add BGL"
-        android:layout_alignBottom="@+id/bglTimeTextView"
-        android:layout_alignLeft="@+id/updateBglData"
-        android:layout_alignStart="@+id/updateBglData" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/bglTimeTextView"
+        android:layout_alignStart="@+id/bglTimeTextView" />
 
     <ImageView
         android:id="@+id/bloodImage"
@@ -83,7 +81,6 @@
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
-        android:layout_marginTop="14dp"
         app:srcCompat="@mipmap/blooddropicon"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -92,11 +89,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update BGL"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_alignTop="@+id/editTextBGLValue"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/bglTime"
+        android:layout_toEndOf="@+id/bglTime" />
 
     <EditText
         android:id="@+id/bglTime"

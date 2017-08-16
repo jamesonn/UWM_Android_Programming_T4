@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCheckboxes"
+        android:layout_height="40dp"
+        android:layout_width="370dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.0">
+
+        <CheckBox
+            android:id="@+id/regimenCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Regimen"
+            android:maxLines="1" />
+
+        <CheckBox
+            android:id="@+id/exerciseCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Exercise"
+            android:maxLines="1" />
+
+        <CheckBox
+            android:id="@+id/dietCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Diet"
+            android:maxLines="1" />
+
+        <CheckBox
+            android:id="@+id/bglCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="BGL"
+            android:maxLines="1" />
+
+        <CheckBox
+            android:id="@+id/medicineCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Medicine"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/contaiensKeyWords"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+
+        android:hint="Key Words"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/linearLayoutCheckboxes"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCheckboxes"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayoutCheckboxes"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDate"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/contaiensKeyWords"
+        app:layout_constraintTop_toBottomOf="@+id/contaiensKeyWords"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/contaiensKeyWords"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Date:"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/dateFrom"
+            android:focusable="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="From" />
+
+        <EditText
+            android:id="@+id/dateTo"
+            android:layout_width="0dp"
+            android:focusable="false"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="To" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTime"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/linearLayoutDate"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDate"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayoutDate"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Time:"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/timeFrom"
+            android:focusable="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="From" />
+
+        <EditText
+            android:id="@+id/timeTo"
+            android:focusable="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="To" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBglValue"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/linearLayoutTime"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTime"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayoutTime"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="BGL Value:"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/bglValuFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="From" />
+
+        <EditText
+            android:id="@+id/bglValuTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="To" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:text="Search"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/linearLayoutBglValue"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutBglValue"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayoutBglValue"
+        android:layout_marginTop="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="8dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewListData"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/recycler_rounded_corner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/linearLayoutDate"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+</android.support.constraint.ConstraintLayout>

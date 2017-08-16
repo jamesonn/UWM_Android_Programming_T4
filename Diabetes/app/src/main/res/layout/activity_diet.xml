@@ -30,22 +30,7 @@
             android:ems="10"
             android:inputType="textPersonName"/>
     </TableRow>
-    <TableRow>
-        <TextView
-            android:id="@+id/textViewCaloriesBurnt"
-            style="@style/LabelStyle"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Calories: " />
-        <EditText
-            android:id="@+id/editTextdietCalories"
-            style="@style/EditTextStyle"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-    </TableRow>
+
     <TableRow>
         <TextView
             android:id="@+id/dietDateTextView"

@@ -23,8 +23,9 @@
         style="@style/EditTextStyle"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/bikeImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp" />
 
     <TextView
         android:id="@+id/textViewExerciseDescription"
@@ -41,20 +42,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Exercise"
-        android:layout_marginRight="21dp"
-        android:layout_marginEnd="21dp"
-        android:layout_above="@+id/updateExerciseData"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textViewExerciseDescription"
+        android:layout_alignStart="@+id/textViewExerciseDescription"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
     <Button
         android:id="@+id/updateExerciseData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update Exercise"
-        android:layout_below="@+id/exerciseDateTextView"
-        android:layout_alignRight="@+id/addExercise"
-        android:layout_alignEnd="@+id/addExercise" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/exerciseTime"
+        android:layout_toEndOf="@+id/exerciseTime" />
 
     <EditText
         android:id="@+id/exerciseDate"
@@ -105,13 +106,12 @@
         android:id="@+id/bikeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
-        android:layout_marginTop="32dp"
-        app:srcCompat="@mipmap/bicycleicon" />
+        app:srcCompat="@mipmap/bicycleicon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

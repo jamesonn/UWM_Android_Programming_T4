@@ -25,38 +25,22 @@
         android:maxWidth="100dp"
         android:maxHeight="100dp"
         android:scaleType="fitCenter"
-        android:layout_marginTop="15dp"
         app:srcCompat="@mipmap/appleicon"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:id="@+id/editTextdietCalories"
-        style="@style/EditTextStyle"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_below="@+id/bloodImage"
         android:layout_centerHorizontal="true" />
 
     <AutoCompleteTextView
         android:id="@+id/editTextDietDescription"
         style="@style/EditTextStyle"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_below="@+id/editTextdietCalories"
-        android:layout_alignLeft="@+id/editTextdietCalories"
-        android:layout_alignStart="@+id/editTextdietCalories" />
+        android:layout_marginRight="92dp"
+        android:layout_marginEnd="92dp"
+        android:layout_below="@+id/bloodImage"
+        android:layout_alignRight="@+id/updateDiet"
+        android:layout_alignEnd="@+id/updateDiet" />
 
-    <TextView
-        android:id="@+id/textViewCaloriesBurnt"
-        style="@style/LabelStyle"
-        android:text="Calories: "
-        android:layout_alignBaseline="@+id/editTextdietCalories"
-        android:layout_alignBottom="@+id/editTextdietCalories"
-        android:layout_toLeftOf="@+id/editTextdietCalories"
-        android:layout_toStartOf="@+id/editTextdietCalories" />
     <TextView
         android:id="@+id/textViewdietDescription"
         style="@style/LabelStyle"
@@ -72,18 +56,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add diet"
-        android:layout_below="@+id/editTextdietCalories"
-        android:layout_alignRight="@+id/updateDiet"
-        android:layout_alignEnd="@+id/updateDiet" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textViewdietDescription"
+        android:layout_alignStart="@+id/textViewdietDescription" />
 
     <Button
         android:id="@+id/updateDiet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update diet"
-        android:layout_marginRight="27dp"
-        android:layout_marginEnd="27dp"
-        android:layout_above="@+id/dietTime"
+        android:layout_marginRight="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

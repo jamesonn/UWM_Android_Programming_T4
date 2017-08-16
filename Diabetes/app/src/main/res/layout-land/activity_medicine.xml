@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+
     android:gravity="center">
 
     <TableLayout
@@ -17,7 +18,7 @@
             android:id="@+id/pillImage"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+
             android:layout_span="2"
             android:adjustViewBounds="true"
             android:maxHeight="100dp"

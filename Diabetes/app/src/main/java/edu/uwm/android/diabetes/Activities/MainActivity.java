@@ -124,9 +124,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -140,10 +137,7 @@ public class MainActivity extends AppCompatActivity
          if (id == R.id.nav_graph) {
             intent = new Intent(this, FragmentActivity.class );
             intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_reminders) {
-            intent = new Intent(this, RemindersActivity.class );
-            intent.putExtra("userName", userName );
-        } else if (id == R.id.nav_regimen) {
+        }  else if (id == R.id.nav_regimen) {
              intent = new Intent(this, RegimenActivity.class );
              intent.putExtra("userName", userName );
         } else if (id == R.id.nav_List){
