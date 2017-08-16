@@ -66,9 +66,9 @@ public class DietActivity extends AppCompatActivity {
 
 
         if(getIntent().getIntExtra("dietId",-1) == -1){
-            updatediet.setVisibility(View.INVISIBLE);
+            updatediet.setEnabled(false);
         }else{
-            addDiet.setVisibility(View.INVISIBLE);
+            addDiet.setEnabled(false);
             dietDescription.setText(getIntent().getStringExtra("exerciseDescription"));
             String dateAndTime = getIntent().getStringExtra("dietDate");
             dietDate.setText(dateAndTime.substring(0,8));

@@ -74,9 +74,9 @@ public class BGLActivity extends AppCompatActivity {
         }
 
         if(getIntent().getIntExtra("bglId",-1) == -1){
-            updateBGL.setVisibility(View.INVISIBLE);
+            updateBGL.setEnabled(false);
         }else{
-            addBGL.setVisibility(View.INVISIBLE);
+            addBGL.setEnabled(false);
             bglValue.setText(getIntent().getStringExtra("bglValue"));
             String dateAndTime = getIntent().getStringExtra("bglDate");
             BGLDate.setText(dateAndTime.substring(0,8));

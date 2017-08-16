@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import java.io.File;
+
 import edu.uwm.android.diabetes.Database.DatabaseHandler;
 import edu.uwm.android.diabetes.R;
 
@@ -31,6 +33,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Calling the database
+        SQLCipherInit();
+        databaseHandler = new DatabaseHandler(this);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,10 +57,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //Calling the database
-        databaseHandler = new DatabaseHandler(this);
-
 
         BGL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +98,13 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    private void SQLCipherInit(){
+        SQLiteDatabase.loadLibs(this);
+        File dbFile = getDatabasePath("diabetes1.db");
+        dbFile.mkdirs();
+        dbFile.delete();
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbFile, "password", null);
+    }
 
     @Override
     public void onBackPressed() {

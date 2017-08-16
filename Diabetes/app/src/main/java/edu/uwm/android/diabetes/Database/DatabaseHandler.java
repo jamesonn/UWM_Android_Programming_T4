@@ -16,7 +16,7 @@ import edu.uwm.android.diabetes.Interfaces.IDatabaseObject;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private String password;
+    private String password = "password";
 
     public DatabaseHandler(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
@@ -25,7 +25,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        password = "password";
         String createLoginTable = " create table " + Constants.TABLE_LOGIN + " ("
                 + Constants.LOGIN_USERNAME + " text primary key, "
                 + Constants.LOGIN_PASSWORD + " text);";
